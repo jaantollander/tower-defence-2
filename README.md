@@ -4,7 +4,7 @@ This is an initial git repository for your programming project.
 It contains an initial directory structure that we wish you could
 use as follows:
 
-  * `plan/' -- Here is your project plan. You may use different sources,
+  * `plan/` -- Here is your project plan. You may use different sources,
     but we hope to get the pan **also as pdf file**.
 
   * `doc/` -- here are the documentation sources related to your project.
