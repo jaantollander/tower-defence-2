@@ -16,15 +16,17 @@ public:
      */
     void repair();
 
-    /* Upgrade the tower into better one.
+    /* Upgrade the tower into better one. Replaces current tower instance
+     * with new instance of the new tower class.
      */
     void upgrade();
 
 protected:
-    int cost;
-    int repair_cost;
-    int upgrade_cost;
-
+    int m_cost;
+    int m_repair_cost;
+    int m_upgrade_cost;
+    //TODO: upgrade options as list of tower classes
 };
+
 
 #endif //TOWER_DEFENCE_2_TOWER_H

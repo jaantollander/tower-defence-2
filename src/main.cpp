@@ -1,0 +1,7 @@
+
+
+/* Main program.
+ */
+int main() {
+
+}

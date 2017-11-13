@@ -1,13 +1,15 @@
 #ifndef TOWER_DEFENCE_2_COMBAT_H
 #define TOWER_DEFENCE_2_COMBAT_H
 
+#include <list>
+
 
 /* Targeting policy dictates which enemy we should be attacking.
  */
 enum TargetingPolicy {
-    first = 0,
-    last = 1,
-    least_health = 2
+    target_first,
+    target_last,
+    target_least_health
 };
 
 
@@ -15,13 +17,13 @@ enum TargetingPolicy {
  */
 class Combat {
 public:
-    //TODO: Constructor
+    Combat(int health, int damage, int attack_range, int attack_speed);
 
-    int getHealth() { return health; }
+    int get_health() { return m_health; }
 
     /* Object is regarded dead if it has health below of equal to zero.
      */
-    bool is_dead() { return health <= 0; };
+    bool is_dead() { return m_health <= 0; };
 
     /* Negative damages, positive heals, if reached zero, enemy dies, cannot go
      * above max health
@@ -34,15 +36,15 @@ public:
 
     /* Other combat objects that are withing the attack range
      */
-    void in_range(std::list<Combat> &others);
+    void in_range(std::list<Combat*> &others);
 
 protected:
-    int health;
-    int damage;
-    int attack_range;
-    int attack_speed;
-    int max_health;
-    TargetingPolicy targeting_policy;
+    int m_health;
+    const int m_max_health;
+    const int m_damage;
+    const int m_attack_range;
+    const int m_attack_speed;
+    TargetingPolicy m_targeting_policy;
 };
 
 

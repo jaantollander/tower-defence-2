@@ -2,26 +2,14 @@
 #define TOWER_DEFENCE_2_GAME_H
 
 
-/* Game class contains the game map, enemies, towers and game stats. This
- * class is also responsible for the implementation of the main game loop.
- */
-class GameEngine {
-public:
-    //TODO: constructor
+#include <vector>
+#include "objects/tower.h"
+#include "objects/enemy.h"
 
-    /* Updates the game loop
-     *
-     * - movement of the enemies
-     * - towers shoot
-     * - enemies shoot
-     * - update game stats
-     */
-    void update();
 
-private:
-    GameStats stats;
-    GameMap game_map;
-};
+//TODO: probably need to change list to some other data structure
+typedef std::list<TowerBase*> Towers;
+typedef std::list<EnemyBase*> Enemies;
 
 
 /* Class that contains information about the stats such as how much money
@@ -29,9 +17,7 @@ private:
  */
 class GameStats {
 public:
-    GameStats(int time=0, int score=0, int money) : m_time(time),
-                                                    m_score(score),
-                                                    m_money(money) { }
+    GameStats(int time, int score, int money);
     void update_time();
     void change_score();
     void change_money();
@@ -47,12 +33,28 @@ private:
  */
 class Tile {
 public:
-    Tile() {}
-    //TODO: attributes for what can be placed on this tile if anything
+    Tile(bool is_walkable, bool is_buildable, TowerBase* tower);
+    bool is_walkable() { return m_is_walkable; }
+    bool is_buildable() { return m_is_buildable; }
+    //TODO: throw error if tile is not buildable
+    void set_tower(TowerBase* tower) { m_tower = tower; }
+    TowerBase* get_tower() { return m_tower; }
 private:
-    bool is_walkable;
-    bool is_buildable;
+    /* Enemies can walk on walkable tiles.
+     */
+    const bool m_is_walkable;
+
+    /* Towers can be built on buildable tiles.
+     */
+    const bool m_is_buildable;
+
+    /* A tile can contain one tower at a time.
+     */
+    TowerBase* m_tower;
 };
+
+
+typedef std::vector<std::vector<Tile*>> Tiles;
 
 
 /* The map of the game. Contains information about the path that enemies
@@ -60,19 +62,52 @@ private:
  */
 class GameMap {
 public:
-    //TODO: constructor
-    //TODO: Grid, How should the tiling be implemented?
+    GameMap(int xsize, int ysize);
 
+    //TODO: what is the best way to implement loading map from file? Constructor?
     /* Load game map from file.
      */
-    void load_from_file();
+//    void load_from_file();
 
 private:
-    int x_size;
-    int y_size;
-    //TODO: grid of tiles
-    std::list<Enemy> enemies;
-    std::list<Tower> towers;
+    int m_xsize;
+    int m_ysize;
+
+    /* Two-dimensional grid of tiles, shape (ysize, xsize).
+     */
+    Tiles m_tiles;
+};
+
+
+/* Game class contains the game map, enemies, towers and game stats. This
+ * class is also responsible for the implementation of the main game loop.
+ */
+class GameEngine {
+public:
+    GameEngine(GameStats &stats,
+               GameMap &game_map,
+               Towers &towers,
+               Enemies &enemies);
+
+    /* Updates the game loop
+         *
+         * - spawn new enemies
+         * - movement of the enemies
+         * - towers shoot
+         * - remove dead enemies, add money and score from killing enemies
+         * - enemies shoot
+         * - update game stats such as money when en
+         * - etc
+         */
+    void update();
+
+    //TODO: add and remove enemies
+    //TODO: add and remove towers
+private:
+    GameStats m_stats;
+    GameMap m_game_map;
+    Towers m_towers;
+    Enemies m_enemies;
 };
 
 

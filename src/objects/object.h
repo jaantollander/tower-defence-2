@@ -6,25 +6,29 @@
  * movement of the object.
  */
 class Object {
-    //TODO: constructor
+    Object(int x, int y, int radius, int speed);
+    int get_x() { return m_x; };
+    int get_y() { return m_y; };
+    int get_radius() { return m_radius; };
 
     /* Distance to another object.
      */
     double distance(Object &other);
 
-    /* Move the object.
-     */
-    void move();
-
     /* Change the speed of the object between zero and maximum speed.
      */
     void change_speed(int amount);
 
+    /* Move the object. Implemented by super the super class.
+     */
+    virtual void move() = 0;
+
 protected:
-    int x;
-    int y;
-    int max_speed;
-    int speed;
+    int m_x;
+    int m_y;
+    const int m_radius;
+    int m_speed;
+    const int m_max_speed;
 };
 
 
