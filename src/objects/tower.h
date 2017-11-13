@@ -9,7 +9,9 @@
  */
 class TowerBase : public Object, public Combat {
 public:
-    //TODO: constructor
+    TowerBase(int x, int y, int radius, int health, int damage,
+              int attack_range, int attack_speed, int cost, int repair_cost,
+              int upgrade_cost);
 
     /* Repairs the tower. Changes the health of the tower to full health and
      * reduces player's money accordingly.

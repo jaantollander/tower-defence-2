@@ -6,6 +6,7 @@
  * movement of the object.
  */
 class Object {
+public:
     Object(int x, int y, int radius, int speed);
     int get_x() { return m_x; };
     int get_y() { return m_y; };

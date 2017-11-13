@@ -9,8 +9,8 @@
  */
 class EnemyBase : public Object, public Combat {
 public:
-    //TODO: constructor
-
+    EnemyBase(int x, int y, int radius, int speed, int health, int damage,
+              int attack_range, int attack_speed);
 };
 
 #endif //TOWER_DEFENCE_2_ENEMY_H
