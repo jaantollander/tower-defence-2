@@ -12,9 +12,8 @@ typedef std::list<TowerBase*> Towers;
 typedef std::list<EnemyBase*> Enemies;
 
 
-/* Class that contains information about the stats such as how much money
- * the player has and the score of the player.
- */
+/// Class that contains information about the stats such as how much money
+/// the player has and the score of the player.
 class GameStats {
 public:
     GameStats(int time, int score, int money);
@@ -29,59 +28,52 @@ private:
 };
 
 
-/* Individual tile in the game map.
- */
+/// Individual tile in the game map.
 class Tile {
 public:
     Tile(bool is_walkable, bool is_buildable, TowerBase* tower);
+    void set_is_walkable(bool is_walkable) { m_is_walkable = is_walkable; }
+    void set_is_buildable(bool is_buildable) { m_is_buildable = is_buildable; }
     bool is_walkable() { return m_is_walkable; }
     bool is_buildable() { return m_is_buildable; }
     //TODO: throw error if tile is not buildable
     void set_tower(TowerBase* tower) { m_tower = tower; }
     TowerBase* get_tower() { return m_tower; }
 private:
-    /* Enemies can walk on walkable tiles.
-     */
-    const bool m_is_walkable;
+    /// Enemies can walk on walkable tiles.
+    bool m_is_walkable;
 
-    /* Towers can be built on buildable tiles.
-     */
-    const bool m_is_buildable;
+    /// Towers can be built on buildable tiles.
+    bool m_is_buildable;
 
-    /* A tile can contain one tower at a time.
-     */
+    /// A tile can contain one tower at a time.
     TowerBase* m_tower;
 };
 
 
 typedef std::vector<std::vector<Tile*>> Tiles;
 
+//TODO: load game map from file. Format?
 
-/* The map of the game. Contains information about the path that enemies
- * follow and where towers can be placed.
- */
+
+/// The map of the game. Contains information about the path that enemies
+/// follow and where towers can be placed.
 class GameMap {
 public:
+    /// Initialize game map with sizes of x and y dimensions.
     GameMap(int xsize, int ysize);
-
-    //TODO: what is the best way to implement loading map from file? Constructor?
-    /* Load game map from file.
-     */
-//    void load_from_file();
 
 private:
     int m_xsize;
     int m_ysize;
 
-    /* Two-dimensional grid of tiles, shape (ysize, xsize).
-     */
+    /// Two-dimensional grid of tiles, shape (ysize, xsize).
     Tiles m_tiles;
 };
 
 
-/* Game class contains the game map, enemies, towers and game stats. This
- * class is also responsible for the implementation of the main game loop.
- */
+/// Game class contains the game map, enemies, towers and game stats. This
+/// class is also responsible for the implementation of the main game loop.
 class GameEngine {
 public:
     GameEngine(GameStats &stats,
@@ -89,16 +81,16 @@ public:
                Towers &towers,
                Enemies &enemies);
 
-    /* Updates the game loop
-         *
-         * - spawn new enemies
-         * - movement of the enemies
-         * - towers shoot
-         * - remove dead enemies, add money and score from killing enemies
-         * - enemies shoot
-         * - update game stats such as money when en
-         * - etc
-         */
+    /// Updates the game loop. In practice this method will be called by the
+    /// main graphics loop.
+    ///
+    /// - spawn new enemies
+    /// - movement of the enemies
+    /// - towers shoot
+    /// - remove dead enemies, add money and score from killing enemies
+    /// - enemies shoot
+    /// - update game stats such as money when en
+    /// - etc
     void update();
 
     //TODO: add and remove enemies

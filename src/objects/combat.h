@@ -4,8 +4,7 @@
 #include <list>
 
 
-/* Targeting policy dictates which enemy we should be attacking.
- */
+/// Targeting policy dictates which enemy we should be attacking.
 enum TargetingPolicy {
     target_first,
     target_last,
@@ -13,29 +12,24 @@ enum TargetingPolicy {
 };
 
 
-/* Base class for implementing combat related features to objects.
- */
+/// Base class for implementing combat related features to objects.
 class Combat {
 public:
     Combat(int health, int damage, int attack_range, int attack_speed);
 
     int get_health() { return m_health; }
 
-    /* Object is regarded dead if it has health below of equal to zero.
-     */
+    /// Object is regarded dead if it has health below of equal to zero.
     bool is_dead() { return m_health <= 0; };
 
-    /* Negative damages, positive heals, if reached zero, enemy dies, cannot go
-     * above max health
-     */
+    /// Negative damages, positive heals, if reached zero, enemy dies, cannot go
+    /// above max health
     void change_health(int amount);
 
-    /* Deal damage to another object
-     */
+    /// Deal damage to another object
     void deal_damage(Combat &other);
 
-    /* Other combat objects that are withing the attack range
-     */
+    /// Other combat objects that are withing the attack range
     void in_range(std::list<Combat*> &others);
 
 protected:

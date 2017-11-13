@@ -5,8 +5,7 @@
 #include "object.h"
 
 
-/* Base class for all enemy types.
- */
+/// Base class for all enemy types.
 class EnemyBase : public Object, public Combat {
 public:
     EnemyBase(int x, int y, int radius, int speed, int health, int damage,

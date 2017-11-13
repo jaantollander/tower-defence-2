@@ -12,6 +12,7 @@ Tile::Tile(bool is_walkable, bool is_buildable, TowerBase* tower= nullptr) :
 
 GameMap::GameMap(int xsize, int ysize) : m_xsize(xsize), m_ysize(ysize) {
     //TODO: initialize tiles
+
 }
 
 

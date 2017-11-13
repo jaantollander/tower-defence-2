@@ -2,9 +2,8 @@
 #define TOWER_DEFENCE_2_OBJECT_H
 
 
-/* Base class for objects in tower defence. Contains position, speed and the
- * movement of the object.
- */
+/// Base class for objects in tower defence. Contains position, speed and the
+/// movement of the object.
 class Object {
 public:
     Object(int x, int y, int radius, int speed);
@@ -12,16 +11,13 @@ public:
     int get_y() { return m_y; };
     int get_radius() { return m_radius; };
 
-    /* Distance to another object.
-     */
+    /// Distance to another object.
     double distance(Object &other);
 
-    /* Change the speed of the object between zero and maximum speed.
-     */
+    /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);
 
-    /* Move the object. Implemented by super the super class.
-     */
+    /// Move the object. Implemented by super the super class.
     virtual void move() = 0;
 
 protected:
