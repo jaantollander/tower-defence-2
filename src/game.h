@@ -3,6 +3,7 @@
 
 
 #include <vector>
+#include <string>
 #include "objects/tower.h"
 #include "objects/enemy.h"
 
@@ -56,16 +57,17 @@ typedef std::vector<std::vector<Tile*>> Tiles;
 /// follow and where towers can be placed.
 class GameMap {
 public:
+    /// Initialize empty game map
     GameMap(int xsize, int ysize);
+
+    /// Load game map from file
+    GameMap(std::string &path);
 
 private:
     int m_xsize;
     int m_ysize;
     Tiles m_tiles;
 };
-
-
-//TODO: load game map from file. Format?
 
 
 /// Class that contains information about the stats such as how much money
