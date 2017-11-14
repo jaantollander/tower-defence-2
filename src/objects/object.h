@@ -7,8 +7,13 @@
 class Object {
 public:
     Object(int x, int y, int radius, int speed);
+
+    void set_x(int x) { m_x = x; }
     int get_x() { return m_x; };
+
+    void set_y(int y) { m_y = y; }
     int get_y() { return m_y; };
+
     int get_radius() { return m_radius; };
 
     /// Distance to another object.
@@ -16,9 +21,6 @@ public:
 
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);
-
-    /// Move the object. Implemented by super the super class.
-    virtual void move() = 0;
 
 protected:
     int m_x;

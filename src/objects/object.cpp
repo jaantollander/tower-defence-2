@@ -1,6 +1,7 @@
 #include <cmath>
 #include "object.h"
 
+
 Object::Object(int x, int y, int radius, int speed) :
         m_x(x), m_y(y), m_radius(radius), m_speed(speed), m_max_speed(speed) {}
 

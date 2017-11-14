@@ -14,17 +14,17 @@ public:
 
     /// Repairs the tower. Changes the health of the tower to full health and
     /// reduces player's money accordingly.
-    void repair();
+    /// Return the cost of the repair.
+    int repair();
 
-    /// Upgrade the tower into better one. Replaces current tower instance
-    /// with new instance of the new tower class.
-    void upgrade();
+    /// Upgrade the tower. Returns a pointer to the new tower instance.
+    TowerBase* upgrade();
 
 protected:
     int m_cost;
     int m_repair_cost;
     int m_upgrade_cost;
-    //TODO: upgrade options as list of tower classes
+    //TODO: upgrade options as container of tower classes, maybe enum?
 };
 
 
