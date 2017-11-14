@@ -23,16 +23,22 @@ GameMap::GameMap(int xsize, int ysize) : m_xsize(xsize), m_ysize(ysize) {
 }
 
 
-GameEngine::GameEngine(GameStats &stats,
-                       GameMap &game_map,
-                       Towers &towers,
-                       Enemies &enemies) :
+GameLevel::GameLevel(int starting_money) : m_starting_money(starting_money) {}
+
+
+GameEngine::GameEngine(GameStats &stats, GameMap &game_map, GameLevel game_level,
+                       Towers &towers, Enemies &enemies) :
         m_stats(stats),
         m_game_map(game_map),
+        m_game_level(game_level),
         m_towers(towers),
         m_enemies(enemies) {}
 
 
 void GameEngine::update() {
-
+    //TODO: spawn new enemies according to level description
+//    movement();
+//    towers_attack();
+//    enemies_attack();
+//    m_stats.update_time();
 }

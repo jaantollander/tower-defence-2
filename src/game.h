@@ -63,10 +63,27 @@ public:
     /// Load game map from file
     GameMap(std::string &path);
 
+    int get_xsize() const { return m_xsize; }
+    int get_ysize() const { return m_ysize; }
+    Tile* get_tile(int x, int y) const { return m_tiles[y][x]; }
+    void set_tile(int x, int y, Tile *tile) { m_tiles[y][x] = tile; }
+
 private:
-    int m_xsize;
-    int m_ysize;
+    const int m_xsize;
+    const int m_ysize;
     Tiles m_tiles;
+};
+
+
+/// Contains information to start and run different game levels.
+class GameLevel {
+public:
+    GameLevel(int starting_money);
+
+private:
+    const int m_starting_money;
+    //TODO: how many enemies will spawn
+    //TODO: enemy spawn interval
 };
 
 
@@ -91,42 +108,42 @@ private:
 /// modifies the properties of the objects by using the rules of the game logic.
 class GameEngine {
 public:
-    GameEngine(GameStats &stats,
-               GameMap &game_map,
-               Towers &towers,
-               Enemies &enemies);
+    GameEngine(GameStats &stats, GameMap &game_map, GameLevel game_level,
+               Towers &towers, Enemies &enemies);
 
     /// Add new tower to the tile. Check that the tile is buildable and there
     /// isn't already a tower.
     void add_tower(Tile *tile, TowerBase *tower);
 
     /// Remove tower
+    /// - if tower dies
     void remove_tower();
 
     /// Add new enemy to the tile. Check that the tile is part of the path.
     void add_enemy(Tile *tile, EnemyBase *enemy);
 
-    /// Remove enemy
+    /// Remove enemy from the game.
+    /// - if enemy dies
     void remove_enemy();
 
-    /// Implements movement of objects such as enemies.
+    /// Implements movement of objects that can move (enemies).
     void movement();
+
+    /// Towers attack enemies. Increase score and money if enemies die and
+    /// remove dead enemies from the game.
+    void towers_attack();
+
+    /// Enemies attack towers
+    void enemies_attack();
 
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
-    ///
-    /// - spawn new enemies
-    /// - movement of the enemies
-    /// - towers shoot
-    /// - remove dead enemies, add money and score from killing enemies
-    /// - enemies shoot
-    /// - update game stats such as money when en
-    /// - etc
     void update();
 
 private:
     GameStats m_stats;
     GameMap m_game_map;
+    GameLevel m_game_level;
 
     //TODO: bind objects to the tiles they currently occupy
     Towers m_towers;
