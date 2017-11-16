@@ -1,4 +1,18 @@
-# Sample README file for C++ programming project
+# Tower Defence 2
+
+- Aalto University
+- C++ Programming Project
+
+Authors
+
+- Jaan Tollander de Balsch
+- Jussi Hietanen
+- Martti Hallipelto
+- Roni Hytönen
+- Tero Hyytiäinen
+
+
+----
 
 This is an initial git repository for your programming project.
 It contains an initial directory structure that we wish you could
@@ -12,9 +26,12 @@ use as follows:
     but we hope to get the final version of the document
     **also as pdf file**.
 
+      - Created using [Doxygen](https://www.stack.nl/~dimitri/doxygen/index.html).
+      - Written as docstrings in the source code.
+
   * `src/` -- here are the C++ source files. You can have subfolders as needed.
 
-  * `README.md` -- This file that you should modify to represent
+  * `index.md` -- This file that you should modify to represent
     your project.
 
 You may also add other new directories as needed, for example
