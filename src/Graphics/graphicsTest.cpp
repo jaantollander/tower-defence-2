@@ -1,6 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <iostream>
+#include <stdlib.h>   // For rand()
 
 
 // This is a test-level code for SFML C++ graphics.
@@ -11,26 +12,37 @@
 
 int main()
 {
+        // define the sizes of different areas
+    sf::Vector2f mapSize(600.f, 600.f);
+    sf::Vector2f sidebarSize(200.f, mapSize.y);
+    sf::Vector2f windowSize(mapSize.x + sidebarSize.x, mapSize.y);
+
+// ------------------------------------------------------ //
+
 		// Create a window where stuff is drawn - 4:3 aspect ratio
-    sf::RenderWindow window(sf::VideoMode(800, 600,30), "Graphics test");
+    sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y,
+                                          3), "Graphics test");
     
     	// Store all of the drawables to a vector 
     std::vector<sf::Drawable *> drawables;
 
     	// Create two rectangles for the basis of map and status parts
-    sf::RectangleShape mapArea(sf::Vector2f(600.f,600.f)); // Map
+    sf::RectangleShape mapArea(mapSize);
     	mapArea.setFillColor(sf::Color::Green);
 		mapArea.setOutlineColor(sf::Color::Black);
 		mapArea.setOutlineThickness(5);
 	drawables.push_back(&mapArea);
 
-    sf::RectangleShape statsArea(sf::Vector2f(200.f,600.f)); // Stats
-    	statsArea.setPosition(600,0);
+    sf::RectangleShape statsArea(sidebarSize); // Stats
+    	statsArea.setPosition(mapSize.x, 0);
     	statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
 		statsArea.setOutlineColor(sf::Color::White);
 		statsArea.setOutlineThickness(5);
 	drawables.push_back(&statsArea);
-		
+
+
+// ------------------------------------------------------ //
+
 		// Create text fields that are needed
 		
 	sf::Font font;	// A font type has to be downloaded
@@ -55,11 +67,27 @@ int main()
 	drawables.push_back(&resources);
 
 
- 		// TODO: Make tiles on the basis of map size
- 		// TODO: Colour the tiles according to map info
+// ------------------------------------------------------ //
 
+        // Make tiles on the basis of map size
 
-	// Draw (and update) the objects to the screen
+    int tileAmount = 10; // Assume square map with even number of tiles
+    sf::Vector2f tileSize(mapSize.x / tileAmount, mapSize.y / tileAmount);
+
+ 		// Colour the tiles according to map info
+
+    // Create a random map
+    int randomMap[tileAmount][tileAmount];
+    for (int i = 0; i < tileAmount; ++i) {
+        for (int j = 0; j < tileAmount; ++j) {
+            randomMap[i][j] = rand() % 3; // Values[0,1,2]
+            std::cout << randomMap[i][j] << ' ';
+        }
+        std::cout << std::endl;
+    }
+
+// ------------------------------------------------------ //
+	    // Draw (and update) the objects to the screen
     while (window.isOpen())
     {
         sf::Event event;
@@ -78,6 +106,30 @@ int main()
   		{
   			window.draw(**it);
   		}
+
+            // Iterate through randomMap and draw tiles
+        for (int i = 0; i < tileAmount; ++i) {
+            for (int j = 0; j < tileAmount; ++j) {
+                sf::RectangleShape tmpTile(tileSize);
+                tmpTile.setPosition(j*tileSize.x, i*tileSize.y); // OBS j,i !
+                tmpTile.setOutlineColor(sf::Color::White);
+                tmpTile.setOutlineThickness(2);
+
+                switch(randomMap[i][j])
+                {
+                    case 0: tmpTile.setFillColor(sf::Color::Green);
+                            break;
+                    case 1: tmpTile.setFillColor(sf::Color::White);
+                            break;
+                    case 2: tmpTile.setFillColor(sf::Color::Red);
+                            break;
+                }
+                window.draw(tmpTile);
+//                std::cout << randomMap[i][j] << ' ';
+            }
+//            std::cout << std::endl;
+        }
+
                 
         window.display();
     }
