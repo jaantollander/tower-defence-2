@@ -4,6 +4,7 @@
 #include <stdlib.h>     // For rand()
 #include <math.h>       // For round()
 
+#include "graphicsFunctions.h"
 #include "graphicsFunctions.cpp"
 
 
@@ -12,116 +13,6 @@
 // Then compile the code as: g++ -c graphicsTest.cpp; 
 //		g++ graphicsTest.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 // And run as: ./sfml-app
-
-
-
-// Iterate through drawables and draw them on screen
-// 	OBS: DRAWING HAPPENS IN THE ORDER THEY ARE DEFINED!
-void drawDrawables(sf::RenderWindow &window, std::vector<sf::Drawable *> drawables)
-{
-    std::vector<sf::Drawable *>::iterator it = drawables.begin();
-    for( ; it != drawables.end(); it++ )
-    {
-        window.draw(**it);
-    }
-}
-
-void createAndDrawDrawables(sf::RenderWindow &window,
-                            sf::Vector2f mapSize, sf::Vector2f sidebarSize)
-{
-    std::vector<sf::Drawable *> drawables;
-
-    // Create two rectangles for the basis of map and status parts
-    sf::RectangleShape mapArea(mapSize);
-    mapArea.setFillColor(sf::Color::Green);
-    mapArea.setOutlineColor(sf::Color::Black);
-    mapArea.setOutlineThickness(5);
-    drawables.push_back(&mapArea);
-
-    sf::RectangleShape statsArea(sidebarSize); // Stats
-    statsArea.setPosition(mapSize.x, 0);
-    statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
-    statsArea.setOutlineColor(sf::Color::White);
-    statsArea.setOutlineThickness(5);
-    drawables.push_back(&statsArea);
-
-
-// ------------------------------------------------------ //
-
-    // Create text fields that are needed
-
-    sf::Font font;	// A font type has to be downloaded
-    font.loadFromFile("FreeMono.ttf");
-
-    sf::Text points("Points: ", font, 24);
-    points.setColor(sf::Color::Black);
-    points.setStyle(sf::Text::Bold);
-    points.setPosition(sf::Vector2f(640, 50));
-    drawables.push_back(&points);
-
-    sf::Text round("Round: ", font, 24);
-    round.setColor(sf::Color::Black);
-    round.setStyle(sf::Text::Bold);
-    round.setPosition(650, 150);
-    drawables.push_back(&round);
-
-    sf::Text resources("Resources: ", font, 24);
-    resources.setColor(sf::Color::Black);
-    resources.setStyle(sf::Text::Bold);
-    resources.setPosition(620, 250);
-    drawables.push_back(&resources);
-
-
-    drawDrawables(window, drawables);
-
-}
-
-// Iterate through map and draw the tiles
-void drawTiles(sf::RenderWindow &window, std::vector< std::vector<int> > &map,
-                        int tileAmount, sf::Vector2f tileSize)
-{
-    for (int i = 0; i < tileAmount; ++i) {
-        for (int j = 0; j < tileAmount; ++j) {
-            sf::RectangleShape tmpTile(tileSize);
-            tmpTile.setPosition(j*tileSize.x, i*tileSize.y); // OBS j,i !
-            tmpTile.setOutlineColor(sf::Color::White);
-            tmpTile.setOutlineThickness(2);
-
-            switch(map[i][j])
-            {
-                case 0: tmpTile.setFillColor(sf::Color::Green);
-                    break;
-                case 1: tmpTile.setFillColor(sf::Color::White);
-                    break;
-                case 2: tmpTile.setFillColor(sf::Color::Red);
-                    break;
-            }
-            window.draw(tmpTile);
-        }
-    }
-}
-
-
-void drawCreatures(sf::RenderWindow &window,
-                   std::vector<sf::Vector3f> creatures, sf::Vector2f tileSize)
-{
-    for (int i = 0; i < creatures.size(); ++i) {
-        sf::CircleShape tmpCreature(std::min(tileSize.x, tileSize.y) / 2);
-            tmpCreature.setPosition(creatures[i].x, creatures[i].y); // OBS j,i !
-
-        switch((int) creatures[i].z) {
-            case 1:
-                tmpCreature.setFillColor(sf::Color::Blue);
-                break;
-            case 2:
-                tmpCreature.setFillColor(sf::Color::Yellow);
-                break;
-        }
-
-        window.draw(tmpCreature);
-    }
-}
-
 
 int main()
 {
@@ -136,51 +27,10 @@ int main()
     sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y),
                             "Graphics test");
         window.setKeyRepeatEnabled(false);
+
+        // Enumerate different screens of the game
+    Screens currentScreen = mainScreen;
     
-    	// Store all of the drawables to a vector
-        // TODO: Functions to create and append each part of UI
-/*    std::vector<sf::Drawable *> drawables;
-
-    	// Create two rectangles for the basis of map and status parts
-    sf::RectangleShape mapArea(mapSize);
-    	mapArea.setFillColor(sf::Color::Green);
-		mapArea.setOutlineColor(sf::Color::Black);
-		mapArea.setOutlineThickness(5);
-	drawables.push_back(&mapArea);
-
-    sf::RectangleShape statsArea(sidebarSize); // Stats
-    	statsArea.setPosition(mapSize.x, 0);
-    	statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
-		statsArea.setOutlineColor(sf::Color::White);
-		statsArea.setOutlineThickness(5);
-	drawables.push_back(&statsArea);
-
-
-// ------------------------------------------------------ //
-
-		// Create text fields that are needed
-
-	sf::Font font;	// A font type has to be downloaded
-		font.loadFromFile("FreeMono.ttf");
-		
-	sf::Text points("Points: ", font, 24);
-		points.setColor(sf::Color::Black);
-		points.setStyle(sf::Text::Bold);
-		points.setPosition(sf::Vector2f(640, 50));
-	drawables.push_back(&points);
-
-	sf::Text round("Round: ", font, 24);
-		round.setColor(sf::Color::Black);
-		round.setStyle(sf::Text::Bold);
-		round.setPosition(650, 150);
-	drawables.push_back(&round);
-	
-	sf::Text resources("Resources: ", font, 24);
-		resources.setColor(sf::Color::Black);
-		resources.setStyle(sf::Text::Bold);
-		resources.setPosition(620, 250);
-	drawables.push_back(&resources);
-*/
 
 // ------------------------------------------------------ //
 
@@ -196,9 +46,7 @@ int main()
     for (int i = 0; i < tileAmount; ++i) {
         for (int j = 0; j < tileAmount; ++j) {
             randomMap[i].push_back(rand() % 3);
-//            std::cout << randomMap[i][j] << ' ';
         }
-//        std::cout << std::endl;
     }
 
 
@@ -217,38 +65,69 @@ int main()
         // While window has not been closed, keep on going
     while (window.isOpen())
     {
-            // Sniff for closing window
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window.close();
-        }
-
-            // Sniff for mouse LeftClick
-        if( sf::Mouse::isButtonPressed(sf::Mouse::Left) )
-        {
-            creatures[1].x = sf::Mouse::getPosition(window).x;
-        }
-
-            // What's our in-game time?
-        sf::Time elapsedTime = clock.restart();
 
             // Window has to be cleaned every time to avoid overlap
         window.clear();
 
-            // Bunch of drawing functions
-//        drawDrawables(window, drawables);
-        createAndDrawDrawables(window, mapSize, sidebarSize);
+            // Draw the menu screen
+        switch( currentScreen )
+        {
+            case mainScreen:
+            {
+                std::vector<sf::Vector2f> asd = createAndDrawMenu(window, windowSize);
+                break;
+            }
+            case gameScreen:
+            {
+                // Let's draw the window and sidebar
+                createAndDrawDrawables(window, mapSize, sidebarSize);
+                // Let's draw the tiles on the window
+                drawTiles(window, randomMap, tileAmount, tileSize);
+                // Let's draw the creatures
+                drawCreatures(window, creatures, tileSize);
+                break;
+            }
+        }
 
+            // Sniff for window events
+        sf::Event event;
 
-        drawTiles(window, randomMap, tileAmount, tileSize);
+            // Something was clicked ->
+        while(window.pollEvent(event)) {
+            switch (event.type)
+            {
+                case sf::Event::Closed : // Window was closed
+                {
+                    window.close();
+                    break;
+                }
 
-        drawCreatures(window, creatures, tileSize);
+                case sf::Event::MouseButtonReleased : // LMouseButton was clicked
+                {
+                    switch(currentScreen)   // What is the current screen state?
+                    {
+                        case mainScreen:    // We're in main screen
+                        {
+                            mainScreenPoller(window, windowSize, currentScreen);
+                            break;
+                        }
+                        case gameScreen :   // We're in game screen
+                        {
+                            gameScreenPoller(window, creatures, currentScreen);
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+        }
 
-            // Update creatures' positions
+        // What's our in-game time?
+        sf::Time elapsedTime = clock.restart();
+        // Update creatures' positions
         float displacement = 100 * elapsedTime.asSeconds(); // pix/s * s = pix
         creatures[1].y = fmod(creatures[1].y + displacement, windowSize.y);
+
 
         window.display();
 
