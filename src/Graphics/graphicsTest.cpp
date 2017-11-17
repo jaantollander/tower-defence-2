@@ -4,12 +4,16 @@
 #include <stdlib.h>     // For rand()
 #include <math.h>       // For round()
 
+#include "graphicsFunctions.cpp"
+
 
 // This is a test-level code for SFML C++ graphics.
 // On linux install SFML as: sudo apt-get install libsfml-dev
 // Then compile the code as: g++ -c graphicsTest.cpp; 
 //		g++ graphicsTest.o -o sfml-app -lsfml-graphics -lsfml-window -lsfml-system
 // And run as: ./sfml-app
+
+
 
 // Iterate through drawables and draw them on screen
 // 	OBS: DRAWING HAPPENS IN THE ORDER THEY ARE DEFINED!
@@ -20,6 +24,56 @@ void drawDrawables(sf::RenderWindow &window, std::vector<sf::Drawable *> drawabl
     {
         window.draw(**it);
     }
+}
+
+void createAndDrawDrawables(sf::RenderWindow &window,
+                            sf::Vector2f mapSize, sf::Vector2f sidebarSize)
+{
+    std::vector<sf::Drawable *> drawables;
+
+    // Create two rectangles for the basis of map and status parts
+    sf::RectangleShape mapArea(mapSize);
+    mapArea.setFillColor(sf::Color::Green);
+    mapArea.setOutlineColor(sf::Color::Black);
+    mapArea.setOutlineThickness(5);
+    drawables.push_back(&mapArea);
+
+    sf::RectangleShape statsArea(sidebarSize); // Stats
+    statsArea.setPosition(mapSize.x, 0);
+    statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
+    statsArea.setOutlineColor(sf::Color::White);
+    statsArea.setOutlineThickness(5);
+    drawables.push_back(&statsArea);
+
+
+// ------------------------------------------------------ //
+
+    // Create text fields that are needed
+
+    sf::Font font;	// A font type has to be downloaded
+    font.loadFromFile("FreeMono.ttf");
+
+    sf::Text points("Points: ", font, 24);
+    points.setColor(sf::Color::Black);
+    points.setStyle(sf::Text::Bold);
+    points.setPosition(sf::Vector2f(640, 50));
+    drawables.push_back(&points);
+
+    sf::Text round("Round: ", font, 24);
+    round.setColor(sf::Color::Black);
+    round.setStyle(sf::Text::Bold);
+    round.setPosition(650, 150);
+    drawables.push_back(&round);
+
+    sf::Text resources("Resources: ", font, 24);
+    resources.setColor(sf::Color::Black);
+    resources.setStyle(sf::Text::Bold);
+    resources.setPosition(620, 250);
+    drawables.push_back(&resources);
+
+
+    drawDrawables(window, drawables);
+
 }
 
 // Iterate through map and draw the tiles
@@ -79,12 +133,13 @@ int main()
 // ------------------------------------------------------ //
 
 		// Create a window where stuff is drawn - 4:3 aspect ratio
-    sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y), "Graphics test");
+    sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y),
+                            "Graphics test");
         window.setKeyRepeatEnabled(false);
     
     	// Store all of the drawables to a vector
         // TODO: Functions to create and append each part of UI
-    std::vector<sf::Drawable *> drawables;
+/*    std::vector<sf::Drawable *> drawables;
 
     	// Create two rectangles for the basis of map and status parts
     sf::RectangleShape mapArea(mapSize);
@@ -125,7 +180,7 @@ int main()
 		resources.setStyle(sf::Text::Bold);
 		resources.setPosition(620, 250);
 	drawables.push_back(&resources);
-
+*/
 
 // ------------------------------------------------------ //
 
@@ -183,7 +238,9 @@ int main()
         window.clear();
 
             // Bunch of drawing functions
-        drawDrawables(window, drawables);
+//        drawDrawables(window, drawables);
+        createAndDrawDrawables(window, mapSize, sidebarSize);
+
 
         drawTiles(window, randomMap, tileAmount, tileSize);
 
