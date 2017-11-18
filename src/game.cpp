@@ -1,44 +1,58 @@
 #include "game.h"
 
 
-GameStats::GameStats(int time=0, int score=0, int money=0) :
+GameLevel::GameLevel(int starting_money, int enemies_spawned,
+                     std::vector<int> &enemy_spawn_interval) :
+        m_starting_money(starting_money),
+        m_enemies_spawned(enemies_spawned),
+        m_enemy_spawn_interval(enemy_spawn_interval) { }
+
+
+void GameLevel::increment_enemies_spawned() { m_enemies_spawned++; }
+
+
+GameStats::GameStats(int time, int score, int money) :
         m_time(time), m_score(score), m_money(money) { }
 
 
-Tile::Tile(bool is_buildable, bool is_path, Directions direction) :
-        m_is_path(is_path), m_is_buildable(is_buildable),
-        m_direction(direction) { }
+void GameStats::update_time() { m_time++; }
 
 
-GameMap::GameMap(int xsize, int ysize) : m_xsize(xsize), m_ysize(ysize) {
-    // https://stackoverflow.com/questions/28663299/initializing-a-2d-vector
-    Tiles tiles(ysize, std::vector<Tile*>(xsize, nullptr));
-    for (int i = 0; i < ysize; ++i) {
-        for (int j = 0; j < xsize; ++j) {
-            Tile tile = Tile(false, false, undefined_direction);
-            tiles[i][j] = &tile;
-        }
-    }
-    m_tiles = tiles;
+void GameStats::change_score(int amount) {
+    int new_score = m_score + amount;
+    if (new_score < 0)
+        m_score = 0;
+    else
+        m_score = new_score;
 }
 
 
-GameLevel::GameLevel(int starting_money) : m_starting_money(starting_money) {}
+bool GameStats::change_money(int amount) {
+    int new_money = m_money + amount;
+    if (new_money < 0)
+        return false;
+    else {
+        m_money = new_money;
+        return true;
+    }
+}
 
 
-GameEngine::GameEngine(GameStats &stats, GameMap &game_map, GameLevel game_level,
-                       Towers &towers, Enemies &enemies) :
-        m_stats(stats),
+GameEngine::GameEngine(GameStats &game_stats,
+                       GameMap &game_map,
+                       GameLevel &game_level) :
+        m_game_stats(game_stats),
         m_game_map(game_map),
-        m_game_level(game_level),
-        m_towers(towers),
-        m_enemies(enemies) {}
+        m_game_level(game_level) { }
+
+//TODO:
+GameEngine::~GameEngine() {}
 
 
-void GameEngine::update() {
+//void GameEngine::update() {
     //TODO: spawn new enemies according to level description
 //    movement();
 //    towers_attack();
 //    enemies_attack();
 //    m_stats.update_time();
-}
+//}
