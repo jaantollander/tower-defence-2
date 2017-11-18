@@ -1,19 +1,9 @@
 # Tower Defence 2
-
-- Aalto University
-- C++ Programming Project
-
-Authors
-
-- Jaan Tollander de Balsch
-- Jussi Hietanen
-- Martti Hallipelto
-- Roni Hytönen
-- Tero Hyytiäinen
+## Description
+This is project is part of C++ programming course at Aalto University. This project implements [tower defense](https://en.wikipedia.org/wiki/Tower_defense) game.
 
 
-----
-
+## Project Structure
 This is an initial git repository for your programming project.
 It contains an initial directory structure that we wish you could
 use as follows:
@@ -27,6 +17,7 @@ use as follows:
     **also as pdf file**.
 
       - Created using [Doxygen](https://www.stack.nl/~dimitri/doxygen/index.html).
+      - Use command ```dogygen Doxyfile.ini``` to create the documentation.
       - Written as docstrings in the source code.
 
   * `src/` -- here are the C++ source files. You can have subfolders as needed.
@@ -36,3 +27,12 @@ use as follows:
 
 You may also add other new directories as needed, for example
 for testing tools.
+
+
+## Authors
+
+- Jaan Tollander de Balsch
+- Jussi Hietanen
+- Martti Hallipelto
+- Roni Hytönen
+- Tero Hyytiäinen
