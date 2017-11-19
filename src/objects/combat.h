@@ -17,10 +17,11 @@ class Combat {
 public:
     Combat(int health, int damage, int attack_range, int attack_speed);
 
-    int get_health() { return m_health; }
+    /// Health
+    int health();
 
     /// Object is regarded dead if it has health below of equal to zero.
-    bool is_dead() { return m_health <= 0; };
+    bool is_dead();
 
     /// Negative damages, positive heals, if reached zero, enemy dies, cannot go
     /// above max health

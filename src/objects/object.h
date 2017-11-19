@@ -8,13 +8,12 @@ class Object {
 public:
     Object(int x, int y, int radius, int speed);
 
-    void set_x(int x) { m_x = x; }
-    int get_x() { return m_x; };
+    int x();
+    int y();
+    int radius();
 
-    void set_y(int y) { m_y = y; }
-    int get_y() { return m_y; };
-
-    int get_radius() { return m_radius; };
+    void set_x(int x);
+    void set_y(int y);
 
     /// Distance to another object.
     double distance(Object &other);

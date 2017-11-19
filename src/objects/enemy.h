@@ -12,7 +12,7 @@ public:
                   int attack_range, int attack_speed, int score);
 
     /// Score that player get when enemy dies.
-    int get_score() { return m_score; }
+    int score();
 
 protected:
     int m_score;

@@ -7,6 +7,10 @@ Combat::Combat(int health, int damage, int attack_range, int attack_speed) :
         m_targeting_policy(target_last) {}
 
 
+int Combat::health() { return m_health; }
+bool Combat::is_dead() { return m_health <= 0; }
+
+
 void Combat::change_health(int amount) {
     if (not this->is_dead()) {
         m_health += amount;

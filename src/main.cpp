@@ -6,6 +6,7 @@
 int main() {
     std::cout << "Initializing GameMap" << std::endl;
     auto game_map = load_game_map("../src/maps/testmap1");
+
     game_map.print_map();
 
     std::cout << "Initializing GameLevel" << std::endl;

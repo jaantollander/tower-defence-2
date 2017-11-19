@@ -16,13 +16,16 @@ enum Direction {
 
 /// Possible types for the tile. Tile type defined what properties tile has.
 enum TileType {
-    /// Enemies walk on, can't place towers
+    /// Enemies walk on path. Players cannot place towers on path.
     path,
-    /// Can build towers
+
+    /// Player can build towers on grass.
     grass,
-    /// Can't build towers
+
+    /// Players cannot build towers on water.
     water,
-    /// Tile type is undefined
+
+    /// Undefined tile type.
     undefined_tile_type
 };
 
