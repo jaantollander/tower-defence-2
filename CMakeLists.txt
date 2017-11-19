@@ -10,8 +10,10 @@ add_executable(
         src/objects/combat.cpp
         src/objects/enemy.cpp
         src/objects/tower.cpp
+        src/level.cpp
+        src/stats.cpp
         src/tile.cpp
         src/map.cpp
-        src/game.cpp
+        src/engine.cpp
         src/main.cpp
 )
