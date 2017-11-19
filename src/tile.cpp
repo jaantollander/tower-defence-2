@@ -1,4 +1,6 @@
-#include "game.h"
+#include "tile.h"
+
+
 
 Tile::Tile(int x, int y, TileType tile_type, Direction direction) :
         m_x(x),

@@ -1,9 +1,8 @@
 #include <algorithm>
-#include <string>
 #include <iostream>
-#include <cstdio>
 #include <fstream>
 #include "map.h"
+
 
 
 GameMap::GameMap(const std::string name, int xsize, int ysize) :

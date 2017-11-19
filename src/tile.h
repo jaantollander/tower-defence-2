@@ -2,6 +2,8 @@
 #define TOWER_DEFENCE_2_TILE_H
 
 #include <vector>
+#include <string>
+#include "objects/tower.h"
 
 
 /// Possible directions (cardinal directions) for the enemy path.
@@ -14,7 +16,7 @@ enum Direction {
 };
 
 
-/// Possible types for the tile. Tile type defined what properties tile has.
+/// Possible types for the tile. Tile type defines what properties tile has.
 enum TileType {
     /// Enemies walk on path. Players cannot place towers on path.
     path,

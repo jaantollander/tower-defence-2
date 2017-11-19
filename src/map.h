@@ -61,9 +61,9 @@ public:
     void remove_enemy();
 
 private:
-    std::string m_name;
-    int m_xsize;
-    int m_ysize;
+    const std::string m_name;
+    const int m_xsize;
+    const int m_ysize;
     Tiles m_tiles;
     Towers m_towers;
     Enemies m_enemies;
