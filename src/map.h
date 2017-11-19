@@ -73,11 +73,13 @@ private:
 /// Loads game map from a text file. Example of mapfile formatting:
 /// ```
 /// name; xsize; ysize;
-///	w;g;g;p;w;
-///	w;g;p;p;q;
-/// g;g;p;w;w;
+///	u;g;g;s;u;
+///	u;g;s;w;q;
+/// g;g;s;u;u;
 /// ```
-/// where tile types are grass as g, water as w and path as p.
+/// where tile types are:
+/// water as u, grass as g and path depending on the direction
+/// either n for north, s for south, e for east and w for west
 GameMap load_game_map(const std::string &filename);
 
 

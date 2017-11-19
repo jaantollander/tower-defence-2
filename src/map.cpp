@@ -56,7 +56,6 @@ void GameMap::print_map() const {
 
 
 //TODO: custom exceptions
-//TODO: read directions
 //TODO: converter for tile type string representation
 GameMap load_game_map(const std::string &filename) {
     // Initialize GameMap constructor arguments
@@ -102,10 +101,16 @@ GameMap load_game_map(const std::string &filename) {
             std::getline(is, type, ';');
             if (type == "g" || type == "G") {
                 tiles[y][x] = new Tile(x, y, grass, undefined_direction); }
-            else if (type == "w" || type == "W") {
+            else if (type == "u" || type == "U") {
                 tiles[y][x] = new Tile(x, y, water, undefined_direction); }
-            else if (type == "P" || type == "p") {
-                tiles[y][x] = new Tile(x, y, path, undefined_direction); }
+            else if (type == "n" || type == "N") {
+                tiles[y][x] = new Tile(x, y, path, north); }
+            else if (type == "s" || type == "S") {
+                tiles[y][x] = new Tile(x, y, path, south); }
+            else if (type == "w" || type == "W") {
+                tiles[y][x] = new Tile(x, y, path, west); }
+            else if (type == "e" || type == "E") {
+                tiles[y][x] = new Tile(x, y, path, east); }
             else
                 tiles[y][x] = new Tile(x, y, undefined_tile_type,
                                        undefined_direction);
