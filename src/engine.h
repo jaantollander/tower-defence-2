@@ -24,15 +24,13 @@ public:
     /// remove dead enemies from the game.
     void towers_attack();
 
-    /// Enemies attack towers
-    void enemies_attack();
-
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
     /// - Advance game level
     /// - Movement
     /// - Tower attack turn
     /// - Enemy attack turn
+    /// - Update game time
     void update();
 
 private:

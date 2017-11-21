@@ -1,12 +1,11 @@
 #ifndef TOWER_DEFENCE_2_TOWER_H
 #define TOWER_DEFENCE_2_TOWER_H
 
-#include "combat.h"
 #include "object.h"
 
 
 /// Base class for all towers.
-class TowerBase : public Object, public Combat {
+class TowerBase : public Object {
 public:
     TowerBase(int x, int y, int radius, int health, int damage,
               int attack_range, int attack_speed, int cost, int repair_cost,
