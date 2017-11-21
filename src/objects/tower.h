@@ -6,7 +6,7 @@
 #include <string>
 
 /// Base class for all towers.
-class TowerBase {
+class TowerBase : public Object {
 public:
     TowerBase(int x, int y);
     virtual ~TowerBase();

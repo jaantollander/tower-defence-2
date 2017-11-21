@@ -27,3 +27,6 @@ void Object::change_speed(int amount) {
     else
         m_speed = new_speed;
 }
+void Object::change_radius(int new_r) {
+    if (new_r > 0) m_radius = new_r;
+}
