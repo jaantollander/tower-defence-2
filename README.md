@@ -16,10 +16,6 @@ use as follows:
     but we hope to get the final version of the document
     **also as pdf file**.
 
-      - Created using [Doxygen](https://www.stack.nl/~dimitri/doxygen/index.html).
-      - Use command ```dogygen Doxyfile.ini``` to create the documentation.
-      - Written as docstrings in the source code.
-
   * `src/` -- here are the C++ source files. You can have subfolders as needed.
 
   * `index.md` -- This file that you should modify to represent
@@ -27,6 +23,38 @@ use as follows:
 
 You may also add other new directories as needed, for example
 for testing tools.
+
+
+## Installation and Developement
+Documentation is generated using [Doxygen](https://www.stack.nl/~dimitri/doxygen/index.html). Doxygen creates static `HTML` and `latex` files using supplied input markdown files and docstring found inside the source code.
+
+Install Doxygen using
+```
+sudo apt-get install doxygen.
+```
+
+Documentation is created into `doc` directory. Create `HTML` and `latex` files using
+```
+doxygen Doxyfile.ini
+```
+
+Creating pdf requires installing LaTeX. Create pdf using
+```
+cd doc/latex &&
+pdflatex refman.tex &&
+cd ../..
+```
+
+
+----
+
+The graphics of this game depend on **Simple and Fast Multimedia Library (SFML)**. Install this library using
+
+```
+sudo apt-get install libsfml-dev
+```
+
+
 
 
 ## Authors
