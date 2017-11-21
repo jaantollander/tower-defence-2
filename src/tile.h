@@ -6,16 +6,6 @@
 #include "objects/tower.h"
 
 
-/// Possible directions (cardinal directions) for the enemy path.
-enum Direction {
-    north,
-    east,
-    south,
-    west,
-    undefined_direction
-};
-
-
 /// Possible types for the tile. Tile type defines what properties tile has.
 enum TileType {
     /// Enemies walk on path. Players cannot place towers on path.
@@ -29,6 +19,16 @@ enum TileType {
 
     /// Undefined tile type.
     undefined_tile_type
+};
+
+
+/// Possible directions (cardinal directions) for the enemy path.
+enum Direction {
+    north,
+    east,
+    south,
+    west,
+    undefined_direction
 };
 
 

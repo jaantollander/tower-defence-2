@@ -2,8 +2,16 @@
 #include "object.h"
 
 
-Object::Object(int x, int y, int radius, int speed) :
-        m_x(x), m_y(y), m_radius(radius), m_speed(speed), m_max_speed(speed) {}
+Object::Object(int x, int y, int radius, int speed, int health, int damage,
+               int attack_range, int attack_speed) :
+        m_x(x), m_y(y),
+        m_radius(radius),
+        m_speed(speed), m_max_speed(speed),
+        m_health(health), m_max_health(health),
+        m_damage(damage),
+        m_attack_speed(attack_speed),
+        m_targeting_policy(target_last)
+        { }
 
 
 int Object::x() { return m_x; }
@@ -27,6 +35,24 @@ void Object::change_speed(int amount) {
     else
         m_speed = new_speed;
 }
-void Object::change_radius(int new_r) {
-    if (new_r > 0) m_radius = new_r;
+
+void Object::change_radius(int new_r) { if (new_r > 0) m_radius = new_r; }
+void Object::change_damage(int new_dmg) { m_damage = new_dmg; }
+void Object::change_attack_speed(int new_speed) {
+    if (new_speed > 0) m_attack_speed = new_speed;
 }
+
+int Object::health() { return m_health; }
+
+bool Object::is_dead() { return m_health <= 0; }
+
+void Object::change_health(int amount) {
+    if (not this->is_dead()) {
+        m_health += amount;
+        if (m_health < 0)
+            m_health = 0;
+        else if (m_health > m_max_health)
+            m_health = m_max_health;
+    }
+}
+
