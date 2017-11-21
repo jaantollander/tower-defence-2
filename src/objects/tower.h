@@ -16,7 +16,7 @@ public:
     ///int repair(); This might not be included?
 
     /// Upgrade the tower. Returns a pointer to the new tower instance.
-    TowerBase* upgrade(); // this might need Map as an argument?
+    TowerBase* upgrade(); // this might need Map as an argument?  
 
 protected:
     std::string m_name;
