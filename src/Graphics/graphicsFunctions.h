@@ -8,9 +8,13 @@ enum Screens
 std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
                             sf::Vector2f windowSize);
 
+void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU, sf::Vector2f buttonSize,
+                         std::string &text, sf::Font &font);
 
 void createAndDrawDrawables(sf::RenderWindow &window,
                             sf::Vector2f mapSize, sf::Vector2f sidebarSize);
+
+
 
 void drawDrawables(sf::RenderWindow &window,
                    std::vector<sf::Drawable *> drawables);
