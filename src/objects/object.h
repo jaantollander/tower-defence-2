@@ -23,6 +23,7 @@ public:
     int x();
     int y();
     int radius();
+    int health();
 
     void set_x(int x);
     void set_y(int y);
@@ -30,11 +31,11 @@ public:
     /// Distance to another object.
     double distance(Object &other);
 
+    /// Other objects that are within the attack range
+    void within_attack_range(std::vector<Object*> &others);
+
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);
-
-    /// Health
-    int health();
 
     /// Object is regarded dead if it has health below of equal to zero.
     bool is_dead();
@@ -45,9 +46,6 @@ public:
 
     /// Deal damage to another object
     void deal_damage(Object &other);
-
-    /// Other combat objects that are withing the attack range
-    void in_range(std::vector<Object*> &others);
 
 protected:
     int m_x;
