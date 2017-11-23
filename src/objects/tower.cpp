@@ -1,9 +1,14 @@
 #include "tower.h"
 
-TowerBase::TowerBase(int x, int y, int radius, int health, int damage,
-                     int attack_range, int attack_speed, int cost,
-                     int repair_cost, int upgrade_cost) :
-        Object(x, y, radius, 0, health, damage, attack_range, attack_speed),
-        m_cost(cost),
-        m_repair_cost(repair_cost),
-        m_upgrade_cost(upgrade_cost) {}
+TowerBase::TowerBase(int x, int y) : m_object(x, y, 0, 0, 0, 0, 0) { }
+TowerBase::~TowerBase() { }
+
+TowerBase* TowerBase::upgrade() {
+    if (m_upgradable) {
+        // TODO
+        // needs information about the map, for example:
+        //map.get_tile(m_object.x(), m_object.y()) -> update_tower(m_upgrades_to);
+        //return map.get_tile(m_object.x(), m_object.y()) -> tower();
+    }
+}
+

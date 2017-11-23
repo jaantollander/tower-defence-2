@@ -2,6 +2,7 @@
 #define TOWER_DEFENCE_2_ENEMY_H
 
 #include "object.h"
+#include <string>
 
 
 /// Base class for all enemy types.
@@ -14,6 +15,8 @@ public:
     int score();
 
 protected:
+    std::string name;
+    Object m_object;
     int m_score;
 };
 

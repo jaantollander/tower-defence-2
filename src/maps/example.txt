@@ -1,0 +1,8 @@
+example;7;7;
+w;w;w;N;w;w;w;
+g;g;g;N;g;g;g;
+g;E;E;N;g;g;g;
+g;N;g;g;g;g;g;
+g;N;W;W;W;g;g;
+g;g;g;g;N;g;g;
+w;w;w;g;N;g;g;

@@ -3,6 +3,7 @@
 
 
 #include "objects/enemy.h"
+#include "objects/tower.h"
 #include "tile.h"
 #include "map.h"
 #include "level.h"
