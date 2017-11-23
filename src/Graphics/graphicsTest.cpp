@@ -74,7 +74,7 @@ int main()
         {
             case mainScreen:
             {
-                std::vector<sf::Vector2f> asd = createAndDrawMenu(window, windowSize);
+                std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
                 break;
             }
             case gameScreen:
