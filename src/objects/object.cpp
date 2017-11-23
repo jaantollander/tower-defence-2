@@ -10,6 +10,7 @@ Object::Object(int x, int y, int radius, int speed, int health, int damage,
         m_health(health), m_max_health(health),
         m_damage(damage),
         m_attack_speed(attack_speed),
+        m_attack_range(attack_range),
         m_targeting_policy(target_last)
         { }
 
@@ -17,13 +18,12 @@ Object::Object(int x, int y, int radius, int speed, int health, int damage,
 int Object::x() { return m_x; }
 int Object::y() { return m_y; }
 int Object::radius() { return m_radius; }
-void Object::set_x(int x) { m_x = x; }
-void Object::set_y(int y) { m_y = y; }
+//void Object::set_x(int x) { m_x = x; }
+//void Object::set_y(int y) { m_y = y; }
 
 
 double Object::distance(Object &other) {
-    return hypot((m_x - other.x()), (m_y - other.y())) -
-            (m_radius + other.radius());
+    return hypot((m_x - other.x()), (m_y - other.y())) - (m_radius + other.radius());
 }
 
 void Object::change_speed(int amount) {

@@ -4,8 +4,11 @@
 
 /// Run tower defence game. Currently used for testing.
 int main() {
+    //TODO: initialize towers
+    //TODO: initialize enemies
+
     std::cout << "Initializing GameMap" << std::endl;
-    auto game_map = load_game_map("../src/maps/testmap1");
+    auto game_map = load_game_map("../src/maps/example.txt");
 
     game_map.print_map();
 

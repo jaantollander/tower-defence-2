@@ -9,11 +9,11 @@
 
 
 /// Type for binding collection of towers.
-typedef std::vector<TowerBase*> Towers;
+typedef std::vector<Tower*> Towers;
 
 
 /// Type for binding collection of enemies.
-typedef std::vector<EnemyBase*> Enemies;
+typedef std::vector<Enemy*> Enemies;
 
 
 /// The map of the game. Contains information about the path that enemies

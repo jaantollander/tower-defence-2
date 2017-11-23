@@ -13,9 +13,9 @@ int Tile::x() const { return m_x; }
 int Tile::y() const { return m_y; }
 TileType Tile::tile_type() const { return m_tile_type; }
 Direction Tile::direction() const { return m_direction; }
-TowerBase* Tile::tower() const { return m_tower; }
+Tower* Tile::tower() const { return m_tower; }
 
-bool Tile::update_tower(TowerBase *new_tower) {
+bool Tile::update_tower(Tower *new_tower) {
     if (new_tower == nullptr)
         return false;
     else {

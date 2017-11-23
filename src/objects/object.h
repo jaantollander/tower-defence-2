@@ -8,17 +8,7 @@ enum TargetingPolicy {
     target_first,
     target_last,
     target_least_health
-};
-
-
-#include <vector>
-
-
-/// Targeting policy dictates which enemy we should be attacking.
-enum TargetingPolicy {
-    target_first,
-    target_last,
-    target_least_health
+    //TODO: target multiple enemies (AOE)
 };
 
 
@@ -26,29 +16,15 @@ enum TargetingPolicy {
 /// movement of the object.
 class Object {
 public:
-    Object(int x, int y, int radius, int speed, int health,
-           int damage, int attack_speed);
+    Object(int x, int y, int radius, int speed, int health, int damage,
+           int attack_range, int attack_speed);
 
     int x();
     int y();
+    int radius();
+
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);
-
-    /// Health
-    int health();
-
-    /// Object is regarded dead if it has health below of equal to zero.
-    bool is_dead();
-
-    /// Negative damages, positive heals, if reached zero, enemy dies, cannot go
-    /// above max health
-    void change_health(int amount);
-
-    /// Deal damage to another object
-    void deal_damage(Object &other);
-
-    /// Other combat objects that are withing the attack range
-    void in_range(std::vector<Object*> &others);
 
     /// Health
     int health();
@@ -68,22 +44,36 @@ public:
     /// Deal damage to another object
     void deal_damage(Object &other);
 
+    /// Distance from other object
+    double distance(Object &other);
+
     /// Other combat objects that are withing the attack range
-    void in_range(std::vector<Object*> &others);
+    void within_attack_range(std::vector<Object *> &others);
 
 protected:
+    /// x coordinate of the object
     int m_x;
+    /// u coordinate of the object
     int m_y;
+    /// Radius of the object.
     int m_radius;
+    /// Current speed of the object
     int m_speed;
+    /// Maximum speed of the object
     const int m_max_speed;
 
+    /// Current health of the object
     int m_health;
+    /// Maximum health of the object
     const int m_max_health;
+    /// Amount of damage each hit deals
     int m_damage;
+    /// Attack speed, how fast does the object deal damage
     int m_attack_speed;
+    /// Attack range, how far can the object deal damage
+    int m_attack_range;
+    /// Targeting policy, how will the object choose its target
     TargetingPolicy m_targeting_policy;
-    //int m_attack_range; Tämä turha jos radius on jo?
 };
 
 

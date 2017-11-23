@@ -50,10 +50,10 @@ public:
     /// The direction of the enemy path.
     Direction direction() const;
 
-    TowerBase *tower() const;
+    Tower *tower() const;
 
     /// Update tower, true if successful.
-    bool update_tower(TowerBase *new_tower);
+    bool update_tower(Tower *new_tower);
 
     /// Sets tower to nullptr.
     bool remove_tower();
@@ -71,7 +71,7 @@ private:
     const Direction m_direction;
 
     /// Tile can contains one or zero towers.
-    TowerBase *m_tower;
+    Tower *m_tower;
 
     //TODO: is map pointer necessary???
     //Map *m_map;

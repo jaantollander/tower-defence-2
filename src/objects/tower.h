@@ -2,30 +2,38 @@
 #define TOWER_DEFENCE_2_TOWER_H
 
 #include "object.h"
+#include <vector>
 #include <string>
 
-/// Base class for all towers.
-class TowerBase {
-public:
-    TowerBase(int x, int y);
-    ~TowerBase();
 
-    /// Repairs the tower. Changes the health of the tower to full health and
-    /// reduces player's money accordingly.
-    /// Return the cost of the repair.
-    ///int repair(); This might not be included?
+//TODO: TowerType
+
+
+/// Base class for all towers.
+class Tower {
+public:
+    Tower(int x, int y);
+
+    ~Tower();
 
     /// Upgrade the tower. Returns a pointer to the new tower instance.
-    TowerBase* upgrade(); // this might need Map as an argument?  
+    /// @param index is integer which denotes the index of the upgrade option
+    ///        that was chosen.
+    Tower* upgrade(int index);
 
 protected:
-    std::string m_name;
+    /// ???
     Object m_object;
+
+    /// Name of the tower type
+    std::string m_name;
+
+    /// Cost to buy/upgrade for this tower type
     int m_cost;
-    int m_upgrade_cost;
-    bool m_upgradable;
-    TowerBase* m_upgrades_to;
-    //TODO: upgrade options as container of tower classes, maybe enum?
+
+    /// Pointer to the types of towers that this tower type can be upgraded to.
+    /// If collection is empty tower type cannot be upgraded.
+    std::vector<Tower *> m_upgrade_options;
 };
 
 
