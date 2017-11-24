@@ -3,14 +3,19 @@
 
 #include <vector>
 
+
+//TODO: target multiple enemies (AOE)
+
+
 /// Targeting policy dictates which enemy we should be attacking.
 enum TargetingPolicy {
     target_first,
     target_last,
     target_least_health
-    //TODO: target multiple enemies (AOE)
 };
 
+
+// TODO: types int/double?
 
 /// Base class for objects in tower defence. Contains position, speed and the
 /// movement of the object.
@@ -22,12 +27,10 @@ public:
     int x();
     int y();
     int radius();
+    int health();
 
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);
-
-    /// Health
-    int health();
 
     /// Object is regarded dead if it has health below of equal to zero.
     bool is_dead();

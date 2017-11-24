@@ -26,6 +26,10 @@ for testing tools.
 
 
 ## Installation and Developement
+[CLion](https://www.jetbrains.com/clion/) is powerful C and C++ editor from JetBrains recommended for this project. As a student you can apply for their [student program](https://www.jetbrains.com/student/) to get access to pro version of their products.
+
+----
+
 Documentation is generated using [Doxygen](https://www.stack.nl/~dimitri/doxygen/index.html). Doxygen creates static `HTML` and `latex` files using supplied input markdown files and docstring found inside the source code.
 
 Install Doxygen using

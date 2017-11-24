@@ -2,15 +2,47 @@
 #include "engine.h"
 
 
+/// Empty tower type. Can be upgraded into a tower defined by upgrade options.
+class EmptyTowerType : public TowerType {
+public:
+    EmptyTowerType() : TowerType("EmptyTower", 0, 0, 0, 0) { }
+};
+
+
+class TowerType1 : public TowerType {
+public:
+    TowerType1() : TowerType("Tower1", 300, 20, 4, 8) { }
+};
+
+
+class TowerType2 : public TowerType {
+public:
+    TowerType2() : TowerType("Tower2", 100, 10, 4, 5) { }
+};
+
+
+class EnemyType1 : public EnemyType {
+public:
+    EnemyType1() : EnemyType("Enemy1", 50, 100, 1, 10) { }
+};
+
+
 /// Run tower defence game. Currently used for testing.
 int main() {
-    //TODO: initialize towers
-    //TODO: initialize enemies
+    auto empty_tower_type = EmptyTowerType();
+    auto tower_type_1 = TowerType1();
+    auto tower_type_2 = TowerType2();
+    auto enemy_type_1 = EnemyType1();
 
+    //TODO: upgrade options
+
+    //TODO: initialize tile with empty tower type
     std::cout << "Initializing GameMap" << std::endl;
     auto game_map = load_game_map("../src/maps/example.txt");
 
     game_map.print_map();
+
+    //TODO: add towers and enemies
 
     std::cout << "Initializing GameLevel" << std::endl;
     std::vector<int> enemy_spawn_interval = {};

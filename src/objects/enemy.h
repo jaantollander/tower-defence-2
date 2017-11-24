@@ -5,29 +5,46 @@
 #include <string>
 
 
-//TODO: EnemyOption
+// Deferred declaration
+class EnemyType;
 
 
-/// Base class for all enemy types.
+/// Enemy class
 class Enemy : public Object {
 public:
-    Enemy(int x, int y, int radius, int speed, int health, int damage,
-          int attack_range, int attack_speed, int score);
+    Enemy(int x, int y, int radius, int speed, int health,
+          EnemyType *enemy_type);
+    ~Enemy();
 
-    int score();
-    int money();
+private:
+    EnemyType *m_enemy_type;
+};
 
-protected:
-//    Object m_object;
 
+/// Description for creating new enemies
+class EnemyType {
+public:
+    EnemyType(const std::string &name, int score, int money, int speed,
+                  int health);
+
+    ~EnemyType();
+
+    /// Create new enemy of this type.
+    Enemy create_enemy(int x, int y);
+
+private:
     /// Name of the enemy
-    std::string m_name;
+    const std::string m_name;
 
     /// Amount of score that is awarded to the player when enemy dies
-    int m_score;
+    const int m_score;
 
     /// Amount of money that is awarded to the player when enemy dies
-    int m_money;
+    const int m_money;
+
+    // Initial values for new enemies
+    const int m_speed;
+    const int m_health;
 };
 
 

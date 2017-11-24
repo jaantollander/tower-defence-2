@@ -9,7 +9,7 @@
 
 
 /// Type for binding collection of towers.
-typedef std::vector<Tower*> Towers;
+typedef std::vector<TowerType*> Towers;
 
 
 /// Type for binding collection of enemies.

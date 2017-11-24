@@ -25,6 +25,6 @@ set(SOURCE_FILES
         stats.cpp
         stats.h
         tile.cpp
-        tile.h objects/Towers/testtower.h objects/Towers/testtower.cpp objects/Towers/test2.h objects/Towers/test2.cpp)
+        tile.h towers/testtower.h towers/testtower.cpp towers/test2.h towers/test2.cpp)
 
 add_executable(src ${SOURCE_FILES})

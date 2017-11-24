@@ -1,10 +1,25 @@
 #include "enemy.h"
 
 
-Enemy::Enemy(int x, int y, int radius, int speed, int health, int damage,
-                     int attack_range, int attack_speed, int score) :
-        Object(x, y, radius, speed, health, damage, attack_range, attack_speed),
-        m_score(score) {}
+Enemy::Enemy(int x, int y, int radius, int speed, int health,
+             EnemyType *enemy_type) :
+        Object(x, y, radius, speed, health, 0, 0, 0),
+        m_enemy_type(enemy_type) {}
 
 
-int Enemy::score() { return m_score; }
+Enemy::~Enemy() {}
+
+
+EnemyType::EnemyType(const std::string &name, int score, int money, int speed,
+                     int health) :
+        m_name(name), m_score(score), m_money(money), m_speed(speed),
+        m_health(health) {}
+
+
+EnemyType::~EnemyType() {
+
+}
+
+Enemy EnemyType::create_enemy(int x, int y ) {
+    return Enemy(x, y, 1, m_speed, m_health, this);
+}

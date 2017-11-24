@@ -72,9 +72,6 @@ private:
 
     /// Tile can contains one or zero towers.
     Tower *m_tower;
-
-    //TODO: is map pointer necessary???
-    //Map *m_map;
 };
 
 
