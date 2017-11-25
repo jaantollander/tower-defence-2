@@ -39,8 +39,7 @@ int main() {
     //TODO: initialize tile with empty tower type
     std::cout << "Initializing GameMap" << std::endl;
     auto game_map = load_game_map("../src/maps/example.txt");
-
-    game_map.print_map();
+    std::cout << game_map;
 
     //TODO: add towers and enemies
 

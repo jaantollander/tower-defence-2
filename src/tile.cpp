@@ -1,18 +1,19 @@
 #include "tile.h"
 
 
-// TODO: initialize tower as empty tower not nullptr
-Tile::Tile(int x, int y, TileType tile_type, Direction direction) :
-        m_x(x), m_y(y), m_tile_type(tile_type), m_direction(direction),
-        m_tower(nullptr) { }
+Tile::Tile(int xindex, int yindex, TileType tile_type, Direction direction) :
+        m_xindex(xindex), m_yindex(yindex), m_tile_type(tile_type), m_direction(direction) {
+    // TODO: initialize tower as empty tower not nullptr
+    m_tower = nullptr;
+}
 
-int Tile::x() const { return m_x; }
-int Tile::y() const { return m_y; }
+Tile::~Tile() { }
+
 TileType Tile::tile_type() const { return m_tile_type; }
 Direction Tile::direction() const { return m_direction; }
 Tower *Tile::tower() const { return m_tower; }
 
-bool Tile::update_tower(Tower *new_tower) {
+bool Tile::upgrade_tower(Tower *new_tower) {
     if (new_tower == nullptr)
         return false;
     else {

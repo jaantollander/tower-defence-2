@@ -34,6 +34,7 @@ Tower TowerType::create_tower(int x, int y) {
 //    return map.get_tile(m_object.x(), m_object.y()) -> tower();
 
 Tower TowerType::upgrade(int index, int x, int y) {
+    //TODO: check that index not out of bound, exception message
     auto new_tower_type = m_upgrade_options[index];
     return new_tower_type->create_tower(x, y);
 }

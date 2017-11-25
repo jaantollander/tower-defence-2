@@ -18,7 +18,7 @@ Object::Object(int x, int y, int radius, int speed, int health, int damage,
 int Object::x() { return m_x; }
 int Object::y() { return m_y; }
 int Object::radius() { return m_radius; }
-//void Object::set_x(int x) { m_x = x; }
+//void Object::set_x(int x) { m_xindex = x; }
 //void Object::set_y(int y) { m_y = y; }
 
 

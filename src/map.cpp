@@ -35,23 +35,26 @@ Tiles GameMap::tiles() const { return m_tiles; }
 Towers GameMap::towers() const { return m_towers; }
 Enemies GameMap::enemies() const { return m_enemies; }
 Tile* GameMap::get_tile(int x, int y) const { return m_tiles[y][x]; }
-void GameMap::set_tile(int x, int y, Tile *tile){ m_tiles[y][x] = tile; }
+Tile* GameMap::get_tile(double x, double y) const {
+    return m_tiles[int(y / tile_size)][int(x / tile_size)];
+}
 
 
 //TODO: direction
-void GameMap::print_map() const {
-    for (int y = 0; y < m_ysize; ++y) {
-        for (int x = 0; x < m_xsize; ++x) {
-            auto tile_type = m_tiles[y][x]->tile_type();
+std::ostream& operator<<(std::ostream &os, GameMap &obj) {
+    for (int y = 0; y < obj.ysize(); ++y) {
+        for (int x = 0; x < obj.xsize(); ++x) {
+            auto tile_type = obj.tiles()[y][x]->tile_type();
             switch (tile_type) {
-                case grass: std::cout << "g "; break;
-                case water: std::cout << "w "; break;
-                case path: std::cout << "p "; break;
-                default: std::cout << "u "; break;
+                case grass: os << "g "; break;
+                case water: os << "w "; break;
+                case path: os << "p "; break;
+                default: os << "u "; break;
             }
         }
-        std::cout << std::endl;
+        os << std::endl;
     }
+    return os;
 }
 
 

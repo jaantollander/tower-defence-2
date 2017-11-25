@@ -37,12 +37,9 @@ enum Direction {
 /// that enemies follow.
 class Tile {
 public:
-    Tile(int x, int y, TileType tile_type, Direction direction);
-    ~Tile();
+    Tile(int xindex, int yindex, TileType tile_type, Direction direction);
 
-    // Coordinates
-    int x() const;
-    int y() const;
+    ~Tile();
 
     /// Type of the tile
     TileType tile_type() const;
@@ -50,23 +47,18 @@ public:
     /// The direction of the enemy path.
     Direction direction() const;
 
+    /// Pointer to the tower that occupies the tile if any.
     Tower *tower() const;
 
     /// Update tower, true if successful.
-    bool update_tower(Tower *new_tower);
+    bool upgrade_tower(Tower *new_tower);
 
     /// Sets tower to nullptr.
     bool remove_tower();
 
-    /// True if a tower can be built on this tile.
-    //bool is_buildable() const;
-
-    /// True if this tile part of enemy path.
-    //bool is_path() const;
-
 private:
-    const int m_x;
-    const int m_y;
+    const int m_xindex;
+    const int m_yindex;
     const TileType m_tile_type;
     const Direction m_direction;
 

@@ -8,11 +8,15 @@
 #include "tile.h"
 
 
-/// Type for binding collection of towers.
+/// Height and width of a tile
+const double tile_size = 1.0;
+
+
+/// Type for collection of towers.
 typedef std::vector<TowerType*> Towers;
 
 
-/// Type for binding collection of enemies.
+/// Type for collection of enemies.
 typedef std::vector<Enemy*> Enemies;
 
 
@@ -30,17 +34,17 @@ public:
     ~GameMap();
 
     std::string name() const;
-
     int xsize() const;
     int ysize() const;
     Tiles tiles() const;
     Towers towers() const;
     Enemies enemies() const;
-    Tile* get_tile(int x, int y) const;
-    void set_tile(int x, int y, Tile *tile);
 
-    /// Print a representation of the game map
-    void print_map() const;
+    /// Access individual tile by its indices
+    Tile* get_tile(int x, int y) const;
+
+    /// Access individual tile by its coordinates
+    Tile* get_tile(double x, double y) const;
 
     /// Add new tower to the tile.
     /// - Tile should be buildable
@@ -61,13 +65,28 @@ public:
     void remove_enemy();
 
 private:
+    /// Name of the map
     const std::string m_name;
+
+    /// Number of tile in x dimension
     const int m_xsize;
+
+    /// Number of tiles in y dimension
     const int m_ysize;
+
+    /// 2-Dimensional grid of tiles
     Tiles m_tiles;
+
+    /// Collection of towers contained in the map
     Towers m_towers;
+
+    /// Collection of enemies contained in the map
     Enemies m_enemies;
 };
+
+
+/// Print a representation of the game map
+std::ostream &operator<<(std::ostream& os, GameMap &obj);
 
 
 /// Loads game map from a text file. Example of mapfile formatting:
