@@ -37,9 +37,6 @@ public:
     /// Initialize empty game map
     GameMap(std::string name, int xsize, int ysize);
 
-    /// Initialize game map with tiles
-    GameMap(std::string name, int xsize, int ysize, Tiles &tiles);
-
     /// Game map will handle destruction of towers, so tiles don't need to
     ~GameMap();
 
@@ -55,6 +52,9 @@ public:
 
     /// Access individual tile by its coordinates
     Tile* get_tile(double x, double y) const;
+
+    /// Set tile by its indices
+    void set_tile(int x, int y, Tile *tile);
 
     /// Add new tower to the tile.
     void upgrade_tower(int x, int y);
@@ -96,13 +96,13 @@ std::ostream &operator<<(std::ostream& os, GameMap &obj);
 /// Loads game map from a text file. Example of mapfile formatting:
 /// ```
 /// example;7;7;
-/// w;w;w;N;w;w;w;
-/// g;g;g;N;g;g;g;
-/// g;E;E;N;g;g;g;
-/// g;N;g;g;g;g;g;
-/// g;N;W;W;W;g;g;
-/// g;g;g;g;N;g;g;
-/// w;w;w;g;N;g;g;
+/// w ;w ;w ;pN;w ;w ;w ;
+/// g ;g ;g ;pN;g ;g ;g ;
+/// g ;pE;pE;pN;g ;g ;g ;
+/// g ;pN;g ;g ;g ;g ;g ;
+/// g ;pN;pW;pW;pW;g ;g ;
+/// g ;g ;g ;g ;pN;g ;g ;
+/// w ;w ;w ;g ;pN;g ;g ;
 /// ```
 /// where tile types are:
 /// water as u, grass as g and path depending on the direction

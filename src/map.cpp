@@ -16,13 +16,6 @@ GameMap::GameMap(const std::string name, int xsize, int ysize) :
     m_tiles = tiles;
 }
 
-GameMap::GameMap(const std::string name, int xsize, int ysize, Tiles &tiles) :
-    m_name(name), m_xsize(xsize), m_ysize(ysize), m_tiles(tiles)  {
-    Towers towers = {};
-    Enemies enemies = {};
-    m_towers = towers;
-    m_enemies = enemies;
-}
 
 // TODO
 GameMap::~GameMap() {}
@@ -38,6 +31,7 @@ Tile* GameMap::get_tile(int x, int y) const { return m_tiles[y][x]; }
 Tile* GameMap::get_tile(double x, double y) const {
     return m_tiles[int(y / tile_size)][int(x / tile_size)];
 }
+void GameMap::set_tile(int x, int y, Tile *tile) { m_tiles[y][x] = tile; }
 
 
 std::ostream& operator<<(std::ostream &os, GameMap &obj) {
@@ -52,7 +46,6 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
 }
 
 
-//TODO: converter for tile type string representation
 GameMap game_map_from_file(const std::string &filename) {
     // Initialize GameMap constructor arguments
     std::string name, size;
@@ -85,20 +78,23 @@ GameMap game_map_from_file(const std::string &filename) {
         throw invalid_file_format("");
     }
 
+    // Initialize game map
+    GameMap game_map = GameMap(name, xsize, ysize);
+
     // Read tiles
     std::string spec;
     std::getline(is, spec, '\n');
-    Tiles tiles(ysize, std::vector<Tile*>(xsize, nullptr));
     for (int y = 0; y < ysize; ++y) {
         for (int x = 0; x < xsize; ++x) {
             // Parse tile specification
             std::getline(is, spec, ';');
-            tiles[y][x] = new Tile(x, y,
-                                   to_tile_type(spec[0]),
-                                   to_direction(spec[1]));
+            auto *tile = new Tile(x, y,
+                                 to_tile_type(spec[0]),
+                                 to_direction(spec[1]));
+            game_map.set_tile(x, y, tile);
         }
         std::getline(is, spec, '\n');
     }
 
-    return GameMap(name, xsize, ysize, tiles);
+    return game_map;
 }
