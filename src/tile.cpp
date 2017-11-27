@@ -2,8 +2,9 @@
 
 
 Tile::Tile(int xindex, int yindex, TileType tile_type, Direction direction) :
-        m_xindex(xindex), m_yindex(yindex), m_tile_type(tile_type), m_direction(direction) {
-    // TODO: initialize tower as empty tower not nullptr
+        m_xindex(xindex), m_yindex(yindex), m_tile_type(tile_type),
+        m_direction(direction) {
+    // TODO: initialize tower as empty or root tower not nullptr
     m_tower = nullptr;
 }
 

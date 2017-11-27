@@ -8,6 +8,15 @@
 #include "tile.h"
 
 
+class invalid_file_format : public std::exception {
+public:
+    explicit invalid_file_format(const std::string msg) : m_msg(msg) { };
+    const char* what() { return m_msg.c_str(); }
+private:
+    const std::string m_msg;
+};
+
+
 /// Height and width of a tile
 const double tile_size = 1.0;
 
@@ -24,6 +33,7 @@ typedef std::vector<Enemy*> Enemies;
 /// follow and where towers can be placed.
 class GameMap {
 public:
+    //TODO: root/empty tower
     /// Initialize empty game map
     GameMap(std::string name, int xsize, int ysize);
 
@@ -47,21 +57,15 @@ public:
     Tile* get_tile(double x, double y) const;
 
     /// Add new tower to the tile.
-    /// - Tile should be buildable
-    /// - There shouldn't already exist a tower
-    void add_tower();
+    void upgrade_tower(int x, int y);
 
     /// Remove tower
-    /// - On the death of an tower
-    void remove_tower();
+    void remove_tower(int x, int y);
 
     /// Add new enemy to the tile.
-    /// - Tile should be part of the path.
-    /// - When enemy spawns
     void add_enemy();
 
     /// Remove enemy from the game.
-    /// - On the death of an enemy
     void remove_enemy();
 
 private:
@@ -99,7 +103,7 @@ std::ostream &operator<<(std::ostream& os, GameMap &obj);
 /// where tile types are:
 /// water as u, grass as g and path depending on the direction
 /// either n for north, s for south, e for east and w for west
-GameMap load_game_map(const std::string &filename);
+GameMap game_map_from_file(const std::string &filename);
 
 
 

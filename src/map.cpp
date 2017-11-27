@@ -60,7 +60,7 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
 
 //TODO: custom exceptions
 //TODO: converter for tile type string representation
-GameMap load_game_map(const std::string &filename) {
+GameMap game_map_from_file(const std::string &filename) {
     // Initialize GameMap constructor arguments
     std::string name, size;
     int xsize, ysize;
@@ -80,8 +80,7 @@ GameMap load_game_map(const std::string &filename) {
         // Convert string to integer
         xsize = std::stoi(size, nullptr, 0);
     } catch (std::invalid_argument&) {
-        //TODO: Invalid file format
-        throw std::exception();
+        throw invalid_file_format("");
     }
 
     // Read ysize
@@ -90,8 +89,7 @@ GameMap load_game_map(const std::string &filename) {
         // Convert string to integer
         ysize = std::stoi(size, nullptr, 0);
     } catch (std::invalid_argument&) {
-        //TODO: Invalid file format
-        throw std::exception();
+        throw invalid_file_format("");
     }
 
     // Read tiles

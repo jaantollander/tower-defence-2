@@ -2,10 +2,17 @@
 #include "engine.h"
 
 
-/// Empty tower type. Can be upgraded into a tower defined by upgrade options.
+/// Empty tower type. Cannot be upgraded into any tower.
 class EmptyTowerType : public TowerType {
 public:
     EmptyTowerType() : TowerType("EmptyTower", 0, 0, 0, 0) { }
+};
+
+
+/// Empty tower type. Can be upgraded into a tower defined by upgrade options.
+class RootTowerType : public TowerType {
+public:
+    RootTowerType() : TowerType("RootTower", 0, 0, 0, 0) { }
 };
 
 
@@ -38,7 +45,7 @@ int main() {
 
     //TODO: initialize tile with empty tower type
     std::cout << "Initializing GameMap" << std::endl;
-    auto game_map = load_game_map("../src/maps/example.txt");
+    auto game_map = game_map_from_file("../src/maps/example.txt");
     std::cout << game_map;
 
     //TODO: add towers and enemies
