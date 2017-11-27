@@ -14,9 +14,8 @@ TowerType::TowerType(const std::string &name, int cost, int damage,
         m_attack_range(attack_range), m_attack_speed(attack_speed) {}
 
 
-TowerType::~TowerType() {
-
-}
+Tower::~Tower() { }
+TowerType::~TowerType() { }
 
 void TowerType::add_upgrade_option(TowerType *tower_type) {
     m_upgrade_options.push_back(tower_type);

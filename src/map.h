@@ -22,7 +22,7 @@ const double tile_size = 1.0;
 
 
 /// Type for collection of towers.
-typedef std::vector<TowerType*> Towers;
+typedef std::vector<Tower*> Towers;
 
 
 /// Type for collection of enemies.
@@ -60,7 +60,7 @@ public:
     void upgrade_tower(int x, int y);
 
     /// Remove tower
-    void remove_tower(int x, int y);
+    bool remove_tower(int x, int y);
 
     /// Add new enemy to the tile.
     void add_enemy();

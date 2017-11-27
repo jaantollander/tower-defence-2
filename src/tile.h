@@ -69,8 +69,8 @@ public:
     /// Update tower, true if successful.
     bool upgrade_tower(Tower *new_tower);
 
-    /// Sets tower to nullptr.
-    bool remove_tower();
+    /// Sets tower to nullptr, returns old tower pointer.
+    Tower* remove_tower();
 
 private:
     const int m_xindex;

@@ -67,7 +67,8 @@ bool Tile::upgrade_tower(Tower *new_tower) {
     }
 }
 
-bool Tile::remove_tower() {
+Tower* Tile::remove_tower() {
+    Tower* old_tower = m_tower;
     m_tower = nullptr;
-    return true;
+    return old_tower;
 }

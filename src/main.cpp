@@ -45,7 +45,8 @@ int main() {
 
     //TODO: initialize tile with empty tower type
     std::cout << "Initializing GameMap" << std::endl;
-    auto game_map = game_map_from_file("../src/maps/example.txt");
+    auto game_map = game_map_from_file("src/maps/example.txt");
+    std::cout << "Load done.." << std::endl;
     std::cout << game_map;
 
     //TODO: add towers and enemies
@@ -59,5 +60,8 @@ int main() {
 
     std::cout << "Initializing GameEngine" << std::endl;
     auto game_engine = GameEngine(game_stats, game_map, game_level);
+
+    Tower
+
 
 }
