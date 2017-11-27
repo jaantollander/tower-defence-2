@@ -95,10 +95,14 @@ std::ostream &operator<<(std::ostream& os, GameMap &obj);
 
 /// Loads game map from a text file. Example of mapfile formatting:
 /// ```
-/// name; xsize; ysize;
-///	u;g;g;s;u;
-///	u;g;s;w;q;
-/// g;g;s;u;u;
+/// example;7;7;
+/// w;w;w;N;w;w;w;
+/// g;g;g;N;g;g;g;
+/// g;E;E;N;g;g;g;
+/// g;N;g;g;g;g;g;
+/// g;N;W;W;W;g;g;
+/// g;g;g;g;N;g;g;
+/// w;w;w;g;N;g;g;
 /// ```
 /// where tile types are:
 /// water as u, grass as g and path depending on the direction

@@ -40,17 +40,11 @@ Tile* GameMap::get_tile(double x, double y) const {
 }
 
 
-//TODO: direction
 std::ostream& operator<<(std::ostream &os, GameMap &obj) {
     for (int y = 0; y < obj.ysize(); ++y) {
         for (int x = 0; x < obj.xsize(); ++x) {
-            auto tile_type = obj.tiles()[y][x]->tile_type();
-            switch (tile_type) {
-                case grass: os << "g "; break;
-                case water: os << "w "; break;
-                case path: os << "p "; break;
-                default: os << "u "; break;
-            }
+            auto tile = obj.tiles()[y][x];
+            os << tile->tile_type() << tile->direction() << ";";
         }
         os << std::endl;
     }
@@ -58,7 +52,6 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
 }
 
 
-//TODO: custom exceptions
 //TODO: converter for tile type string representation
 GameMap game_map_from_file(const std::string &filename) {
     // Initialize GameMap constructor arguments
@@ -93,31 +86,18 @@ GameMap game_map_from_file(const std::string &filename) {
     }
 
     // Read tiles
-    std::string type;
-    std::getline(is, type, '\n');
+    std::string spec;
+    std::getline(is, spec, '\n');
     Tiles tiles(ysize, std::vector<Tile*>(xsize, nullptr));
     for (int y = 0; y < ysize; ++y) {
         for (int x = 0; x < xsize; ++x) {
-            // Read the type of the tile
-            std::getline(is, type, ';');
-            if (type == "g" || type == "G") {
-                tiles[y][x] = new Tile(x, y, grass, undefined_direction); }
-            else if (type == "u" || type == "U") {
-                tiles[y][x] = new Tile(x, y, water, undefined_direction); }
-            else if (type == "n" || type == "N") {
-                tiles[y][x] = new Tile(x, y, path, north); }
-            else if (type == "s" || type == "S") {
-                tiles[y][x] = new Tile(x, y, path, south); }
-            else if (type == "w" || type == "W") {
-                tiles[y][x] = new Tile(x, y, path, west); }
-            else if (type == "e" || type == "E") {
-                tiles[y][x] = new Tile(x, y, path, east); }
-            else
-                tiles[y][x] = new Tile(x, y, undefined_tile_type,
-                                       undefined_direction);
-            //Undef should never be read
+            // Parse tile specification
+            std::getline(is, spec, ';');
+            tiles[y][x] = new Tile(x, y,
+                                   to_tile_type(spec[0]),
+                                   to_direction(spec[1]));
         }
-        std::getline(is, type, '\n');
+        std::getline(is, spec, '\n');
     }
 
     return GameMap(name, xsize, ysize, tiles);

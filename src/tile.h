@@ -1,8 +1,10 @@
 #ifndef TOWER_DEFENCE_2_TILE_H
 #define TOWER_DEFENCE_2_TILE_H
 
+#include <iostream>
 #include <vector>
 #include <string>
+#include <map>
 #include "objects/tower.h"
 
 
@@ -22,6 +24,13 @@ enum TileType {
 };
 
 
+std::ostream& operator<<(std::ostream &os, TileType t);
+
+
+/// Convert char to tile type
+TileType to_tile_type(char c);
+
+
 /// Possible directions (cardinal directions) for the enemy path.
 enum Direction {
     north,
@@ -30,6 +39,13 @@ enum Direction {
     west,
     undefined_direction
 };
+
+
+std::ostream& operator<<(std::ostream& os, Direction d);
+
+
+/// Convert char to direction
+Direction to_direction(char c);
 
 
 /// Individual tile in the game map. Contains properties of an individual tile
