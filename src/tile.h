@@ -27,8 +27,12 @@ enum TileType {
 std::ostream& operator<<(std::ostream &os, TileType t);
 
 
-/// Convert char to tile type
+/// Convert char to tile type.
 TileType to_tile_type(char c);
+
+
+/// True is a tower can be built in this tile else false.
+bool is_buildable(TileType t);
 
 
 /// Possible directions (cardinal directions) for the enemy path.
@@ -44,7 +48,7 @@ enum Direction {
 std::ostream& operator<<(std::ostream& os, Direction d);
 
 
-/// Convert char to direction
+/// Convert char to direction.
 Direction to_direction(char c);
 
 
@@ -53,7 +57,8 @@ Direction to_direction(char c);
 /// that enemies follow.
 class Tile {
 public:
-    Tile(int xindex, int yindex, TileType tile_type, Direction direction);
+    Tile(int xindex, int yindex, TileType tile_type, Direction direction,
+             Tower *tower);
 
     ~Tile();
 
@@ -68,9 +73,6 @@ public:
 
     /// Update tower, true if successful.
     bool upgrade_tower(Tower *new_tower);
-
-    /// Sets tower to nullptr.
-    bool remove_tower();
 
 private:
     const int m_xindex;

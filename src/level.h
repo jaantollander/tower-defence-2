@@ -6,18 +6,24 @@
 #include "objects/tower.h"
 
 
+/// Type for collection of pair where double denotes the time when enemy of
+/// type EnemyType should spawn.
+typedef std::vector<std::pair<double, EnemyType *>> EnemySpawnInterval;
+
+
 /// Contains information to start and run different game levels.
+/// What types of enemies will spawn, when and where.
 class GameLevel {
 public:
     GameLevel(int initial_money, int enemies_spawned,
-              std::vector<int> &enemy_spawn_interval);
+              EnemySpawnInterval &enemy_spawn_interval);
 
     void increment_enemies_spawned();
 
 private:
     const int m_initial_money;
     int m_enemies_spawned;
-    const std::vector<int> m_enemy_spawn_interval;
+    const EnemySpawnInterval m_enemy_spawn_interval;
 };
 
 

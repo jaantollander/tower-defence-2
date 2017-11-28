@@ -37,13 +37,13 @@ public:
     void add_upgrade_option(TowerType *tower_type);
 
     /// Create new tower of this type.
-    Tower create_tower(int x, int y);
+    Tower * create_tower(int x, int y);
 
     /// Upgrade new tower if the player has enough money to upgrade.
     /// @param index is integer which denotes the index of the upgrade option
     ///        that was chosen.
     /// @returns a pointer to the new tower instance.
-    Tower upgrade(int index, int x, int y);
+    Tower * upgrade(int index, int x, int y);
 
 private:
     /// Name of the tower type

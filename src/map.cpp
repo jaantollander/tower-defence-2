@@ -5,12 +5,10 @@
 
 
 
-GameMap::GameMap(const std::string name, int xsize, int ysize) :
-    m_name(name), m_xsize(xsize), m_ysize(ysize) {
-    Towers towers = {};
-    Enemies enemies = {};
-    m_towers = towers;
-    m_enemies = enemies;
+GameMap::GameMap(std::string name, int xsize, int ysize,
+                 TowerType *empty_tower_type, TowerType *root_tower_type) :
+    m_name(name), m_xsize(xsize), m_ysize(ysize), m_enemies({}),
+    m_empty_tower_type(empty_tower_type), m_root_tower_type(root_tower_type) {
     // https://stackoverflow.com/questions/28663299/initializing-a-2d-vector
     Tiles tiles(ysize, std::vector<Tile*>(xsize, nullptr));
     m_tiles = tiles;
@@ -25,7 +23,6 @@ std::string GameMap::name() const { return m_name; }
 int GameMap::xsize() const { return m_xsize; }
 int GameMap::ysize() const { return m_ysize; }
 Tiles GameMap::tiles() const { return m_tiles; }
-Towers GameMap::towers() const { return m_towers; }
 Enemies GameMap::enemies() const { return m_enemies; }
 Tile* GameMap::get_tile(int x, int y) const { return m_tiles[y][x]; }
 Tile* GameMap::get_tile(double x, double y) const {
@@ -46,7 +43,9 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
 }
 
 
-GameMap game_map_from_file(const std::string &filename) {
+GameMap game_map_from_file(const std::string &filename,
+                           TowerType *empty_tower_type,
+                           TowerType *root_tower_type) {
     // Initialize GameMap constructor arguments
     std::string name, size;
     int xsize, ysize;
@@ -79,7 +78,8 @@ GameMap game_map_from_file(const std::string &filename) {
     }
 
     // Initialize game map
-    GameMap game_map = GameMap(name, xsize, ysize);
+    GameMap game_map = GameMap(name, xsize, ysize, empty_tower_type,
+                               root_tower_type);
 
     // Read tiles
     std::string spec;
@@ -88,10 +88,18 @@ GameMap game_map_from_file(const std::string &filename) {
         for (int x = 0; x < xsize; ++x) {
             // Parse tile specification
             std::getline(is, spec, ';');
-            auto *tile = new Tile(x, y,
-                                 to_tile_type(spec[0]),
-                                 to_direction(spec[1]));
+            auto tile_type = to_tile_type(spec[0]);
+            auto direction = to_direction(spec[1]);
+
+            Tower *tower;
+            if (is_buildable(tile_type))
+                tower = root_tower_type->create_tower(x, y);
+            else
+                tower = empty_tower_type->create_tower(x, y);
+
+            auto *tile = new Tile(x, y, tile_type, direction, tower);
             game_map.set_tile(x, y, tile);
+            //TODO: add tower to the map
         }
         std::getline(is, spec, '\n');
     }

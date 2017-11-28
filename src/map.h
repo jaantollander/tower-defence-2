@@ -21,10 +21,6 @@ private:
 const double tile_size = 1.0;
 
 
-/// Type for collection of towers.
-typedef std::vector<TowerType*> Towers;
-
-
 /// Type for collection of enemies.
 typedef std::vector<Enemy*> Enemies;
 
@@ -33,9 +29,10 @@ typedef std::vector<Enemy*> Enemies;
 /// follow and where towers can be placed.
 class GameMap {
 public:
-    //TODO: root/empty tower
+    //TODO: root/empty tower, variables needed for removing tower
     /// Initialize empty game map
-    GameMap(std::string name, int xsize, int ysize);
+    GameMap(std::string name, int xsize, int ysize, TowerType *empty_tower_type,
+            TowerType *root_tower_type);
 
     /// Game map will handle destruction of towers, so tiles don't need to
     ~GameMap();
@@ -44,7 +41,6 @@ public:
     int xsize() const;
     int ysize() const;
     Tiles tiles() const;
-    Towers towers() const;
     Enemies enemies() const;
 
     /// Access individual tile by its indices
@@ -56,11 +52,8 @@ public:
     /// Set tile by its indices
     void set_tile(int x, int y, Tile *tile);
 
-    /// Add new tower to the tile.
+    /// Upgrade existing tower into new one.
     void upgrade_tower(int x, int y);
-
-    /// Remove tower
-    void remove_tower(int x, int y);
 
     /// Add new enemy to the tile.
     void add_enemy();
@@ -81,11 +74,11 @@ private:
     /// 2-Dimensional grid of tiles
     Tiles m_tiles;
 
-    /// Collection of towers contained in the map
-    Towers m_towers;
-
     /// Collection of enemies contained in the map
     Enemies m_enemies;
+
+    TowerType *m_empty_tower_type;
+    TowerType *m_root_tower_type;
 };
 
 
@@ -107,7 +100,8 @@ std::ostream &operator<<(std::ostream& os, GameMap &obj);
 /// where tile types are:
 /// water as u, grass as g and path depending on the direction
 /// either n for north, s for south, e for east and w for west
-GameMap game_map_from_file(const std::string &filename);
+GameMap game_map_from_file(const std::string &filename, TowerType *empty_tower_type,
+                           TowerType *root_tower_type);
 
 
 

@@ -2,7 +2,7 @@
 #include "engine.h"
 
 
-//TODO: move empty and root tower types into object/tower
+//TODO: towers and enemies into their own source files
 
 
 /// Empty tower type. Cannot be upgraded into any tower.
@@ -54,6 +54,11 @@ public:
     EnemyType1() : EnemyType("Enemy1", 50, 100, 1, 10) { }
 };
 
+class EnemyType2 : public EnemyType {
+public:
+    EnemyType2() : EnemyType("Enemy2", 0, 0, 0, 0) { }
+};
+
 
 void sep(int length=80) {
     for (int i = 0; i < length; ++i) { std::cout <<  '='; }
@@ -66,8 +71,10 @@ int main() {
     // Tower type instances
     auto empty_tower_type = EmptyTowerType();
     auto root_tower_type = RootTowerType();
+
     auto tower_type_a = TowerTypeA();
     auto tower_type_a2 = TowerTypeA2();
+
     auto tower_type_b = TowerTypeB();
     auto tower_type_b2 = TowerTypeB2();
     auto tower_type_b3 = TowerTypeB3();
@@ -81,26 +88,28 @@ int main() {
 
     // Enemy type instances
     auto enemy_type_1 = EnemyType1();
+    auto enemy_type_2 = EnemyType2();
 
-    //TODO: initialize tile with empty or root tower type
-    //TODO: add towers and enemies
 
     std::cout << "Initializing GameMap" << std::endl;
     sep();
-    auto game_map = game_map_from_file("../src/maps/example.txt");
+    auto game_map = game_map_from_file("../src/maps/example.txt",
+                                       &empty_tower_type,
+                                       &root_tower_type);
     std::cout << game_map << std::endl;
+
 
     std::cout << "Initializing GameLevel" << std::endl;
     sep();
-    std::vector<int> enemy_spawn_interval = {};
+    EnemySpawnInterval enemy_spawn_interval = {
+            {1.0, &enemy_type_1},
+            {2.0, &enemy_type_2}
+    };
     auto game_level = GameLevel(1000, 0, enemy_spawn_interval);
 
-    std::cout << "Initializing GameStats" << std::endl;
-    sep();
-    auto game_stats = GameStats(0, 0, 0);
 
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
-    auto game_engine = GameEngine(game_stats, game_map, game_level);
+    auto game_engine = GameEngine(0, 0, 0, 0.01, game_map, game_level);
 
 }

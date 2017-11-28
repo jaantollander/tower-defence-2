@@ -22,8 +22,6 @@ set(SOURCE_FILES
         main.cpp
         map.cpp
         map.h
-        stats.cpp
-        stats.h
         tile.cpp
         tile.h towers/testtower.h towers/testtower.cpp towers/test2.h towers/test2.cpp)
 
