@@ -56,3 +56,8 @@ void Object::change_health(int amount) {
     }
 }
 
+void Object::deal_damage(Object &other) {
+    other.change_health(m_damage*(-1));
+}
+
+

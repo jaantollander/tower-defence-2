@@ -72,3 +72,8 @@ Tower* Tile::remove_tower() {
     m_tower = nullptr;
     return old_tower;
 }
+
+
+void Tile::set_tower(Tower* tower) {
+    if (tower != nullptr) m_tower = tower;
+}

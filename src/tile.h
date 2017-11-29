@@ -66,6 +66,8 @@ public:
     /// Pointer to the tower that occupies the tile if any.
     Tower *tower() const;
 
+    ///used for testing, sets tower in this Tile
+    void set_tower(Tower* tower);
     /// Update tower, true if successful.
     bool upgrade_tower(Tower *new_tower);
 

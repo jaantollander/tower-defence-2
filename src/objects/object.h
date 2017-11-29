@@ -52,6 +52,7 @@ public:
 
     /// Other combat objects that are withing the attack range
     void within_attack_range(std::vector<Object *> &others);
+    std::vector<Object *> enemies_in_range();
 
 protected:
     /// x coordinate of the object

@@ -19,3 +19,32 @@ GameEngine::~GameEngine() {}
 //    enemies_attack();
 //    m_stats.update_time();
 //}
+
+std::vector<Enemy> GameEngine::enemies_in_range(Tower& tower) {
+    std::vector<Enemy> in_range;
+    auto it = m_game_map.enemies().begin();
+    while (it != m_game_map.enemies().end()) {
+        if (tower.distance(**it) <= tower.radius()) {
+            in_range.push_back(**it);
+        }
+        it++;
+    }
+    return in_range;
+}
+
+/*
+void GameEngine::towers_attack() {
+    auto it = m_game_map.towers().begin();
+    while (it != m_game_map.towers().end()) {
+        if ((*it) -> tower_type().name() != "EmptyTower") {
+            std::vector<Enemy> in_range = enemies_in_range(**it);
+            std::cout << "in range:" << in_range.size() << std::endl;
+            if (in_range.size() != 0) {
+                //TODO: which enemy is attacked?
+                (*it) -> deal_damage(in_range[0]);
+            }
+       }
+        it++;
+    }
+}
+*/
