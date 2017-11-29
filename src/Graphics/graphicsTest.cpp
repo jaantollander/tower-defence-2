@@ -65,6 +65,8 @@ int main()
 // ------------------------------------------------------ //
 	    // Draw (and update) the objects to the screen
 
+        // Create the menu
+    std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
         // Start a clock
     sf::Clock clock;
         // While window has not been closed, keep on going
@@ -72,18 +74,20 @@ int main()
     {
 
             // Window has to be cleaned every time to avoid overlap
-        window.clear();
+        //window.clear();
 
-            // Draw the menu screen
+            // Draw the screens
         switch( currentScreen )
         {
             case mainScreen:
             {
-                std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
+                //std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
                 break;
             }
             case gameScreen:
             {
+                    // Window has to be cleaned every time to avoid overlap
+                window.clear();
                 // Let's draw the window and sidebar
                 createAndDrawDrawables(window, mapSize, sidebarSize);
                 // Let's draw the tiles on the window
@@ -115,12 +119,17 @@ int main()
                     {
                         case mainScreen:    // We're in main screen
                         {
-                            mainScreenPoller(window, windowSize, currentScreen);
+                            currentScreen = mainScreenPoller(window, windowSize);
                             break;
                         }
                         case gameScreen :   // We're in game screen
                         {
-                            gameScreenPoller(window, creatures, currentScreen);
+                            currentScreen = gameScreenPoller(window, creatures);
+
+                            if( currentScreen == mainScreen ){
+                                window.clear();
+                                menuButtons = createAndDrawMenu(window, windowSize);
+                            }
                             break;
                         }
                     }

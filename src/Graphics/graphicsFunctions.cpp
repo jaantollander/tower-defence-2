@@ -173,8 +173,7 @@ void drawCreatures(sf::RenderWindow &window,
     }
 }
 
-void mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize,
-                                Screens &currentScreen)
+Screens mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize)
 {
     std::vector <sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
 
@@ -185,15 +184,14 @@ void mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize,
     for(; idx < menuButtons.size(); idx+=2){
         if( mp.x > menuButtons[idx].x && mp.y > menuButtons[idx].y &&
             mp.x < menuButtons[idx+1].x && mp.y < menuButtons[idx+1].y ){
-            //currentScreen = gameScreen;     // Yes -> Start the game
             break;
         }
     }
 
     switch(idx/2){
         case 0:{
-            currentScreen = gameScreen;
-            break;
+            Screens currentScreen = gameScreen;
+            return currentScreen;
         }
         case 1:{
             std::cout << "Map set to 1" << std::endl;
@@ -204,12 +202,14 @@ void mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize,
             break;
         }
     }
+    Screens currentScreen = mainScreen;
+    return currentScreen;
 
 }
 
-void gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creatures,
-                            Screens &currentScreen)
+Screens gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creatures)
 {
+    Screens currentScreen = gameScreen;
     if( sf::Mouse::getPosition(window).x < 600 )
     {
         creatures[1].x = sf::Mouse::getPosition(window).x;
@@ -218,6 +218,7 @@ void gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creat
     {
         currentScreen = mainScreen;
     }
+    return currentScreen;
 }
 
 
