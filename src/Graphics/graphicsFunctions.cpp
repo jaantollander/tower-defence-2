@@ -38,8 +38,8 @@ std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
     //drawDrawables(window, drawables);
 
     return buttonLocations;
-
 }
+
 
 void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU, sf::Vector2f buttonSize,
                          std::string &text, sf::Font &font){
@@ -218,4 +218,41 @@ void gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creat
     {
         currentScreen = mainScreen;
     }
+}
+
+
+    // TODO: Switch int to Stats and write ss << stats.getPoints() etc.
+void drawStats(sf::RenderWindow &window, int stats){
+
+    std::vector<sf::Drawable *> drawables;
+
+    sf::Font font;	// A font type has to be downloaded
+    font.loadFromFile("FreeMono.ttf");
+
+    std::stringstream ss;
+    ss << stats;
+
+    sf::Text points(ss.str(), font, 22);
+    points.setColor(sf::Color::Black);
+    points.setPosition(sf::Vector2f(660, 80));
+    drawables.push_back(&points);
+
+    ss.str("");
+    ss << 1;
+
+    sf::Text round(ss.str(), font, 24);
+    round.setColor(sf::Color::Black);
+    round.setPosition(660, 180);
+    drawables.push_back(&round);
+
+    ss.str("");
+    ss << 100;
+
+    sf::Text resources(ss.str(), font, 24);
+    resources.setColor(sf::Color::Black);
+    resources.setPosition(660, 280);
+    drawables.push_back(&resources);
+
+    drawDrawables(window, drawables);
+
 }

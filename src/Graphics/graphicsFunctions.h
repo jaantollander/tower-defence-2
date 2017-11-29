@@ -30,3 +30,5 @@ void mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize,
 
 void gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creatures,
                             Screens &currentScreen);
+
+void drawStats(sf::RenderWindow &window, int stats);

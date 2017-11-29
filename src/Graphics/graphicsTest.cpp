@@ -3,8 +3,13 @@
 #include <iostream>
 #include <stdlib.h>     // For rand()
 #include <math.h>       // For round()
+#include <string>
+#include <iostream>
+#include <sstream>
+
 
 #include "graphicsFunctions.h"
+
 #include "graphicsFunctions.cpp"
 
 
@@ -85,6 +90,8 @@ int main()
                 drawTiles(window, randomMap, tileAmount, tileSize);
                 // Let's draw the creatures
                 drawCreatures(window, creatures, tileSize);
+                // Let's show stats
+                drawStats(window, 100);
                 break;
             }
         }
