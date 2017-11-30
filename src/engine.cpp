@@ -20,31 +20,32 @@ GameEngine::~GameEngine() {}
 //    m_stats.update_time();
 //}
 
-std::vector<Enemy> GameEngine::enemies_in_range(Tower& tower) {
+std::vector<Enemy> GameEngine::enemies_in_range(Tower* tower) {
     std::vector<Enemy> in_range;
-    auto it = m_game_map.enemies().begin();
-    while (it != m_game_map.enemies().end()) {
-        if (tower.distance(**it) <= tower.radius()) {
-            in_range.push_back(**it);
+    size_t size = m_game_map.enemies().size();
+    int i = 0;
+    while (i < size) {
+        if (tower -> distance(*m_game_map.enemies()[i]) <= tower -> radius()) {
+            in_range.push_back(*m_game_map.enemies()[i]);
         }
-        it++;
+        i++;
     }
     return in_range;
 }
 
-/*
+
 void GameEngine::towers_attack() {
-    auto it = m_game_map.towers().begin();
-    while (it != m_game_map.towers().end()) {
-        if ((*it) -> tower_type().name() != "EmptyTower") {
-            std::vector<Enemy> in_range = enemies_in_range(**it);
-            std::cout << "in range:" << in_range.size() << std::endl;
+    size_t size = m_game_map.towers().size();
+    int i = 0;
+    while (i < size) {
+        if (m_game_map.towers()[i] -> tower_type().name() != "EmptyTower") {
+            std::vector<Enemy> in_range = enemies_in_range(m_game_map.towers()[i]);
             if (in_range.size() != 0) {
                 //TODO: which enemy is attacked?
-                (*it) -> deal_damage(in_range[0]);
+                Enemy& e = in_range[0];
+                m_game_map.towers()[i] -> deal_damage(e);
             }
-       }
-        it++;
+        }
+        i++;
     }
 }
-*/

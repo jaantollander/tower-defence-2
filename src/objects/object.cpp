@@ -1,4 +1,5 @@
 #include <cmath>
+#include <iostream>
 #include "object.h"
 
 
@@ -18,6 +19,7 @@ Object::Object(int x, int y, int radius, int speed, int health, int damage,
 int Object::x() { return m_x; }
 int Object::y() { return m_y; }
 int Object::radius() { return m_radius; }
+int Object::damage() { return m_damage; }
 //void Object::set_x(int x) { m_xindex = x; }
 //void Object::set_y(int y) { m_y = y; }
 
@@ -56,8 +58,8 @@ void Object::change_health(int amount) {
     }
 }
 
-void Object::deal_damage(Object &other) {
-    other.change_health(m_damage*(-1));
+void Object::deal_damage(Object& other) {
+    other.change_health(-m_damage);
 }
 
 

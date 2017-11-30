@@ -28,6 +28,7 @@ public:
     int y();
     int radius();
     int health();
+    int damage();
 
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);

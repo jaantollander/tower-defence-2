@@ -35,11 +35,11 @@ public:
 
 /// for test..
 void printhp(GameMap map) {
-    auto it = map.enemies().begin();
-    it++;
-    while (it != map.enemies().end()) {
-        std::cout << (*it)->health() << "  ";
-        it++;
+    size_t size = map.enemies().size();
+    int i = 0;
+    while (i < size) {
+        std::cout << map.enemies()[i] -> health() << "  ";
+        i++;
     }
     std::cout << std::endl;
 }
@@ -68,8 +68,9 @@ int main() {
     game_map.set_tower(&t2);
     game_map.set_tower(&t3);
     game_map.get_tile(0, 1)->set_tower(&t1);
-    game_map.get_tile(0, 1)->set_tower(&t2);
-    game_map.get_tile(0, 1)->set_tower(&t3);
+    game_map.get_tile(1, 1)->set_tower(&t2);
+    game_map.get_tile(2, 1)->set_tower(&t3);
+
 
     Enemy e1 = enemy_type_1.create_enemy(3, 0);
     Enemy e2 = enemy_type_1.create_enemy(3, 1);
@@ -88,12 +89,12 @@ int main() {
 
     std::cout << "Initializing GameEngine" << std::endl;
     auto game_engine = GameEngine(game_stats, game_map, game_level);
-/*
+
     std::cout << "Tower attack test.." << std::endl;
     printhp(game_map);
     game_engine.towers_attack();
     printhp(game_map);
-*/
+
 
 
 
