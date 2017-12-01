@@ -64,7 +64,7 @@ void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU, sf::Ve
 }
 
 
-void createAndDrawDrawables(sf::RenderWindow &window,
+std::vector<sf::Vector2f> createAndDrawGame(sf::RenderWindow &window,
                             sf::Vector2f mapSize, sf::Vector2f sidebarSize)
 {
     std::vector<sf::Drawable *> drawables;
@@ -114,6 +114,12 @@ void createAndDrawDrawables(sf::RenderWindow &window,
 
     std::string menuString = "MainMenu";
     createAndDrawButton(window, sf::Vector2f(600,500), sf::Vector2f(200,100), menuString, font);
+
+    std::vector<sf::Vector2f> buttonLocations; // Upper left corner
+    buttonLocations.push_back(sf::Vector2f(600,500));
+    buttonLocations.push_back(sf::Vector2f(600,500)+sf::Vector2f(200,100));
+
+    return buttonLocations;
 
 }
 
@@ -207,18 +213,35 @@ Screens mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize)
 
 }
 
-Screens gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creatures)
-{
-    Screens currentScreen = gameScreen;
-    if( sf::Mouse::getPosition(window).x < 600 )
+sf::Vector2f gameScreenPoller(sf::RenderWindow &window,
+                                           std::vector<sf::Vector3f> &creatures,
+                                           std::vector<sf::Vector2f> gameBtns){
+
+    sf::Vector2f btnPressed;
+
+    int mPosx = sf::Mouse::getPosition(window).x;
+    int mPosy = sf::Mouse::getPosition(window).y;
+
+    if( mPosx < 600 )
     {
-        creatures[1].x = sf::Mouse::getPosition(window).x;
+        btnPressed.x = mPosx;
+        btnPressed.y = mPosy;
     }
     else
-    {
-        currentScreen = mainScreen;
+    {       // Find which button was pressed - indexing -1,-1 for menu etc.
+        for(float i=1; i < gameBtns.size(); i+=2){
+            if( mPosx > gameBtns[i-1].x && mPosy > gameBtns[i-1].y &&
+                mPosx < gameBtns[i].x && mPosy < gameBtns[i].y ){
+
+                btnPressed.x = -i/2 - 0.5;
+                btnPressed.y = -i/2 - 0.5;
+
+                std::cout << btnPressed.x << std::endl;
+                break;
+            }
+        }
     }
-    return currentScreen;
+    return btnPressed;
 }
 
 

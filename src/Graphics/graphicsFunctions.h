@@ -11,7 +11,7 @@ std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
 void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU, sf::Vector2f buttonSize,
                          std::string &text, sf::Font &font);
 
-void createAndDrawDrawables(sf::RenderWindow &window,
+std::vector<sf::Vector2f> createAndDrawGame(sf::RenderWindow &window,
                             sf::Vector2f mapSize, sf::Vector2f sidebarSize);
 
 
@@ -27,6 +27,8 @@ void drawCreatures(sf::RenderWindow &window,
 
 Screens mainScreenPoller(sf::RenderWindow &window, sf::Vector2f windowSize);
 
-Screens gameScreenPoller(sf::RenderWindow &window, std::vector<sf::Vector3f> &creatures);
+sf::Vector2f gameScreenPoller(sf::RenderWindow &window,
+                                           std::vector<sf::Vector3f> &creatures,
+                                           std::vector<sf::Vector2f> gameBtns);
 
 void drawStats(sf::RenderWindow &window, int stats);
