@@ -68,6 +68,11 @@ public:
     /// Remove enemy from the game.
     void remove_enemy();
 
+    /// put enemy in map, used to test
+    void set_enemy(Enemy* enemy);
+    /// put tower in map, used to test
+    void set_tower(Tower* tower);
+
 private:
     /// Name of the map
     const std::string m_name;

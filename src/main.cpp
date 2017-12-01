@@ -30,9 +30,19 @@ public:
 
 class EnemyType1 : public EnemyType {
 public:
-    EnemyType1() : EnemyType("Enemy1", 50, 100, 1, 10) { }
+    EnemyType1() : EnemyType("Enemy1", 50, 100, 1, 40) { }
 };
 
+/// for test..
+void printhp(GameMap map) {
+    size_t size = map.enemies().size();
+    int i = 0;
+    while (i < size) {
+        std::cout << map.enemies()[i] -> health() << "  ";
+        i++;
+    }
+    std::cout << std::endl;
+}
 
 /// Run tower defence game. Currently used for testing.
 int main() {
@@ -49,7 +59,26 @@ int main() {
     std::cout << "Load done.." << std::endl;
     std::cout << game_map;
 
+
     //TODO: add towers and enemies
+    Tower t1 = tower_type_1.create_tower(0, 1);
+    Tower t2 = tower_type_1.create_tower(1, 1);
+    Tower t3 = tower_type_2.create_tower(2, 1);
+    game_map.set_tower(&t1);
+    game_map.set_tower(&t2);
+    game_map.set_tower(&t3);
+    game_map.get_tile(0, 1)->set_tower(&t1);
+    game_map.get_tile(1, 1)->set_tower(&t2);
+    game_map.get_tile(2, 1)->set_tower(&t3);
+
+
+    Enemy e1 = enemy_type_1.create_enemy(3, 0);
+    Enemy e2 = enemy_type_1.create_enemy(3, 1);
+    Enemy e3 = enemy_type_1.create_enemy(3, 2);
+    game_map.set_enemy(&e1);
+    game_map.set_enemy(&e2);
+    game_map.set_enemy(&e3);
+
 
     std::cout << "Initializing GameLevel" << std::endl;
     std::vector<int> enemy_spawn_interval = {};
@@ -61,7 +90,12 @@ int main() {
     std::cout << "Initializing GameEngine" << std::endl;
     auto game_engine = GameEngine(game_stats, game_map, game_level);
 
-    Tower
+    std::cout << "Tower attack test.." << std::endl;
+    printhp(game_map);
+    game_engine.towers_attack();
+    printhp(game_map);
+
+
 
 
 }

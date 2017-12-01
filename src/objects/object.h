@@ -28,6 +28,7 @@ public:
     int y();
     int radius();
     int health();
+    int damage();
 
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(int amount);
@@ -52,6 +53,7 @@ public:
 
     /// Other combat objects that are withing the attack range
     void within_attack_range(std::vector<Object *> &others);
+    std::vector<Object *> enemies_in_range();
 
 protected:
     /// x coordinate of the object

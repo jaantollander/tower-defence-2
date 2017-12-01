@@ -68,7 +68,18 @@ bool GameMap::remove_tower(int x, int y) {
         std::cout << "Index out of bounds, nothing deleted." << std::endl;
         return false;
     }
+}
 
+void GameMap::set_enemy(Enemy *enemy) {
+    if (enemy != nullptr) {
+        m_enemies.push_back(enemy);
+    }
+}
+
+void GameMap::set_tower(Tower *tower) {
+    if (tower != nullptr) {
+        m_towers.push_back(tower);
+    }
 }
 
 
