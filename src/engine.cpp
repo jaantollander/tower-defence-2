@@ -2,13 +2,13 @@
 
 
 GameEngine::GameEngine(double time, int score, int money, double timestep,
-                       GameMap &game_map, GameLevel &game_level) :
+                       int lives, GameMap &game_map, GameLevel &game_level) :
         m_time(time), m_score(score), m_money(money), m_timestep(timestep),
-        m_game_map(game_map),
+        m_lives(lives), m_game_map(game_map),
         m_game_level(game_level) { }
 
-//TODO:
-GameEngine::~GameEngine() {}
+
+GameEngine::~GameEngine() { }
 
 
 void GameEngine::increment_time() { m_time += m_timestep; }
@@ -34,24 +34,33 @@ bool GameEngine::change_money(int amount) {
 }
 
 
+bool GameEngine::recude_life() {
+    m_lives--;
+    return m_lives <= 0;
+}
+
+
 void GameEngine::advance_game_level() {
 
 }
 
 
-void GameEngine::movement() {
+void GameEngine::enemy_movement() {
 
 }
 
 
 void GameEngine::towers_attack() {
-
+    //TODO: iterate over all tower, towers that have over zero damage should
+    //      attack their targets
+    //TODO: if enemy is killed increase
 }
 
 
 void GameEngine::update() {
     advance_game_level();
-    movement();
+    enemy_movement();
     towers_attack();
     increment_time();
 }
+

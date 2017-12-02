@@ -57,8 +57,7 @@ Direction to_direction(char c);
 /// that enemies follow.
 class Tile {
 public:
-    Tile(int xindex, int yindex, TileType tile_type, Direction direction,
-             Tower *tower);
+    Tile(TileType tile_type, Direction direction, Tower *tower);
 
     ~Tile();
 
@@ -75,19 +74,12 @@ public:
     bool upgrade_tower(Tower *new_tower);
 
 private:
-    const int m_xindex;
-    const int m_yindex;
     const TileType m_tile_type;
     const Direction m_direction;
 
     /// Tile can contains one or zero towers.
     Tower *m_tower;
 };
-
-
-/// Type for 2D matrix of tiles. Note that [0][0] is top-left corner.
-typedef std::vector<std::vector<Tile*>> Tiles;
-
 
 
 #endif //TOWER_DEFENCE_2_TILE_H

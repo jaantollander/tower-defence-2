@@ -93,9 +93,8 @@ int main() {
 
     std::cout << "Initializing GameMap" << std::endl;
     sep();
-    auto game_map = game_map_from_file("../src/maps/example.txt",
-                                       &empty_tower_type,
-                                       &root_tower_type);
+    auto game_map = game_map_from_file(
+            "../src/maps/example.txt", &empty_tower_type, &root_tower_type);
     std::cout << game_map << std::endl;
 
 
@@ -105,11 +104,11 @@ int main() {
             {1.0, &enemy_type_1},
             {2.0, &enemy_type_2}
     };
-    auto game_level = GameLevel(1000, 0, enemy_spawn_interval);
+    auto game_level = GameLevel(1000, 0, 0, enemy_spawn_interval);
 
 
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
-    auto game_engine = GameEngine(0, 0, 0, 0.01, game_map, game_level);
+    auto game_engine = GameEngine(0, 0, 0, 0.01, 10, game_map, game_level);
 
 }

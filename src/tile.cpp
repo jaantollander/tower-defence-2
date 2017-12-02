@@ -55,10 +55,8 @@ Direction to_direction(char c) {
 }
 
 
-Tile::Tile(int xindex, int yindex, TileType tile_type, Direction direction,
-           Tower *tower) :
-        m_xindex(xindex), m_yindex(yindex), m_tile_type(tile_type),
-        m_direction(direction), m_tower(tower) { }
+Tile::Tile(TileType tile_type, Direction direction, Tower *tower) :
+        m_tile_type(tile_type), m_direction(direction), m_tower(tower) { }
 
 Tile::~Tile() { }
 
