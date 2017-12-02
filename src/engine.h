@@ -46,9 +46,6 @@ public:
     ///     - Reduce one life from player
     void enemy_movement();
 
-
-    /// Checks the enemies in range of the parameter tower, used in towers_attack()
-    std::vector<Enemy> enemies_in_range(Tower* tower);
     /// Towers attack enemies. Increase score and money if enemies die and
     /// remove dead enemies from the game.
     void towers_attack();

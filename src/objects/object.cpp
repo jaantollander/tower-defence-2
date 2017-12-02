@@ -2,8 +2,8 @@
 #include "object.h"
 
 
-Object::Object(int x, int y, int radius, int speed, int health, int damage,
-               int attack_range, int attack_speed) :
+Object::Object(double x, double y, double radius, double speed, int health,
+               int damage, double attack_range, double attack_speed) :
         m_x(x), m_y(y),
         m_radius(radius),
         m_speed(speed), m_max_speed(speed),
