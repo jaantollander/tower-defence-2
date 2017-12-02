@@ -2,9 +2,8 @@
 #include "object.h"
 
 
-Object::Object(double x, double y, double radius, double speed, int health,
-               int damage,
-               double attack_range, double attack_speed) :
+Object::Object(int x, int y, int radius, int speed, int health, int damage,
+               int attack_range, int attack_speed) :
         m_x(x), m_y(y),
         m_radius(radius),
         m_speed(speed), m_max_speed(speed),
@@ -22,6 +21,7 @@ double Object::radius() { return m_radius; }
 int Object::health() { return m_health; }
 
 bool Object::is_dead() { return m_health <= 0; }
+
 void Object::change_health(int amount) {
     if (not this->is_dead()) {
         m_health += amount;
@@ -49,6 +49,7 @@ void Object::change_attack_speed(int new_speed) {
 double Object::distance(Object &other) {
     return hypot((m_x - other.x()), (m_y - other.y())) - (m_radius + other.radius());
 }
+
 Objects Object::find_targets(Objects &others) {
     std::vector<Object *> objects = {};
     for (auto other : others) {
@@ -60,6 +61,9 @@ Objects Object::find_targets(Objects &others) {
     //TODO: targeting policy
     return objects;
 }
-void Object::deal_damage(Object &other) {
-    other.change_health(m_damage);
+
+void Object::deal_damage(Object& other) {
+    other.change_health(-m_damage);
 }
+
+

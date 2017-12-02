@@ -3,8 +3,13 @@
 #include <iostream>
 #include <stdlib.h>     // For rand()
 #include <math.h>       // For round()
+#include <string>
+#include <iostream>
+#include <sstream>
+
 
 #include "graphicsFunctions.h"
+
 #include "graphicsFunctions.cpp"
 
 
@@ -17,6 +22,7 @@
 int main()
 {
         // define the sizes of different areas
+    // TODO: Kaikki yhdeksi objektiksi jonka voi sitten antaa inputtina funktioille
     sf::Vector2f mapSize(600.f, 600.f);
     sf::Vector2f sidebarSize(200.f, mapSize.y);
     sf::Vector2f windowSize(mapSize.x + sidebarSize.x, mapSize.y);
@@ -35,7 +41,7 @@ int main()
 // ------------------------------------------------------ //
 
         // Make tiles on the basis of map size
-
+    // TODO: This should be done on the basis of the map Class
     int tileAmount = 10; // Assume square map with even number of tiles
     sf::Vector2f tileSize(mapSize.x / tileAmount, mapSize.y / tileAmount);
 
@@ -60,6 +66,10 @@ int main()
 // ------------------------------------------------------ //
 	    // Draw (and update) the objects to the screen
 
+        // Create the menu
+    std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
+    std::vector<sf::Vector2f> gameBtns;
+    int dummyScore = 1;
         // Start a clock
     sf::Clock clock;
         // While window has not been closed, keep on going
@@ -67,24 +77,28 @@ int main()
     {
 
             // Window has to be cleaned every time to avoid overlap
-        window.clear();
+        //window.clear();
 
-            // Draw the menu screen
+            // Draw the screens
         switch( currentScreen )
         {
             case mainScreen:
             {
-                std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
+                //std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
                 break;
             }
             case gameScreen:
             {
+                    // Window has to be cleaned every time to avoid overlap
+                window.clear();
                 // Let's draw the window and sidebar
-                createAndDrawDrawables(window, mapSize, sidebarSize);
-                // Let's draw the tiles on the window
+                gameBtns = createAndDrawGame(window, mapSize, sidebarSize);
+                    // Let's draw the tiles on the window
                 drawTiles(window, randomMap, tileAmount, tileSize);
-                // Let's draw the creatures
+                    // Let's draw the creatures
                 drawCreatures(window, creatures, tileSize);
+                    // Let's show stats
+                drawStats(window, dummyScore);
                 break;
             }
         }
@@ -108,12 +122,26 @@ int main()
                     {
                         case mainScreen:    // We're in main screen
                         {
-                            mainScreenPoller(window, windowSize, currentScreen);
+                            currentScreen = mainScreenPoller(window, windowSize);
                             break;
                         }
                         case gameScreen :   // We're in game screen
                         {
-                            gameScreenPoller(window, creatures, currentScreen);
+                            sf::Vector2f gameBtnPressed = gameScreenPoller(window, creatures, gameBtns);
+
+                            switch( (int) gameBtnPressed.x ){
+                                case -1: {
+                                    window.clear();
+                                    currentScreen = mainScreen;
+                                    createAndDrawMenu(window, windowSize);
+                                }
+                                default: {
+                                    creatures[1].x = gameBtnPressed.x;
+                                    creatures[1].y = gameBtnPressed.y;
+                                }
+                            }
+
+
                             break;
                         }
                     }
@@ -128,6 +156,7 @@ int main()
         float displacement = 100 * elapsedTime.asSeconds(); // pix/s * s = pix
         creatures[1].y = fmod(creatures[1].y + displacement, windowSize.y);
 
+        dummyScore ++;
 
         window.display();
 

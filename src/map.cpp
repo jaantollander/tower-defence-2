@@ -27,6 +27,37 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
     return os;
 }
 
+bool GameMap::remove_tower(int x, int y) {
+    if (x < xsize() && y < ysize()) {
+        Tower* old_tower = get_tile(x, y) -> remove_tower();
+        auto it = m_towers.begin();
+        while (it != m_towers.end()) {
+            if (*it == old_tower) {
+                m_towers.erase(it);
+                delete(old_tower);
+                return true;
+            }
+            it++;
+        }
+    }
+    else {
+        std::cout << "Index out of bounds, nothing deleted." << std::endl;
+        return false;
+    }
+}
+
+void GameMap::set_enemy(Enemy *enemy) {
+    if (enemy != nullptr) {
+        m_enemies.push_back(enemy);
+    }
+}
+
+void GameMap::set_tower(Tower *tower) {
+    if (tower != nullptr) {
+        m_towers.push_back(tower);
+    }
+}
+
 
 GameMap game_map_from_file(const std::string &filename,
                            TowerType *empty_tower_type,
@@ -40,7 +71,6 @@ GameMap game_map_from_file(const std::string &filename,
     if (is.fail()) {
         throw std::exception();
     }
-
     // Read the name of the game map
     std::getline(is, name, ';');
 
