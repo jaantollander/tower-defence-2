@@ -7,6 +7,7 @@ Object::Object(double x, double y, double radius, double speed, int health,
         m_x(x), m_y(y),
         m_radius(radius),
         m_speed(speed), m_max_speed(speed),
+        m_distance_travelled(0.0),
         m_health(health), m_max_health(health),
         m_damage(damage),
         m_attack_speed(attack_speed),
@@ -14,14 +15,20 @@ Object::Object(double x, double y, double radius, double speed, int health,
         m_targeting_policy(target_last)
         { }
 
+double Object::x() const { return m_x; }
+double Object::y() const { return m_y; }
+double Object::radius() const { return m_radius; }
+double Object::speed() const { return m_speed; }
+double Object::distance_travelled() const { return m_distance_travelled; }
+int Object::health() const { return m_health; }
+int Object::damage() const { return m_damage; }
+double Object::attack_speed() const { return m_attack_speed; }
 
-double Object::x() { return m_x; }
-double Object::y() { return m_y; }
-double Object::radius() { return m_radius; }
-int Object::health() { return m_health; }
+double Object::attack_range() const { return m_attack_range; }
+
+TargetingPolicy Object::targeting_policy() const { return m_targeting_policy; }
 
 bool Object::is_dead() { return m_health <= 0; }
-
 void Object::change_health(int amount) {
     if (not this->is_dead()) {
         m_health += amount;
@@ -31,7 +38,6 @@ void Object::change_health(int amount) {
             m_health = m_max_health;
     }
 }
-
 void Object::change_speed(double amount) {
     auto new_speed = m_speed + amount;
     if (new_speed < 0)
@@ -41,7 +47,9 @@ void Object::change_speed(double amount) {
     else
         m_speed = new_speed;
 }
+
 void Object::change_damage(int new_dmg) { m_damage = new_dmg; }
+
 void Object::change_attack_speed(int new_speed) {
     if (new_speed > 0) m_attack_speed = new_speed;
 }
@@ -50,20 +58,6 @@ double Object::distance(Object &other) {
     return hypot((m_x - other.x()), (m_y - other.y())) - (m_radius + other.radius());
 }
 
-Objects Object::find_targets(Objects &others) {
-    std::vector<Object *> objects = {};
-    for (auto other : others) {
-        auto d = this->distance(*other);
-        if (d < m_attack_range) {
-            objects.push_back(other);
-        }
-    }
-    //TODO: targeting policy
-    return objects;
-}
-
 void Object::deal_damage(Object& other) {
     other.change_health(-m_damage);
 }
-
-

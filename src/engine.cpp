@@ -50,10 +50,63 @@ void GameEngine::enemy_movement() {
 }
 
 
+Enemies GameEngine::find_targets(Tower *tower, Enemies &enemies) {
+    if (enemies.empty())
+        return {};
+
+    switch (tower->targeting_policy()) {
+        case target_first: {
+            auto path = this->m_game_map.path();
+
+            // Object within attack range
+            Enemy *first = nullptr;
+            double d_min = path.get_length();
+
+            // Iterate over enemies
+            for (auto enemy : enemies) {
+                // Check if enemy is in attack range
+                if (tower->distance(*enemy) < tower->attack_range()) {
+                    // Targeting policy
+                    auto d = path.distance_from_end(
+                            enemy->distance_travelled());
+                    if (d <= d_min) {
+                        d_min = d;
+                        first = enemy;
+                    }
+                }
+            }
+
+            return {first};
+        }
+        case target_last:
+            //TODO: similar implementation as for target_first
+            return {};
+        case target_least_health:
+            //TODO: similar implementation as for target_first
+            return {};
+        default:
+            throw std::exception();
+    }
+}
+
+
 void GameEngine::towers_attack() {
-    //TODO: iterate over all tower, towers that have over zero damage should
-    //      attack their targets
-    //TODO: if enemy is killed increase
+    auto tiles = this->m_game_map.tiles();
+    // Iterate over all tower in tiles
+    for (int y = 0; y < tiles.ysize; ++y) {
+        for (int x = 0; x < tiles.xsize; ++x) {
+            auto tile = tiles.tile(x, y);
+            auto tower = tile->tower();
+            if (tower->damage() > 0) {
+                auto enemies = this->m_game_map.enemies();
+                auto targets = find_targets(tower, enemies);
+                for (auto target : targets) {
+                    tower->deal_damage(*target);
+                    //TODO: check if enemy dies and update money, score and remove enemy
+                }
+            }
+        }
+    }
 }
 
 
@@ -63,34 +116,3 @@ void GameEngine::update() {
     towers_attack();
     increment_time();
 }
-
-
-//std::vector<Enemy> GameEngine::enemies_in_range(Tower* tower) {
-//    std::vector<Enemy> in_range;
-//    size_t size = m_game_map.enemies().size();
-//    int i = 0;
-//    while (i < size) {
-//        if (tower -> distance(*m_game_map.enemies()[i]) <= tower -> radius()) {
-//            in_range.push_back(*m_game_map.enemies()[i]);
-//        }
-//        i++;
-//    }
-//    return in_range;
-//}
-//
-//
-//void GameEngine::towers_attack() {
-//    size_t size = m_game_map.towers().size();
-//    int i = 0;
-//    while (i < size) {
-//        if (m_game_map.towers()[i] -> tower_type().name() != "EmptyTower") {
-//            std::vector<Enemy> in_range = enemies_in_range(m_game_map.towers()[i]);
-//            if (in_range.size() != 0) {
-//                //TODO: which enemy is attacked?
-//                Enemy& e = in_range[0];
-//                m_game_map.towers()[i] -> deal_damage(e);
-//            }
-//        }
-//        i++;
-//    }
-//}

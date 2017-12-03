@@ -45,6 +45,9 @@ public:
     /// Construct the path from linestring.
     explicit Path(LineString &path);
 
+    /// Total length of the path.
+    double get_length() const;
+
     /// Starting points of the path.
     Point start();
 

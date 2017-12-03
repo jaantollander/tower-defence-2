@@ -40,6 +40,9 @@ public:
     /// Tiles
     Tiles tiles() const;
 
+    /// Path
+    Path path() const;
+
     /// Access enemies contained in the map
     Enemies enemies() const;
 

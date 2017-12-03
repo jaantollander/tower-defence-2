@@ -98,9 +98,6 @@ int main() {
     auto enemy_type_1 = EnemyType1();
     auto enemy_type_2 = EnemyType2();
 
-    //TODO: upgrade options
-
-    //TODO: initialize tile with empty tower type
     std::cout << "Initializing GameMap" << std::endl;
     sep();
     auto game_map = game_map_from_file(
@@ -108,7 +105,7 @@ int main() {
     std::cout << game_map << std::endl;
 
 
-    //TODO: add towers and enemies
+    //FIXME: Change to use upgrade mechanics
 //    Tower t1 = tower_type_1.create_tower(0, 1);
 //    Tower t2 = tower_type_1.create_tower(1, 1);
 //    Tower t3 = tower_type_2.create_tower(2, 1);

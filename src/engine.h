@@ -2,6 +2,7 @@
 #define TOWER_DEFENCE_2_GAME_H
 
 
+#include <vector>
 #include "objects/enemy.h"
 #include "objects/tower.h"
 #include "tile.h"
@@ -53,6 +54,11 @@ public:
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
     void update();
+
+    /// Other combat objects that this object can target.
+    /// - withing the attack range
+    /// - targeting policy
+    Enemies find_targets(Tower *tower, Enemies &enemies);
 
 private:
     double m_time;

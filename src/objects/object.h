@@ -15,10 +15,6 @@ enum TargetingPolicy {
 };
 
 
-class Object;
-typedef std::vector<Object *> Objects;
-
-
 /// Base class for objects in tower defence. Contains position, speed and the
 /// movement of the object.
 class Object {
@@ -26,10 +22,16 @@ public:
     Object(double x, double y, double radius, double speed, int health,
            int damage, double attack_range, double attack_speed);
 
-    double x();
-    double y();
-    double radius();
-    int health();
+    double x() const;
+    double y() const;
+    double radius() const;
+    double speed() const;
+    double distance_travelled() const;
+    int health() const;
+    int damage() const;
+    double attack_speed() const;
+    double attack_range() const;
+    TargetingPolicy targeting_policy() const;
 
     /// Change the speed of the object between zero and maximum speed.
     void change_speed(double amount);
@@ -50,11 +52,6 @@ public:
     /// Distance from other object
     double distance(Object &other);
 
-    /// Other combat objects that this object can target.
-    /// - withing the attack range
-    /// - targeting policy
-    Objects find_targets(Objects &others);
-
     /// Deal damage to another object
     void deal_damage(Object &other);
 
@@ -69,7 +66,8 @@ protected:
     double m_speed;
     /// Maximum speed of the object
     const double m_max_speed;
-
+    /// Distance travelled by object
+    double m_distance_travelled;
     /// Current health of the object
     int m_health;
     /// Maximum health of the object

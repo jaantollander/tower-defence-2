@@ -114,3 +114,5 @@ Point Path::position(double d) {
     }
 
 }
+
+double Path::get_length() const { return m_length; }

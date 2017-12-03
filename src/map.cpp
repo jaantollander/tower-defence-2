@@ -12,6 +12,7 @@ GameMap::~GameMap() {  }
 
 std::string GameMap::name() const { return m_name; }
 Tiles GameMap::tiles() const { return m_tiles; }
+Path GameMap::path() const { return m_path; }
 Enemies GameMap::enemies() const { return m_enemies; }
 
 
@@ -26,6 +27,7 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
     }
     return os;
 }
+
 
 //bool GameMap::remove_tower(int x, int y) {
 //    if (x < xsize() && y < ysize()) {
