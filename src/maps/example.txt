@@ -1,4 +1,4 @@
-example;7;7;
+example;7;7;4;6;
 w ;w ;w ;pN;w ;w ;w ;
 g ;g ;g ;pN;g ;g ;g ;
 g ;pE;pE;pN;g ;g ;g ;

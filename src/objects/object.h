@@ -15,58 +15,64 @@ enum TargetingPolicy {
 };
 
 
-// TODO: types int/double?
-
 /// Base class for objects in tower defence. Contains position, speed and the
 /// movement of the object.
 class Object {
 public:
-    Object(int x, int y, int radius, int speed, int health, int damage,
-           int attack_range, int attack_speed);
+    Object(double x, double y, double radius, double speed, int health,
+           int damage, double attack_range, double attack_speed);
 
-    int x();
-    int y();
-    int radius();
-    int health();
-    int damage();
+    double x() const;
+    double y() const;
+    double radius() const;
+    double speed() const;
+    double distance_travelled() const;
+    int health() const;
+    int damage() const;
+    double attack_speed() const;
+    double attack_range() const;
+    TargetingPolicy targeting_policy() const;
+
+    void position(double x, double y);
 
     /// Change the speed of the object between zero and maximum speed.
-    void change_speed(int amount);
+    void speed(double amount);
 
     /// Object is regarded dead if it has health below of equal to zero.
     bool is_dead();
 
     /// Negative damages, positive heals, if reached zero, enemy dies, cannot go
     /// above max health
-    void change_health(int amount);
+    void health(int amount);
 
-    /// Changes radius, damage or attack speed
-    void change_radius(int new_r);
-    void change_damage(int new_dmg);
-    void change_attack_speed(int new_speed);
+    /// Change damage
+    void damage(int new_dmg);
 
-    /// Deal damage to another object
-    void deal_damage(Object &other);
+    /// Change attack speed
+    void attack_speed(int new_speed);
+
+    /// Change distace travelled
+    void distace_travelled(double d);
 
     /// Distance from other object
     double distance(Object &other);
 
-    /// Other combat objects that are withing the attack range
-    void within_attack_range(std::vector<Object *> &others);
-    std::vector<Object *> enemies_in_range();
+    /// Deal damage to another object
+    void deal_damage(Object &other);
 
 protected:
     /// x coordinate of the object
-    int m_x;
+    double m_x;
     /// u coordinate of the object
-    int m_y;
-    /// Radius of the object.
-    int m_radius;
+    double m_y;
+    /// Physical radius of the object.
+    const double m_radius;
     /// Current speed of the object
-    int m_speed;
+    double m_speed;
     /// Maximum speed of the object
-    const int m_max_speed;
-
+    const double m_max_speed;
+    /// Distance travelled by object
+    double m_distance_travelled;
     /// Current health of the object
     int m_health;
     /// Maximum health of the object
@@ -74,9 +80,9 @@ protected:
     /// Amount of damage each hit deals
     int m_damage;
     /// Attack speed, how fast does the object deal damage
-    int m_attack_speed;
+    double m_attack_speed;
     /// Attack range, how far can the object deal damage
-    int m_attack_range;
+    double m_attack_range;
     /// Targeting policy, how will the object choose its target
     TargetingPolicy m_targeting_policy;
 };

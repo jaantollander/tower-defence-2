@@ -27,8 +27,12 @@ enum TileType {
 std::ostream& operator<<(std::ostream &os, TileType t);
 
 
-/// Convert char to tile type
+/// Convert char to tile type.
 TileType to_tile_type(char c);
+
+
+/// True is a tower can be built in this tile else false.
+bool is_buildable(TileType t);
 
 
 /// Possible directions (cardinal directions) for the enemy path.
@@ -44,7 +48,7 @@ enum Direction {
 std::ostream& operator<<(std::ostream& os, Direction d);
 
 
-/// Convert char to direction
+/// Convert char to direction.
 Direction to_direction(char c);
 
 
@@ -53,7 +57,7 @@ Direction to_direction(char c);
 /// that enemies follow.
 class Tile {
 public:
-    Tile(int xindex, int yindex, TileType tile_type, Direction direction);
+    Tile(TileType tile_type, Direction direction, Tower *tower);
 
     ~Tile();
 
@@ -66,28 +70,16 @@ public:
     /// Pointer to the tower that occupies the tile if any.
     Tower *tower() const;
 
-    ///used for testing, sets tower in this Tile
-    void set_tower(Tower* tower);
     /// Update tower, true if successful.
     bool upgrade_tower(Tower *new_tower);
 
-    /// Sets tower to nullptr, returns old tower pointer.
-    Tower* remove_tower();
-
 private:
-    const int m_xindex;
-    const int m_yindex;
     const TileType m_tile_type;
     const Direction m_direction;
 
     /// Tile can contains one or zero towers.
     Tower *m_tower;
 };
-
-
-/// Type for 2D matrix of tiles. Note that [0][0] is top-left corner.
-typedef std::vector<std::vector<Tile*>> Tiles;
-
 
 
 #endif //TOWER_DEFENCE_2_TILE_H

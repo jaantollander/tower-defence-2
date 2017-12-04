@@ -12,9 +12,12 @@ class EnemyType;
 /// Enemy class
 class Enemy : public Object {
 public:
-    Enemy(int x, int y, int radius, int speed, int health,
+    Enemy(double x, double y, double radius, double speed, int health,
           EnemyType *enemy_type);
     ~Enemy();
+
+    int score() const;
+    int money() const;
 
 private:
     EnemyType *m_enemy_type;
@@ -24,13 +27,16 @@ private:
 /// Description for creating new enemies
 class EnemyType {
 public:
-    EnemyType(const std::string &name, int score, int money, int speed,
-                  int health);
+    EnemyType(const std::string &name, int score, int money, double speed,
+              int health);
 
     ~EnemyType();
 
+    int score() const;
+    int money() const;
+
     /// Create new enemy of this type.
-    Enemy create_enemy(int x, int y);
+    Enemy create_enemy(double x, double y);
 
 private:
     /// Name of the enemy
@@ -43,7 +49,7 @@ private:
     const int m_money;
 
     // Initial values for new enemies
-    const int m_speed;
+    const double m_speed;
     const int m_health;
 };
 
