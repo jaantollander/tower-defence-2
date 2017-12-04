@@ -9,9 +9,10 @@
 
 
 #include "graphicsFunctions.h"
+#include "graphicsEngine.h"
 
 #include "graphicsFunctions.cpp"
-
+#include "graphicsEngine.cpp"
 
 // This is a test-level code for SFML C++ graphics.
 // On linux install SFML as: sudo apt-get install libsfml-dev
@@ -36,7 +37,9 @@ int main()
 
         // Enumerate different screens of the game
     Screens currentScreen = mainScreen;
-    
+
+    graphicsEngine gE = graphicsEngine(window);
+
 
 // ------------------------------------------------------ //
 
@@ -67,7 +70,7 @@ int main()
 	    // Draw (and update) the objects to the screen
 
         // Create the menu
-    std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
+    std::vector<sf::Vector2f> menuBtns = createAndDrawMenu(window, windowSize);
     std::vector<sf::Vector2f> gameBtns;
     int dummyScore = 1;
         // Start a clock
@@ -84,7 +87,7 @@ int main()
         {
             case mainScreen:
             {
-                //std::vector<sf::Vector2f> menuButtons = createAndDrawMenu(window, windowSize);
+                //std::vector<sf::Vector2f> menuBtns = createAndDrawMenu(window, windowSize);
                 break;
             }
             case gameScreen:
