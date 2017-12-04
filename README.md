@@ -16,28 +16,28 @@ their goal. The primary object is the survival of the base.
 
 
 ## Minimum Requirements
-- [ ] Basic graphics.
-- [ ] A functioning tower defense game.
-- [ ] At least three different types of towers.
-- [ ] At least three different types of enemies.
-- [ ] Non-hardcoded maps, i.e. they have to be read from some file in some format.
-- [ ] The player has to be able to build, repair (if the gameplay supposes that the towers can be damaged) and upgrade towers during the game, either between waves of enemies or without restrictions.
-- [ ] Controlling the game with mouse.
-- [ ] Simple user interface that shows information such as resources, number of waves/enemies etc.
-- [ ] A list of high scores (decide yourself how to calculate points). High scores must be saved between game sessions!
-- [ ] Fun and overall pleasant gaming experience.
+- Basic graphics.
+- A functioning tower defense game.
+- At least three different types of towers.
+- At least three different types of enemies.
+- Non-hardcoded maps, i.e. they have to be read from some file in some format.
+- The player has to be able to build, repair (if the gameplay supposes that the towers can be damaged) and upgrade towers during the game, either between waves of enemies or without restrictions.
+- Controlling the game with mouse.
+- Simple user interface that shows information such as resources, number of waves/enemies etc.
+- A list of high scores (decide yourself how to calculate points). High scores must be saved between game sessions!
+- Fun and overall pleasant gaming experience.
 
 
 ## Extra Requirements
-- [ ] Sounds
-- [ ] Multiple paths of the enemies
-- [ ] Dynamic paths that can be altered with the placement of towers
-- [ ] Special attack types, e.g. ranged
-- [ ] Special abilities of the towers, e.g. slowing down the enemies
-- [ ] Special movements of the enemies, e.g. jumping over the towers
-- [ ] Different attack and defense types for both the towers and the enemies. For example, some attack types may be more effective against some defense types.
-- [ ] Multiplayer mode (local or networked)
-- [ ] Your own ideas for increasing the maximum fun!
+- Sounds
+- Multiple paths of the enemies
+- Dynamic paths that can be altered with the placement of towers
+- Special attack types, e.g. ranged
+- Special abilities of the towers, e.g. slowing down the enemies
+- Special movements of the enemies, e.g. jumping over the towers
+- Different attack and defense types for both the towers and the enemies. For example, some attack types may be more effective against some defense types.
+- Multiplayer mode (local or networked)
+- Your own ideas for increasing the maximum fun!
 
 
 
@@ -100,6 +100,8 @@ The graphics of this game depend on **Simple and Fast Multimedia Library (SFML)*
 sudo apt-get install libsfml-dev
 ```
 
+## Documentation
+[Flowchart of the design](https://drive.google.com/file/d/1J8dBdwPWzzVpeGQODwca3JnyztVp2T0z/view?usp=sharing)
 
 
 

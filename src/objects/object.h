@@ -33,21 +33,26 @@ public:
     double attack_range() const;
     TargetingPolicy targeting_policy() const;
 
+    void position(double x, double y);
+
     /// Change the speed of the object between zero and maximum speed.
-    void change_speed(double amount);
+    void speed(double amount);
 
     /// Object is regarded dead if it has health below of equal to zero.
     bool is_dead();
 
     /// Negative damages, positive heals, if reached zero, enemy dies, cannot go
     /// above max health
-    void change_health(int amount);
+    void health(int amount);
 
     /// Change damage
-    void change_damage(int new_dmg);
+    void damage(int new_dmg);
 
     /// Change attack speed
-    void change_attack_speed(int new_speed);
+    void attack_speed(int new_speed);
+
+    /// Change distace travelled
+    void distace_travelled(double d);
 
     /// Distance from other object
     double distance(Object &other);

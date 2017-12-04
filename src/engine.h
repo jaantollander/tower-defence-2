@@ -15,8 +15,8 @@
 /// modifies the properties of the objects by using the rules of the game logic.
 class GameEngine {
 public:
-    GameEngine(double time, int score, int money, double timestep, int lives,
-                   GameMap &game_map, GameLevel &game_level);
+    GameEngine(double time, double timestep, int score, int money, int lives,
+                   GameLevel &game_level, GameMap &game_map);
 
     ~GameEngine();
 
@@ -24,17 +24,17 @@ public:
     void increment_time();
 
     /// Change player's score. Game score can't go below zero.
-    void change_score(int amount);
+    void add_score(int amount);
 
     /// Change player's money.
-    /// @returns false and doesn't change the value if the amount of change
+    /// \returns false and doesn't change the value if the amount of change
     ///          would reduce player's money below zero otherwise true and changes
     ///          the money based on the amount given.
-    bool change_money(int amount);
+    bool add_money(int amount);
 
     /// Reduce one life from the player. Player dies if lives reach zero.
-    /// @returns true if player dies else false.
-    bool recude_life();
+    /// \returns true if player dies else false.
+    bool reduce_life();
 
     /// Handles level specific tasks such as spawning new enemies according to
     /// the game level description.
@@ -47,27 +47,28 @@ public:
     ///     - Reduce one life from player
     void enemy_movement();
 
+    /// Other combat objects that this object can target.
+    /// - withing the attack range
+    /// - targeting policy
+    Enemies find_targets(Tower *tower, Enemies &enemies);
+
     /// Towers attack enemies. Increase score and money if enemies die and
     /// remove dead enemies from the game.
     void towers_attack();
 
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
+    /// TODO: Events: game over, level completed
     void update();
-
-    /// Other combat objects that this object can target.
-    /// - withing the attack range
-    /// - targeting policy
-    Enemies find_targets(Tower *tower, Enemies &enemies);
 
 private:
     double m_time;
+    const double m_timestep;
     int m_score;
     int m_money;
-    const double m_timestep;
     int m_lives;
-    GameMap m_game_map;
     GameLevel m_game_level;
+    GameMap m_game_map;
 };
 
 

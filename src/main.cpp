@@ -51,7 +51,13 @@ public:
     EnemyType1() : EnemyType("Enemy1", 50, 100, 1, 40) { }
 };
 
-/// for test..
+
+class EnemyType2 : public EnemyType {
+public:
+    EnemyType2() : EnemyType("Enemy2", 0, 0, 0, 0) { }
+};
+
+
 void printhp(GameMap map) {
     size_t size = map.enemies().size();
     int i = 0;
@@ -61,11 +67,6 @@ void printhp(GameMap map) {
     }
     std::cout << std::endl;
 }
-
-class EnemyType2 : public EnemyType {
-public:
-    EnemyType2() : EnemyType("Enemy2", 0, 0, 0, 0) { }
-};
 
 
 void sep(int length=80) {
@@ -136,7 +137,7 @@ int main() {
 
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
-    auto game_engine = GameEngine(0, 0, 0, 0.01, 10, game_map, game_level);
+    auto game_engine = GameEngine(0, 0.01, 0, 0, 10, game_level, game_map);
 
 //    std::cout << "Tower attack test.." << std::endl;
 //    printhp(game_map);

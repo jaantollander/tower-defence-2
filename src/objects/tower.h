@@ -33,10 +33,10 @@ public:
     /// Destroy the object
     ~TowerType();
 
+    std::string name() const;
+
     /// Add new upgrade option
     void add_upgrade_option(TowerType *tower_type);
-
-    std::string name() const;
 
     /// Create new tower of this type.
     Tower * create_tower(int x, int y);

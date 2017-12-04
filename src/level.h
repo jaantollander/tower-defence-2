@@ -18,12 +18,27 @@ public:
     GameLevel(int initial_money, int initial_lives, int enemies_spawned,
                   EnemySpawnInterval &enemy_spawn_interval);
 
-    void increment_enemies_spawned();
+    /// Initial money
+    /// \return
+    int initial_money() const;
+
+    /// Initial money
+    /// \return
+    int initial_lives() const;
+
+    /// Spawn new enemies according to game time
+    /// \param time
+    /// \return Collection of enemy type pointers to use for spawning new
+    ///         enemies.
+    std::vector<EnemyType *> spawn_enemies(double time);
 
 private:
     const int m_initial_money;
     const int m_initial_lives;
+
+    /// Counter for how many enemies have already spawned
     int m_enemies_spawned;
+
     const EnemySpawnInterval m_enemy_spawn_interval;
 };
 

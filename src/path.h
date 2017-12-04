@@ -3,6 +3,7 @@
 
 #include <vector>
 #include "tiles.h"
+#include "geom2D.h"
 
 
 /// Invalid path exception class
@@ -13,23 +14,6 @@ public:
 private:
     const std::string m_msg;
 };
-
-
-/// 2-Dimensional point.
-class Point {
-public:
-    Point(double xvalue, double yvalue);
-    double x, y;
-};
-
-/// Collection of points connected with line segments.
-typedef std::vector<Point> LineString;
-
-/// Distance between two points.
-double distance(Point &p1, Point &p2);
-
-/// Length of the linestring.
-double length(LineString &ls);
 
 
 /// Construct a path from tiles

@@ -19,10 +19,10 @@ public:
     /// Size of the tile for converting into coordinates.
     const double tilesize;
 
-    /// Access individual tile by its indices
+    /// Get individual tile by its indices
     Tile *tile(int x, int y) const;
 
-    /// Access individual tile by its coordinates
+    /// Get individual tile by its coordinates
     Tile *tile(double x, double y) const;
 
     /// Set tile by its indices

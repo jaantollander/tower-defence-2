@@ -20,6 +20,7 @@ private:
 };
 
 
+//TODO: better data structure for removing arbitrary elements
 /// Type for collection of enemies.
 typedef std::vector<Enemy*> Enemies;
 
@@ -47,16 +48,13 @@ public:
     Enemies enemies() const;
 
     /// Upgrade existing tower into new one.
-    void upgrade_tower(int x, int y);
+    void upgrade_tower(int x, int y, int index);
 
     /// Add new enemy to start of the path.
-    void add_enemy();
+    void add_enemy(Enemy *enemy);
 
     /// Remove enemy.
-    void remove_enemy();
-
-    /// Move enemies along the path
-    void move_enemies();
+    void remove_enemy(int index);
 
 private:
     /// Name of the map

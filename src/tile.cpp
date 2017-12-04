@@ -58,11 +58,21 @@ Direction to_direction(char c) {
 Tile::Tile(TileType tile_type, Direction direction, Tower *tower) :
         m_tile_type(tile_type), m_direction(direction), m_tower(tower) { }
 
-Tile::~Tile() { }
+Tile::~Tile() {
 
-TileType Tile::tile_type() const { return m_tile_type; }
-Direction Tile::direction() const { return m_direction; }
-Tower *Tile::tower() const { return m_tower; }
+}
+
+TileType Tile::tile_type() const {
+    return m_tile_type;
+}
+
+Direction Tile::direction() const {
+    return m_direction;
+}
+
+Tower *Tile::tower() const {
+    return m_tower;
+}
 
 bool Tile::upgrade_tower(Tower *new_tower) {
     if (new_tower == nullptr)

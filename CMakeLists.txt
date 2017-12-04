@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 
 add_executable(
         tower_defence_2
+        src/geom2D.cpp
         src/objects/object.cpp
         src/objects/enemy.cpp
         src/objects/tower.cpp

@@ -4,16 +4,35 @@
 #include "map.h"
 
 
-
 GameMap::GameMap(std::string &name, Tiles &tiles, Path &path) :
-        m_name(name), m_tiles(tiles), m_path(path) {}
+        m_name(name),
+        m_tiles(tiles),
+        m_path(path)
+        {}
 
-GameMap::~GameMap() {  }
+GameMap::~GameMap() {
 
-std::string GameMap::name() const { return m_name; }
-Tiles GameMap::tiles() const { return m_tiles; }
-Path GameMap::path() const { return m_path; }
-Enemies GameMap::enemies() const { return m_enemies; }
+}
+
+std::string GameMap::name() const {
+    return m_name;
+}
+
+Tiles GameMap::tiles() const {
+    return m_tiles;
+}
+
+Path GameMap::path() const {
+    return m_path;
+}
+
+Enemies GameMap::enemies() const {
+    return m_enemies;
+}
+
+void GameMap::add_enemy(Enemy *enemy) {
+    m_enemies.push_back(enemy);
+}
 
 
 std::ostream& operator<<(std::ostream &os, GameMap &obj) {
