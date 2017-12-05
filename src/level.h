@@ -10,7 +10,6 @@
 /// type EnemyType should spawn.
 typedef std::vector<std::pair<double, EnemyType *>> EnemySpawnInterval;
 
-
 /// Contains information to start and run different game levels.
 /// What types of enemies will spawn, when and where.
 class GameLevel {

@@ -1,5 +1,5 @@
 #include <cmath>
-#include "path.h"
+#include "map/path.h"
 
 
 Point::Point(double xvalue, double yvalue) : x(xvalue), y(yvalue) { }

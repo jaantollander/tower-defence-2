@@ -3,7 +3,7 @@
 
 #include <vector>
 #include "tiles.h"
-#include "geom2D.h"
+#include "../geom2D.h"
 
 
 /// Invalid path exception class
@@ -15,13 +15,11 @@ private:
     const std::string m_msg;
 };
 
-
-/// Construct a path from tiles
+/// Construct a path from tiles. Will not detect cyclical paths!
 /// @param x coordinate for starting point
 /// @param y coordinate for starting point
 /// @param tiles
 LineString construct_path(int x, int y, Tiles &tiles);
-
 
 /// Class for moving objects along a path consisting of connected line segments.
 class Path {

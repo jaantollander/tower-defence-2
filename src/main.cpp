@@ -58,7 +58,7 @@ public:
 };
 
 
-void printhp(GameMap map) {
+void printhp(GameMap &map) {
     size_t size = map.enemies().size();
     int i = 0;
     while (i < size) {
@@ -105,27 +105,6 @@ int main() {
             "../src/maps/example.txt", &empty_tower_type, &root_tower_type);
     std::cout << game_map << std::endl;
 
-
-    //FIXME: Change to use upgrade mechanics
-//    Tower t1 = tower_type_1.create_tower(0, 1);
-//    Tower t2 = tower_type_1.create_tower(1, 1);
-//    Tower t3 = tower_type_2.create_tower(2, 1);
-//    game_map.set_tower(&t1);
-//    game_map.set_tower(&t2);
-//    game_map.set_tower(&t3);
-//    game_map.get_tile(0, 1)->set_tower(&t1);
-//    game_map.get_tile(1, 1)->set_tower(&t2);
-//    game_map.get_tile(2, 1)->set_tower(&t3);
-//
-//
-//    Enemy e1 = enemy_type_1.create_enemy(3, 0);
-//    Enemy e2 = enemy_type_1.create_enemy(3, 1);
-//    Enemy e3 = enemy_type_1.create_enemy(3, 2);
-//    game_map.set_enemy(&e1);
-//    game_map.set_enemy(&e2);
-//    game_map.set_enemy(&e3);
-
-
     std::cout << "Initializing GameLevel" << std::endl;
     sep();
     EnemySpawnInterval enemy_spawn_interval = {
@@ -134,17 +113,27 @@ int main() {
     };
     auto game_level = GameLevel(1000, 0, 0, enemy_spawn_interval);
 
-
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
     auto game_engine = GameEngine(0, 0.01, 0, 0, 10, game_level, game_map);
+
+    // Set towers
+    //TODO: fix x and y coordinates
+    game_engine.upgrade_tower(2, 3, 0);
+    game_engine.upgrade_tower(4, 2, 1);
+
+    // Set enemies
+    //TODO: fix x and y coordinates
+    Enemy e1 = enemy_type_1.create_enemy(3, 0);
+    Enemy e2 = enemy_type_1.create_enemy(3, 1);
+    Enemy e3 = enemy_type_1.create_enemy(3, 2);
+    game_engine.add_enemy(&e1);
+    game_engine.add_enemy(&e2);
+    game_engine.add_enemy(&e3);
 
 //    std::cout << "Tower attack test.." << std::endl;
 //    printhp(game_map);
 //    game_engine.towers_attack();
 //    printhp(game_map);
-
-
-
 
 }
