@@ -3,8 +3,8 @@
 
 #include <vector>
 #include <string>
-#include "objects/tower.h"
-#include "objects/enemy.h"
+#include "../objects/tower.h"
+#include "../objects/enemy.h"
 #include "tile.h"
 #include "tiles.h"
 #include "path.h"
@@ -19,11 +19,9 @@ private:
     const std::string m_msg;
 };
 
-
 //TODO: better data structure for removing arbitrary elements
 /// Type for collection of enemies.
 typedef std::vector<Enemy*> Enemies;
-
 
 /// The map of the game. Contains information about the path that enemies
 /// follow and where towers can be placed.
@@ -47,9 +45,6 @@ public:
     /// Access enemies contained in the map
     Enemies enemies() const;
 
-    /// Upgrade existing tower into new one.
-    void upgrade_tower(int x, int y, int index);
-
     /// Add new enemy to start of the path.
     void add_enemy(Enemy *enemy);
 
@@ -70,10 +65,8 @@ private:
     Enemies m_enemies;
 };
 
-
 /// Print a representation of the game map
 std::ostream &operator<<(std::ostream& os, GameMap &obj);
-
 
 /// Loads game map from a text file. Example of mapfile formatting:
 /// ```
@@ -92,7 +85,6 @@ std::ostream &operator<<(std::ostream& os, GameMap &obj);
 GameMap game_map_from_file(const std::string &filename,
                            TowerType *empty_tower_type,
                            TowerType *root_tower_type);
-
 
 
 #endif //TOWER_DEFENCE_2_MAP_H

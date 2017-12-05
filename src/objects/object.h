@@ -14,7 +14,6 @@ enum TargetingPolicy {
     target_least_health
 };
 
-
 /// Base class for objects in tower defence. Contains position, speed and the
 /// movement of the object.
 class Object {

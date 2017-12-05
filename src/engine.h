@@ -5,8 +5,8 @@
 #include <vector>
 #include "objects/enemy.h"
 #include "objects/tower.h"
-#include "tile.h"
-#include "map.h"
+#include "map/tile.h"
+#include "map/map.h"
 #include "level.h"
 
 
@@ -35,6 +35,12 @@ public:
     /// Reduce one life from the player. Player dies if lives reach zero.
     /// \returns true if player dies else false.
     bool reduce_life();
+
+    /// Upgrade existing tower into new one.
+    void upgrade_tower(int x, int y, int index);
+
+    /// Add new enemy to game map
+    void add_enemy(Enemy *enemy);
 
     /// Handles level specific tasks such as spawning new enemies according to
     /// the game level description.

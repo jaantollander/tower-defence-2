@@ -19,6 +19,8 @@ public:
     /// Size of the tile for converting into coordinates.
     const double tilesize;
 
+    //TODO: operator() instead of tile()
+
     /// Get individual tile by its indices
     Tile *tile(int x, int y) const;
 

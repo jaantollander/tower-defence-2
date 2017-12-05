@@ -10,11 +10,9 @@ GameEngine::GameEngine(double time, double timestep, int score, int money, int l
     m_lives = game_level.initial_lives();
 }
 
-
 GameEngine::~GameEngine() {
 
 }
-
 
 void GameEngine::add_score(int amount) {
     int new_score = m_score + amount;
@@ -23,7 +21,6 @@ void GameEngine::add_score(int amount) {
     else
         m_score = new_score;
 }
-
 
 bool GameEngine::add_money(int amount) {
     int new_money = m_money + amount;
@@ -35,12 +32,22 @@ bool GameEngine::add_money(int amount) {
     }
 }
 
-
 bool GameEngine::reduce_life() {
     m_lives--;
     return m_lives <= 0;
 }
 
+void GameEngine::upgrade_tower(int x, int y, int index) {
+    auto tiles = m_game_map.tiles();
+    auto tile = tiles.tile(x, y);
+
+    if (add_money(0))
+        tile->upgrade_tower(index);
+}
+
+void GameEngine::add_enemy(Enemy *enemy) {
+    m_game_map.add_enemy(enemy);
+}
 
 void GameEngine::advance_game_level() {
     auto start = m_game_map.path().start();
@@ -57,7 +64,6 @@ void GameEngine::advance_game_level() {
     }
 
 }
-
 
 void GameEngine::enemy_movement() {
     auto enemies = m_game_map.enemies();
@@ -86,7 +92,6 @@ void GameEngine::enemy_movement() {
     }
 
 }
-
 
 Enemies GameEngine::find_targets(Tower *tower, Enemies &enemies) {
     if (enemies.empty())
@@ -127,7 +132,6 @@ Enemies GameEngine::find_targets(Tower *tower, Enemies &enemies) {
     }
 }
 
-
 void GameEngine::towers_attack() {
     auto tiles = this->m_game_map.tiles();
     // Iterate over all tower in tiles
@@ -152,11 +156,9 @@ void GameEngine::towers_attack() {
     }
 }
 
-
 void GameEngine::increment_time() {
     m_time += m_timestep;
 }
-
 
 void GameEngine::update() {
     advance_game_level();

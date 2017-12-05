@@ -34,7 +34,6 @@ void GameMap::add_enemy(Enemy *enemy) {
     m_enemies.push_back(enemy);
 }
 
-
 std::ostream& operator<<(std::ostream &os, GameMap &obj) {
     auto tiles = obj.tiles();
     for (int y = 0; y < tiles.ysize; ++y) {
@@ -46,7 +45,6 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
     }
     return os;
 }
-
 
 //bool GameMap::remove_tower(int x, int y) {
 //    if (x < xsize() && y < ysize()) {
@@ -66,7 +64,6 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
 //        return false;
 //    }
 //}
-
 
 GameMap game_map_from_file(const std::string &filename,
                            TowerType *empty_tower_type,
@@ -120,7 +117,8 @@ GameMap game_map_from_file(const std::string &filename,
     }
 
     // Initialize game map
-    auto tiles = Tiles(xsize, ysize, 1.0, root_tower_type, empty_tower_type);
+    double tilesize = 1.0;
+    auto tiles = Tiles(xsize, ysize, tilesize, root_tower_type, empty_tower_type);
 
     // Read tiles
     std::string spec;
@@ -132,15 +130,16 @@ GameMap game_map_from_file(const std::string &filename,
             auto tile_type = to_tile_type(spec[0]);
             auto direction = to_direction(spec[1]);
 
+            // Create tower of right tower type.
             Tower *tower;
             if (is_buildable(tile_type))
                 tower = root_tower_type->create_tower(x, y);
             else
                 tower = empty_tower_type->create_tower(x, y);
 
+            // Create new tile and place it into right tile
             auto *tile = new Tile(tile_type, direction, tower);
             tiles.tile(x, y, tile);
-            //TODO: add tower to the tile
         }
         std::getline(is, spec, '\n');
     }
