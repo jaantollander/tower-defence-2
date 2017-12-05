@@ -13,6 +13,7 @@
 
 #include "graphicsFunctions.cpp"
 #include "graphicsEngine.cpp"
+#include "graphicsButton.cpp"
 
 // This is a test-level code for SFML C++ graphics.
 // On linux install SFML as: sudo apt-get install libsfml-dev

@@ -1,9 +1,13 @@
+#include "graphicsButton.h"
 
 class graphicsEngine{
 public:
     
     graphicsEngine(sf::RenderWindow &window);
-    void asd();
+    void addButtons();
+    void addStats();
+    void drawStats(int score);
+
     
 //private:
     sf::Vector2f m_mapSize;
@@ -13,8 +17,11 @@ public:
     sf::RenderWindow &m_window;
     Screens m_currentScreen;
 
-    std::vector<sf::Vector2f> m_menuBtns;
-    std::vector<sf::Vector2f> m_gameBtns;
+    std::vector<graphicsButton> m_menuBtns;
+    std::vector<graphicsButton> m_gameBtns;
+
+    sf::Font m_font;
+    std::vector<sf::Text> m_statsTexts;
 
 
 };
