@@ -34,6 +34,16 @@ TileType to_tile_type(char c) {
 }
 
 
+bool is_buildable(TileType t) {
+    switch (t) {
+        case path: return false;
+        case grass: return true;
+        case water: return false;
+        default: return false;
+    }
+}
+
+
 Direction to_direction(char c) {
     switch (tolower(c)) {
         case 'n': return north;
@@ -45,18 +55,24 @@ Direction to_direction(char c) {
 }
 
 
-Tile::Tile(int xindex, int yindex, TileType tile_type, Direction direction) :
-        m_xindex(xindex), m_yindex(yindex), m_tile_type(tile_type),
-        m_direction(direction) {
-    // TODO: initialize tower as empty or root tower not nullptr
-    m_tower = nullptr;
+Tile::Tile(TileType tile_type, Direction direction, Tower *tower) :
+        m_tile_type(tile_type), m_direction(direction), m_tower(tower) { }
+
+Tile::~Tile() {
+
 }
 
-Tile::~Tile() { }
+TileType Tile::tile_type() const {
+    return m_tile_type;
+}
 
-TileType Tile::tile_type() const { return m_tile_type; }
-Direction Tile::direction() const { return m_direction; }
-Tower *Tile::tower() const { return m_tower; }
+Direction Tile::direction() const {
+    return m_direction;
+}
+
+Tower *Tile::tower() const {
+    return m_tower;
+}
 
 bool Tile::upgrade_tower(Tower *new_tower) {
     if (new_tower == nullptr)
@@ -65,15 +81,4 @@ bool Tile::upgrade_tower(Tower *new_tower) {
         m_tower = new_tower;
         return true;
     }
-}
-
-Tower* Tile::remove_tower() {
-    Tower* old_tower = m_tower;
-    m_tower = nullptr;
-    return old_tower;
-}
-
-
-void Tile::set_tower(Tower* tower) {
-    if (tower != nullptr) m_tower = tower;
 }
