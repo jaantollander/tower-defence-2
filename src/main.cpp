@@ -102,7 +102,7 @@ int main() {
     std::cout << "Initializing GameMap" << std::endl;
     sep();
     auto game_map = game_map_from_file(
-            "../src/maps/example.txt", &empty_tower_type, &root_tower_type);
+            "src/maps/example.txt", &empty_tower_type, &root_tower_type);
     std::cout << game_map << std::endl;
 
 
