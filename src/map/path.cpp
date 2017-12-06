@@ -70,10 +70,12 @@ LineString construct_path(int x, int y, Tiles &tiles) {
     return path;
 }
 
-
 Path::Path(LineString &path) : m_path(path), m_length(length(path)) { }
+
 Point Path::start() { return m_path.front(); }
+
 double Path::distance_from_end(double d) { return m_length - d; }
+
 bool Path::has_reached_end(double d) { return d >= m_length; }
 
 Point Path::position(double d) {

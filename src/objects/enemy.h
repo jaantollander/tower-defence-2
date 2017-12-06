@@ -8,7 +8,6 @@
 // Deferred declaration
 class EnemyType;
 
-
 /// Enemy class
 class Enemy : public Object {
 public:
@@ -22,7 +21,6 @@ public:
 private:
     EnemyType *m_enemy_type;
 };
-
 
 /// Description for creating new enemies
 class EnemyType {

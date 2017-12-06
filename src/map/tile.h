@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include <map>
-#include "objects/tower.h"
+#include "../objects/tower.h"
 
 
 /// Possible types for the tile. Tile type defines what properties tile has.
@@ -23,17 +23,13 @@ enum TileType {
     undefined_tile_type
 };
 
-
 std::ostream& operator<<(std::ostream &os, TileType t);
-
 
 /// Convert char to tile type.
 TileType to_tile_type(char c);
 
-
 /// True is a tower can be built in this tile else false.
 bool is_buildable(TileType t);
-
 
 /// Possible directions (cardinal directions) for the enemy path.
 enum Direction {
@@ -44,13 +40,10 @@ enum Direction {
     undefined_direction
 };
 
-
 std::ostream& operator<<(std::ostream& os, Direction d);
-
 
 /// Convert char to direction.
 Direction to_direction(char c);
-
 
 /// Individual tile in the game map. Contains properties of an individual tile
 /// such as if tower can be built on a tile or if the tile is part of the path
@@ -70,8 +63,8 @@ public:
     /// Pointer to the tower that occupies the tile if any.
     Tower *tower() const;
 
-    /// Update tower, true if successful.
-    bool upgrade_tower(Tower *new_tower);
+    /// Update tower, true if successful. Delete the old tower.
+    bool upgrade_tower(int index);
 
 private:
     const TileType m_tile_type;

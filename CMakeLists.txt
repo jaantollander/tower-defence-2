@@ -11,10 +11,10 @@ add_executable(
         src/objects/enemy.cpp
         src/objects/tower.cpp
         src/level.cpp
-        src/tile.cpp
-        src/tiles.cpp
-        src/path.cpp
-        src/map.cpp
+        src/map/tile.cpp
+        src/map/tiles.cpp
+        src/map/path.cpp
+        src/map/map.cpp
         src/engine.cpp
         src/main.cpp
 )
