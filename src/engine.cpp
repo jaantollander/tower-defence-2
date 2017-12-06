@@ -1,3 +1,5 @@
+#include <iostream>
+#include <fstream>
 #include "engine.h"
 
 
@@ -81,9 +83,7 @@ void GameEngine::enemy_movement() {
                 //TODO: player is dead game over
 
             }
-
-            //TODO: remove enemy
-//            m_game_map.remove_enemy()
+            m_game_map.remove_enemy(enemy);
         } else {
             // Update enemy's x and y positions
             auto p = path.position(d);
@@ -169,6 +169,7 @@ void GameEngine::towers_attack() {
 
                     //TODO: attack_speed
                     tower->deal_damage(*target);
+
                     if (target->is_dead()) {
                         this->add_money(target->money());
                         this->add_score(target->score());
@@ -189,4 +190,27 @@ void GameEngine::update() {
     enemy_movement();
     towers_attack();
     increment_time();
+}
+
+std::vector<int> GameEngine::high_score(const std::string &filename) {
+    std::ifstream is(filename);
+    if (is.fail()) {
+        throw std::exception();
+    }
+    std::vector<int> high_scores;
+    int i = 0;
+    int score = 0;
+    std::string str;
+    while (i < 5) {
+        std::cout << "1" << std::endl;
+        std::getline(is, str, '\n');
+        if (!is.eof()) {
+            try { score = std::stoi(str, nullptr, 0); }
+            catch (std::invalid_argument &) { throw invalid_file_format(""); }
+            high_scores.push_back(score);
+            i++;
+        }
+        else break;
+    }
+    return high_scores;
 }

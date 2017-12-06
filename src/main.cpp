@@ -123,5 +123,9 @@ int main() {
 
     game_engine.towers_attack();
     game_engine.towers_attack();
+    game_engine.towers_attack();
+    game_engine.towers_attack();
+
+    std::cout << game_engine.high_score("src/score.txt")[0] << std::endl;
 
 }

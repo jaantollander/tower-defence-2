@@ -67,6 +67,14 @@ public:
     /// TODO: Events: game over, level completed
     void update();
 
+    ///function that reads high scores from a file
+    ///top 5 scores are saved. File format is: """
+    ///2890
+    ///2510
+    ///""" etc.
+    /// TODO: writing scores to file
+    std::vector<int> high_score(const std::string &filename);
+
 private:
     double m_time;
     const double m_timestep;
