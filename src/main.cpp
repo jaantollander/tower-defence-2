@@ -57,18 +57,6 @@ public:
     EnemyType2() : EnemyType("Enemy2", 0, 0, 0, 0) { }
 };
 
-
-void printhp(GameMap &map) {
-    size_t size = map.enemies().size();
-    int i = 0;
-    while (i < size) {
-        std::cout << map.enemies()[i] -> health() << "  ";
-        i++;
-    }
-    std::cout << std::endl;
-}
-
-
 void sep(int length=80) {
     for (int i = 0; i < length; ++i) { std::cout <<  '='; }
     std::cout << std::endl;
@@ -131,9 +119,9 @@ int main() {
     game_engine.add_enemy(&e2);
     game_engine.add_enemy(&e3);
 
-//    std::cout << "Tower attack test.." << std::endl;
-//    printhp(game_map);
-//    game_engine.towers_attack();
-//    printhp(game_map);
+    std::cout << "Tower attack test.." << std::endl;
+
+    game_engine.towers_attack();
+    game_engine.towers_attack();
 
 }

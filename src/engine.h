@@ -56,7 +56,7 @@ public:
     /// Other combat objects that this object can target.
     /// - withing the attack range
     /// - targeting policy
-    Enemies find_targets(Tower *tower, Enemies &enemies);
+    Enemy* find_targets(Tower *tower, Enemies &enemies);
 
     /// Towers attack enemies. Increase score and money if enemies die and
     /// remove dead enemies from the game.

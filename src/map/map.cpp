@@ -11,7 +11,6 @@ GameMap::GameMap(std::string &name, Tiles &tiles, Path &path) :
         {}
 
 GameMap::~GameMap() {
-
 }
 
 std::string GameMap::name() const {
@@ -64,6 +63,21 @@ std::ostream& operator<<(std::ostream &os, GameMap &obj) {
 //        return false;
 //    }
 //}
+
+
+void GameMap::remove_enemy(Enemy *enemy) {
+    if (enemy != nullptr) {
+        auto it = m_enemies.begin();
+        while (it != m_enemies.end()) {
+            if (enemy == *it) {
+                m_enemies.erase(it);
+                break;
+            }
+            it++;
+        }
+    }
+}
+
 
 GameMap game_map_from_file(const std::string &filename,
                            TowerType *empty_tower_type,

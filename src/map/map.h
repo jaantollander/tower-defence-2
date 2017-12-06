@@ -49,7 +49,7 @@ public:
     void add_enemy(Enemy *enemy);
 
     /// Remove enemy.
-    void remove_enemy(int index);
+    void remove_enemy(Enemy* enemy);
 
 private:
     /// Name of the map

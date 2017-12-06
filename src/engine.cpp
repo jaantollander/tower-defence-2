@@ -93,13 +93,13 @@ void GameEngine::enemy_movement() {
 
 }
 
-Enemies GameEngine::find_targets(Tower *tower, Enemies &enemies) {
+Enemy* GameEngine::find_targets(Tower *tower, Enemies &enemies) {
     if (enemies.empty())
-        return {};
+        return nullptr;
 
+    auto path = this->m_game_map.path();
     switch (tower->targeting_policy()) {
         case target_first: {
-            auto path = this->m_game_map.path();
 
             // Object within attack range
             Enemy *first = nullptr;
@@ -119,14 +119,37 @@ Enemies GameEngine::find_targets(Tower *tower, Enemies &enemies) {
                 }
             }
 
-            return {first};
+            return first;
         }
-        case target_last:
-            //TODO: similar implementation as for target_first
-            return {};
-        case target_least_health:
-            //TODO: similar implementation as for target_first
-            return {};
+        case target_last: {
+            Enemy* last = nullptr;
+            double d_max = 0;
+            for (auto enemy : enemies) {
+                if (tower -> distance(*enemy) < tower -> attack_range()) {
+                    double d = path.distance_from_end(
+                            enemy -> distance_travelled());
+                    if (d >= d_max) {
+                        d_max = d;
+                        last = enemy;
+                    }
+                }
+            }
+            return last;
+        }
+        case target_least_health: {
+            Enemy* weak = nullptr;
+            int least_hp = 10000; //should be larger than hp of any enemy
+            for (Enemy* enemy : enemies) {
+                if (tower -> distance(*enemy) < tower -> attack_range()) {
+                    if (enemy->health() < least_hp) {
+                        least_hp = enemy -> health();
+                        weak = enemy;
+                    }
+                }
+            }
+            return weak;
+        }
+
         default:
             throw std::exception();
     }
@@ -141,15 +164,16 @@ void GameEngine::towers_attack() {
             auto tower = tile->tower();
             if (tower->damage() > 0) {
                 auto enemies = this->m_game_map.enemies();
-                auto targets = find_targets(tower, enemies);
-                for (auto target : targets) {
+                auto target = find_targets(tower, enemies);
+                if (target != nullptr) {
+
                     //TODO: attack_speed
-//                    tower->deal_damage(*target);
-
-                    this->add_money(target->money());
-                    this->add_score(target->score());
-
-                    //TODO: check if enemy dies and remove enemy
+                    tower->deal_damage(*target);
+                    if (target->is_dead()) {
+                        this->add_money(target->money());
+                        this->add_score(target->score());
+                        this->m_game_map.remove_enemy(target);
+                    }
                 }
             }
         }
