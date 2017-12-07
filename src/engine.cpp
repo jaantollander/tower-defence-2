@@ -194,15 +194,14 @@ void GameEngine::update() {
 
 std::vector<int> GameEngine::high_score(const std::string &filename) {
     std::ifstream is(filename);
-    if (is.fail()) {
-        throw std::exception();
-    }
+    if (is.fail()) { throw std::exception(); }
     std::vector<int> high_scores;
     int i = 0;
     int score = 0;
     std::string str;
+
+    //only top 5 are saved
     while (i < 5) {
-        std::cout << "1" << std::endl;
         std::getline(is, str, '\n');
         if (!is.eof()) {
             try { score = std::stoi(str, nullptr, 0); }
@@ -213,4 +212,41 @@ std::vector<int> GameEngine::high_score(const std::string &filename) {
         else break;
     }
     return high_scores;
+}
+
+bool GameEngine::update_high_score(const std::string &filename) {
+    std::vector<int> scores;
+    try { scores = high_score(filename); }
+    catch (invalid_file_format &) { return false; }
+    bool flag = false;
+    auto it = scores.begin();
+
+    //check if score better than previous
+    while (it != scores.end()) {
+        if (m_score > *it) {
+            flag = true;
+            scores.insert(it, m_score);
+            break;
+        } else it++;
+    }
+
+    //check if there are less than five scores
+    if (flag == false && scores.size() < 5) {
+        scores.insert(it, m_score);
+        flag = true;
+    }
+
+    //write the new scores, if they are better than previous
+    if (flag) {
+        std::ofstream os(filename);
+        if (os.fail()) throw std::exception();
+        int i = 0;
+        it = scores.begin();
+        while (it != scores.end() && i < 5) {
+            os << *it << std::endl;
+            it++; i++;
+        }
+
+    }
+    return flag;
 }

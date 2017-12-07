@@ -122,10 +122,8 @@ int main() {
     std::cout << "Tower attack test.." << std::endl;
 
     game_engine.towers_attack();
-    game_engine.towers_attack();
-    game_engine.towers_attack();
-    game_engine.towers_attack();
 
-    std::cout << game_engine.high_score("src/score.txt")[0] << std::endl;
+    game_engine.update_high_score("src/score.txt");
+
 
 }
