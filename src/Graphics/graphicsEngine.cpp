@@ -1,3 +1,4 @@
+#include "graphicsEngine.h"
 
 graphicsEngine::graphicsEngine(sf::RenderWindow &window):
                                         m_window(window){

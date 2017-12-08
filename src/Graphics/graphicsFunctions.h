@@ -1,3 +1,14 @@
+#ifndef TOWER_DEFENCE_2_GRAPHICS_FUNCTIONS_H
+#define TOWER_DEFENCE_2_GRAPHICS_FUNCTIONS_H
+
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include <iostream>
+#include <cstdlib>     // For rand()
+#include <cmath>       // For round()
+#include <string>
+#include <iostream>
+#include <sstream>
 
 enum Screens
 {
@@ -32,3 +43,5 @@ sf::Vector2f gameScreenPoller(sf::RenderWindow &window,
                                            std::vector<sf::Vector2f> gameBtns);
 
 void drawStats(sf::RenderWindow &window, int stats);
+
+#endif
