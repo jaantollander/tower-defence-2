@@ -18,7 +18,9 @@ public:
     void drawTiles(GameMap map);
     void drawStats(int score);
     void drawGameBtns();
+
     void drawCreatures(std::vector<sf::Vector3f> creatures);
+    void drawTowers(GameMap map);
 
     int pollMainScreen();
     sf::Vector3f pollGameScreen();
