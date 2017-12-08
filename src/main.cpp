@@ -22,43 +22,43 @@ public:
 
 class TowerTypeA : public TowerType {
 public:
-    TowerTypeA() : TowerType("Tower1", 300, 20, 4, 8) { }
+    TowerTypeA() : TowerType("Tower1", 100, 10, 2.0, 2.0) { }
 };
 
 
 class TowerTypeA2 : public TowerType {
 public:
-    TowerTypeA2() : TowerType("Tower2", 0, 0, 0, 0) { }
+    TowerTypeA2() : TowerType("Tower2", 100, 15, 2.0, 1.5) { }
 };
 
 
 class TowerTypeB : public TowerType {
 public:
-    TowerTypeB() : TowerType("TowerTypeB", 100, 10, 4, 5) { }
+    TowerTypeB() : TowerType("TowerTypeB", 100, 5, 4.0, 2.0) { }
 };
 
 
 class TowerTypeB2 : public TowerType {
 public:
-    TowerTypeB2() : TowerType("TowerTypeB2", 0, 0, 0, 0) { }
+    TowerTypeB2() : TowerType("TowerTypeB2", 150, 10, 4.0, 1.0) { }
 };
 
 
 class TowerTypeB3 : public TowerType {
 public:
-    TowerTypeB3() : TowerType("TowerTypeB3", 0, 0, 0, 0) { }
+    TowerTypeB3() : TowerType("TowerTypeB3", 150, 20, 5.0, 2.0) { }
 };
 
 
 class EnemyType1 : public EnemyType {
 public:
-    EnemyType1() : EnemyType("Enemy1", 50, 100, 1, 40) { }
+    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 100) { }
 };
 
 
 class EnemyType2 : public EnemyType {
 public:
-    EnemyType2() : EnemyType("Enemy2", 0, 0, 0, 0) { }
+    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.1, 100) { }
 };
 
 void sep(int length=80) {
