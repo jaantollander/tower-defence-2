@@ -105,7 +105,7 @@ int main() {
     std::cout << "Initializing GameMap" << std::endl;
     sep();
     auto game_map = game_map_from_file(
-            "../src/maps/example.txt", &empty_tower_type, &root_tower_type);
+            "../src/maps/teromap.txt", &empty_tower_type, &root_tower_type);
     std::cout << game_map << std::endl;
 
     std::cout << "Initializing GameLevel" << std::endl;
@@ -134,26 +134,6 @@ int main() {
     window.setKeyRepeatEnabled(false);
 
     graphicsEngine gE = graphicsEngine(window);
-
-// ------------------------------------------------------ //
-
-    // Make tiles on the basis of map size
-    // TODO: This should be done on the basis of the map Class
-    int tileAmount = 10; // Assume square map with even number of tiles
-    sf::Vector2f tileSize(gE.m_mapSize.x / tileAmount, gE.m_mapSize.y / tileAmount);
-
-    // Colour the tiles according to map info
-
-    // Create a random map
-    std::vector< std::vector<int> > randomMap(tileAmount);
-    for (int i = 0; i < tileAmount; ++i) {
-        for (int j = 0; j < tileAmount; ++j) {
-            randomMap[i].push_back(rand() % 3);
-        }
-    }
-
-
-// ------------------------------------------------------ //
 
     // Create some creatures to be drawn on tiles
     std::vector<sf::Vector3f> creatures;
@@ -296,6 +276,6 @@ int main() {
         gE.m_window.display();
     }
 
-
+    std::cout << "All tests done!" << std::endl;
     return 0;
 }
