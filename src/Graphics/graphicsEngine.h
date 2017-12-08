@@ -1,5 +1,9 @@
+#ifndef TOWER_DEFENCE_2_GRAPHICS_ENGINE_H
+#define TOWER_DEFENCE_2_GRAPHICS_ENGINE_H
+
 #include "graphicsButton.h"
-//#include "graphicsEngine.cpp"
+#include <sstream>
+#include "graphicsFunctions.h"
 
 class graphicsEngine{
 public:
@@ -37,3 +41,6 @@ public:
 
 
 };
+
+
+#endif

@@ -4,12 +4,12 @@
 #include <stdlib.h>     // For rand()
 #include <math.h>       // For round()
 #include <string>
-#include <iostream>
 #include <sstream>
 
 
 #include "graphicsFunctions.h"
 #include "graphicsEngine.h"
+#include "graphicsButton.h"
 
 #include "graphicsFunctions.cpp"
 #include "graphicsEngine.cpp"

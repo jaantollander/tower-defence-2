@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.5)
 project(tower_defence_2)
 
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_FLAGS "")
+
+
 #TODO: CXX_FLAGS, flags for graphics
 
 add_executable(
@@ -16,5 +19,10 @@ add_executable(
         src/map/path.cpp
         src/map/map.cpp
         src/engine.cpp
+        src/Graphics/graphicsButton.cpp
+        src/Graphics/graphicsFunctions.cpp
+        src/Graphics/graphicsEngine.cpp
         src/main.cpp
 )
+
+target_link_libraries(tower_defence_2 sfml-graphics sfml-window sfml-system)

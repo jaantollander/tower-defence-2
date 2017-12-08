@@ -246,7 +246,7 @@ bool GameEngine::update_high_score(const std::string &filename) {
             os << *it << std::endl;
             it++; i++;
         }
-
+        os.close();
     }
     return flag;
 }

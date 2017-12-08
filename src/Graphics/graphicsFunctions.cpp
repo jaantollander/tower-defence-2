@@ -1,3 +1,5 @@
+#include "graphicsFunctions.h"
+
 
 std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
                                             sf::Vector2f windowSize)
