@@ -8,7 +8,7 @@ Tower::Tower(double x, double y, double radius, int damage, double attack_range,
         {}
 
 TowerType::TowerType(const std::string &name, int cost, int damage,
-                     int attack_range, int attack_speed) :
+                     double attack_range, double attack_speed) :
         m_name(name),
         m_cost(cost),
         m_upgrade_options({}),
@@ -37,7 +37,7 @@ TowerType::~TowerType() {
 
 }
 
-std::vector<TowerType *> TowerType::upgrade_options() {
+std::vector<TowerType *> TowerType::upgrade_options() const {
     return m_upgrade_options;
 }
 
@@ -51,4 +51,20 @@ Tower * TowerType::create_tower(double x, double y) {
 
 std::string TowerType::name() const {
     return m_name;
+}
+
+const int TowerType::cost() const {
+    return m_cost;
+}
+
+const int TowerType::damage() const {
+    return m_damage;
+}
+
+const double TowerType::attack_range() const {
+    return m_attack_range;
+}
+
+const double TowerType::attack_speed() const {
+    return m_attack_speed;
 }

@@ -43,7 +43,7 @@ void GameEngine::upgrade_tower(int x, int y, int index) {
     auto tiles = m_game_map.tiles();
     auto tile = tiles.tile(x, y);
 
-    if (add_money(0))
+    if (add_money(tile->tower()->tower_type()->cost()))
         tile->upgrade_tower(index);
 }
 
