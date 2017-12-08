@@ -4,6 +4,7 @@
 #include "graphicsButton.h"
 #include <sstream>
 #include "graphicsFunctions.h"
+#include "../map/map.h"
 
 class graphicsEngine{
 public:
@@ -14,11 +15,12 @@ public:
 
     void drawMenu();
 
-    void drawTiles(std::vector< std::vector<int> > map);
+    void drawTiles(GameMap map);
     void drawStats(int score);
     void drawGameBtns();
     void drawCreatures(std::vector<sf::Vector3f> creatures);
 
+    int pollMainScreen();
     sf::Vector3f pollGameScreen();
     
 //private:

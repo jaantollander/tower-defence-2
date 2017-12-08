@@ -133,21 +133,12 @@ int main() {
 // =================== Graphics =======================
 
 
-    // define the sizes of different areas
-    // TODO: Kaikki yhdeksi objektiksi jonka voi sitten antaa inputtina funktioille
-    sf::Vector2f mapSize(600.f, 600.f);
-    sf::Vector2f sidebarSize(200.f, mapSize.y);
-    sf::Vector2f windowSize(mapSize.x + sidebarSize.x, mapSize.y);
-
 // ------------------------------------------------------ //
 
     // Create a window where stuff is drawn - 4:3 aspect ratio
-    sf::RenderWindow window(sf::VideoMode(windowSize.x, windowSize.y),
+    sf::RenderWindow window(sf::VideoMode(800, 600),
                             "Graphics test");
     window.setKeyRepeatEnabled(false);
-
-    // Enumerate different screens of the game
-    Screens currentScreen = mainScreen;
 
     graphicsEngine gE = graphicsEngine(window);
 
@@ -156,7 +147,7 @@ int main() {
     // Make tiles on the basis of map size
     // TODO: This should be done on the basis of the map Class
     int tileAmount = 10; // Assume square map with even number of tiles
-    sf::Vector2f tileSize(mapSize.x / tileAmount, mapSize.y / tileAmount);
+    sf::Vector2f tileSize(gE.m_mapSize.x / tileAmount, gE.m_mapSize.y / tileAmount);
 
     // Colour the tiles according to map info
 
@@ -206,7 +197,7 @@ int main() {
                 window.clear();
                 // Let's draw the window and sidebar
                 // Let's draw the tiles on the window
-                gE.drawTiles(randomMap);
+                gE.drawTiles(game_map);
                 // Let's draw the creatures
                 gE.drawCreatures(creatures);
                 // Let's show stats
@@ -237,7 +228,16 @@ int main() {
                     {
                         case mainScreen:    // We're in main screen
                         {
-                            gE.m_currentScreen = mainScreenPoller(window, windowSize);
+                            //gE.m_currentScreen = mainScreenPoller(window, windowSize);
+                            int menuBtnPressed = gE.pollMainScreen();
+
+                            switch( menuBtnPressed )
+                            {
+                                case 1:{break;}
+                                case 0:{gE.m_currentScreen = gameScreen;}
+                                case -1:{std::cout << "Map set to 1" << std::endl;}
+                                case -2:{std::cout << "Map set to 2" << std::endl;}
+                            }
                             break;
                         }
                         case gameScreen :   // We're in game screen
@@ -257,7 +257,7 @@ int main() {
                                     break;
                                 }
                                 case -2: {
-                                    std::cout << "Upgraded a tower" << std::endl;
+                                    std::cout << "Select the tower to upgrade" << std::endl;
                                     gE.m_upgFlag = true;
                                     break;
                                 }
@@ -296,7 +296,7 @@ int main() {
         sf::Time elapsedTime = clock.restart();
         // Update creatures' positions
         float displacement = 100 * elapsedTime.asSeconds(); // pix/s * s = pix
-        creatures[1].y = fmod(creatures[1].y + displacement, windowSize.y);
+        creatures[1].y = fmod(creatures[1].y + displacement, gE.m_windowSize.y);
 
         dummyScore ++;
 
