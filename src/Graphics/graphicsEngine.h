@@ -23,6 +23,9 @@ public:
     sf::Vector2f m_windowSize;
     sf::Vector2f m_tileSize;
 
+    bool m_buildFlag;
+    bool m_upgFlag;
+
     sf::RenderWindow &m_window;
     Screens m_currentScreen;
 

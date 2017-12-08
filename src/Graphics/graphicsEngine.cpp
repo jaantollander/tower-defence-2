@@ -6,6 +6,9 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
     m_sideBarSize = sf::Vector2f(200.f, m_mapSize.y);
     m_windowSize = sf::Vector2f(m_mapSize.x + m_sideBarSize.x, m_mapSize.y);
 
+    m_buildFlag = false;
+    m_upgFlag = false;
+
     m_currentScreen = mainScreen;
     sf::Font m_font;
     m_font.loadFromFile("FreeMono.ttf");
@@ -200,7 +203,8 @@ sf::Vector3f graphicsEngine::pollGameScreen(){
         btnPressed.x = floor(mPosx / m_tileSize.x);
         btnPressed.y = floor(mPosy / m_tileSize.y);
     }
-    else if(mPosy > 0 && mPosx < m_windowSize.x){
+    else if(mPosy > 0 && mPosx < m_windowSize.x)
+    {
         int idx = 0;
         for(; idx < m_gameBtns.size(); idx++){
             if( mPosx >= m_gameBtns[idx].m_location.x &&
@@ -211,6 +215,8 @@ sf::Vector3f graphicsEngine::pollGameScreen(){
             }
         }
         btnPressed.z = -1*idx;
+        m_buildFlag = false;
+        m_upgFlag = false;
     }
 
     return btnPressed;

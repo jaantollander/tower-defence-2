@@ -84,12 +84,10 @@ int main()
         //window.clear();
 
             // Draw the screens
-        switch( currentScreen )
+        switch( gE.m_currentScreen )
         {
             case mainScreen:
             {
-                //std::vector<sf::Vector2f> menuBtns = createAndDrawMenu(window, windowSize);
-                //gE.drawMenu();
                 break;
             }
             case gameScreen:
@@ -97,15 +95,11 @@ int main()
                     // Window has to be cleaned every time to avoid overlap
                 window.clear();
                 // Let's draw the window and sidebar
-                //gameBtns = createAndDrawGame(window, mapSize, sidebarSize);
                     // Let's draw the tiles on the window
-                //drawTiles(window, randomMap, tileAmount, tileSize);
                 gE.drawTiles(randomMap);
                     // Let's draw the creatures
-                //drawCreatures(window, creatures, tileSize);
                 gE.drawCreatures(creatures);
                     // Let's show stats
-                //drawStats(window, dummyScore);
                 gE.addStatsWindow();
                 gE.drawStats(dummyScore);
                 gE.drawGameBtns();
@@ -129,11 +123,11 @@ int main()
 
                 case sf::Event::MouseButtonReleased : // LMouseButton was clicked
                 {
-                    switch(currentScreen)   // What is the current screen state?
+                    switch(gE.m_currentScreen)   // What is the current screen state?
                     {
                         case mainScreen:    // We're in main screen
                         {
-                            currentScreen = mainScreenPoller(window, windowSize);
+                            gE.m_currentScreen = mainScreenPoller(window, windowSize);
                             break;
                         }
                         case gameScreen :   // We're in game screen
@@ -143,24 +137,38 @@ int main()
                             switch( (int) gameBtnPressed.z ){
                                 case 0: {
                                     window.clear();
-                                    currentScreen = mainScreen;
+                                    gE.m_currentScreen = mainScreen;
                                     gE.drawMenu();
                                     break;
                                 }
                                 case -1: {
-                                    std::cout << "Built a tower" << std::endl;
+                                    std::cout << "Select a place to build" << std::endl;
+                                    gE.m_buildFlag = true;
                                     break;
                                 }
                                 case -2: {
                                     std::cout << "Upgraded a tower" << std::endl;
+                                    gE.m_upgFlag = true;
                                     break;
                                 }
                                 case -3: {
                                     break;
                                 }
                                 default: {
-                                    creatures[1].x = gE.m_tileSize.x * gameBtnPressed.x;
-                                    creatures[1].y = gE.m_tileSize.y * gameBtnPressed.y;
+                                    if( gE.m_buildFlag ){
+                                        std::cout << "Built tower at " <<
+                                                  gameBtnPressed.x << " ; " <<
+                                                  gameBtnPressed.y << std::endl;
+                                        gE.m_buildFlag = false;
+                                    }else if( gE.m_upgFlag ){
+                                        std::cout << "Upgraded tower at " <<
+                                                  gameBtnPressed.x << " ; " <<
+                                                  gameBtnPressed.y << std::endl;
+                                        gE.m_upgFlag = false;
+                                    } else{
+                                        creatures[1].x = gE.m_tileSize.x * gameBtnPressed.x;
+                                        creatures[1].y = gE.m_tileSize.y * gameBtnPressed.y;
+                                    }
                                     break;
                                 }
                             }
