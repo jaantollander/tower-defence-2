@@ -3,7 +3,7 @@ project(tower_defence_2)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "")
-
+set(EXECUTABLE_OUTPUT_PATH ../build)
 
 #TODO: CXX_FLAGS, flags for graphics
 

@@ -1,0 +1,11 @@
+teromap;10;10;1;9;
+g ;g ;g ;g ;g ;g ;g ;pN;g ;g ;
+g ;g ;g ;pE;pE;pE;pE;pN;g ;g ;
+g ;g ;g ;pN;g ;g ;g ;g ;g ;g ;
+g ;g ;pE;pN;g ;g ;g ;g ;g ;g ;
+g ;g ;pN;g ;pS;pW;pW;pW;g ;g ;
+g ;g ;pN;pW;pW;g ;g ;pN;g ;g ;
+g ;g ;g ;g ;g ;g ;g ;pN;g ;g ;
+g ;pE;pE;pE;pS;g ;g ;pN;g ;g ;
+g ;pN;g ;g ;pE;pE;pE;pN;g ;g ;
+g ;pN;g ;g ;g ;g ;g ;g ;g ;g ;
