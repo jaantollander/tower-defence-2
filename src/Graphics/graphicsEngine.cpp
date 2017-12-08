@@ -11,6 +11,7 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
     m_upgFlag = false;
 
     m_currentScreen = mainScreen;
+
     sf::Font m_font;
     m_font.loadFromFile("FreeMono.ttf");
 
