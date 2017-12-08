@@ -1,4 +1,5 @@
 #include "graphicsEngine.h"
+#include "../map/map.h"
 
 graphicsEngine::graphicsEngine(sf::RenderWindow &window):
                                         m_window(window){
@@ -17,7 +18,6 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
 
     addButtons();
 
-    //std::cout << m_statsTexts[2].getPosition().x << std::endl;
 }
 
 void graphicsEngine::addButtons(){
@@ -146,26 +146,30 @@ void graphicsEngine::drawMenu(){
 }
 
 
-void graphicsEngine::drawTiles(std::vector< std::vector<int> > map){
+void graphicsEngine::drawTiles(GameMap map){
 
-    int tileAmount = map[0].size();
-    m_tileSize.x = m_mapSize.x / tileAmount;
-    m_tileSize.y = m_mapSize.y / tileAmount;
+    int tileAmount_x = map.tiles().xsize;
+    int tileAmount_y = map.tiles().ysize;
 
-    for (int i = 0; i < tileAmount; ++i) {
-        for (int j = 0; j < tileAmount; ++j) {
+    m_tileSize.x = m_mapSize.x / tileAmount_x;
+    m_tileSize.y = m_mapSize.y / tileAmount_y;
+
+    for (int i = 0; i < tileAmount_x; ++i) {
+        for (int j = 0; j < tileAmount_y; ++j) {
             sf::RectangleShape tmpTile(m_tileSize);
-            tmpTile.setPosition(j*m_tileSize.x, i*m_tileSize.y); // OBS j,i !
+            tmpTile.setPosition(i*m_tileSize.x, j*m_tileSize.y); // OBS j,i !
             tmpTile.setOutlineColor(sf::Color::White);
             tmpTile.setOutlineThickness(2);
 
-            switch(map[i][j])
+            switch(map.tiles().tile(i,j)->tile_type())
             {
-                case 0: tmpTile.setFillColor(sf::Color::Green);
+                case path: tmpTile.setFillColor(sf::Color::White);
                     break;
-                case 1: tmpTile.setFillColor(sf::Color::White);
+                case grass: tmpTile.setFillColor(sf::Color::Green);
                     break;
-                case 2: tmpTile.setFillColor(sf::Color::Red);
+                case water: tmpTile.setFillColor(sf::Color::Blue);
+                    break;
+                case undefined_tile_type: tmpTile.setFillColor(sf::Color::Black);
                     break;
             }
             m_window.draw(tmpTile);
@@ -191,6 +195,30 @@ void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
 
         m_window.draw(tmpCreature);
     }
+}
+
+
+int graphicsEngine::pollMainScreen(){
+    int btnPressed = 1;
+
+    int mPosx = sf::Mouse::getPosition(m_window).x;
+    int mPosy = sf::Mouse::getPosition(m_window).y;
+
+    if(mPosy > 0 && mPosx < m_windowSize.x)
+    {
+        int idx = 0;
+        for(; idx < m_menuBtns.size(); idx++){
+            if( mPosx >= m_menuBtns[idx].m_location.x &&
+                mPosy >= m_menuBtns[idx].m_location.y &&
+                mPosx <= m_menuBtns[idx].m_location.x + m_menuBtns[idx].m_size.x &&
+                mPosy <= m_menuBtns[idx].m_location.y + m_menuBtns[idx].m_size.y){
+                break;
+            }
+        }
+        btnPressed = -1*idx;
+    }
+
+    return btnPressed;
 }
 
 sf::Vector3f graphicsEngine::pollGameScreen(){
