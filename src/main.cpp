@@ -110,7 +110,6 @@ int main() {
     auto game_engine = GameEngine(0, 0.01, 0, 0, 10, game_level, game_map);
 
     // Set towers
-    //TODO: fix x and y coordinates
     game_engine.upgrade_tower(2, 3, 0);
     game_engine.upgrade_tower(4, 2, 1);
     game_engine.upgrade_tower(3, 5, 1);
