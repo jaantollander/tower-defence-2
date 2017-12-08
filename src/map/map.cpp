@@ -144,12 +144,12 @@ GameMap game_map_from_file(const std::string &filename,
             auto tile_type = to_tile_type(spec[0]);
             auto direction = to_direction(spec[1]);
 
-            // Create tower of right tower type.
+            // Create tower of right tower type in center of a tile.
             Tower *tower;
             if (is_buildable(tile_type))
-                tower = root_tower_type->create_tower(x, y);
+                tower = root_tower_type->create_tower(x * tilesize / 2, y * tilesize / 2);
             else
-                tower = empty_tower_type->create_tower(x, y);
+                tower = empty_tower_type->create_tower(x * tilesize / 2, y * tilesize / 2);
 
             // Create new tile and place it into right tile
             auto *tile = new Tile(tile_type, direction, tower);

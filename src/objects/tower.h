@@ -12,8 +12,8 @@ class TowerType;
 /// Tower class
 class Tower : public Object {
 public:
-    Tower(int x, int y, int radius, int damage, int attack_range,
-              int attack_speed, TowerType *tower_type);
+    Tower(double x, double y, double radius, int damage, double attack_range,
+          double attack_speed, TowerType *tower_type);
     ~Tower();
 
     TowerType *tower_type();
@@ -41,7 +41,7 @@ public:
     void add_upgrade_option(TowerType *tower_type);
 
     /// Create new tower of this type.
-    Tower * create_tower(int x, int y);
+    Tower * create_tower(double x, double y);
 
 private:
     /// Name of the tower type

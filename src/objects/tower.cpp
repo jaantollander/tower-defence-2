@@ -1,8 +1,8 @@
 #include "tower.h"
 
 
-Tower::Tower(int x, int y, int radius, int damage, int attack_range,
-             int attack_speed, TowerType *tower_type) :
+Tower::Tower(double x, double y, double radius, int damage, double attack_range,
+             double attack_speed, TowerType *tower_type) :
         Object(x, y, radius, 0, 0, damage, attack_range, attack_speed),
         m_tower_type(tower_type)
         {}
@@ -45,7 +45,7 @@ void TowerType::add_upgrade_option(TowerType *tower_type) {
     m_upgrade_options.push_back(tower_type);
 }
 
-Tower * TowerType::create_tower(int x, int y) {
+Tower * TowerType::create_tower(double x, double y) {
     return new Tower(x, y, 1, m_damage, m_attack_range, m_attack_speed, this);
 }
 
