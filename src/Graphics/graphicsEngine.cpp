@@ -36,7 +36,19 @@ void graphicsEngine::addButtons(){
     m_gameBtns.push_back(graphicsButton(
             sf::Vector2f(600, 500),
             sf::Vector2f(200, 100),
-            std::string("Main Menu")
+            std::string(" Main\n  Menu")
+    ));
+
+    m_gameBtns.push_back(graphicsButton(
+            sf::Vector2f(600, 400),
+            sf::Vector2f(100, 100),
+            std::string("Buy")
+    ));
+
+    m_gameBtns.push_back(graphicsButton(
+            sf::Vector2f(700, 400),
+            sf::Vector2f(100, 100),
+            std::string("Up-\ngrd")
     ));
 }
 
@@ -99,8 +111,6 @@ void graphicsEngine::drawStats(int score){
     resources.setColor(sf::Color::Black);
     resources.setPosition(660, 280);
     m_window.draw(resources);
-
-    m_window.display();
 
 }
 
@@ -175,5 +185,58 @@ void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
         }
 
         m_window.draw(tmpCreature);
+    }
+}
+
+sf::Vector3f graphicsEngine::pollGameScreen(){
+
+    sf::Vector3f btnPressed(100.f,100.f, 1.f);
+
+    int mPosx = sf::Mouse::getPosition(m_window).x;
+    int mPosy = sf::Mouse::getPosition(m_window).y;
+
+    if( mPosy > 0 && mPosx < m_mapSize.x )
+    {
+        btnPressed.x = floor(mPosx / m_tileSize.x);
+        btnPressed.y = floor(mPosy / m_tileSize.y);
+    }
+    else if(mPosy > 0 && mPosx < m_windowSize.x){
+        int idx = 0;
+        for(; idx < m_gameBtns.size(); idx++){
+            if( mPosx >= m_gameBtns[idx].m_location.x &&
+                mPosy >= m_gameBtns[idx].m_location.y &&
+                mPosx <= m_gameBtns[idx].m_location.x + m_gameBtns[idx].m_size.x &&
+                mPosy <= m_gameBtns[idx].m_location.y + m_gameBtns[idx].m_size.y){
+                break;
+            }
+        }
+        btnPressed.z = -1*idx;
+    }
+
+    return btnPressed;
+}
+
+void graphicsEngine::drawGameBtns(){
+
+    sf::Font font;
+    font.loadFromFile("FreeMono.ttf");
+
+    for(int i=0; i < m_gameBtns.size(); i++){
+
+        sf::RectangleShape tmp_btn(m_gameBtns[i].m_size);
+
+        tmp_btn.setPosition(m_gameBtns[i].m_location);
+        tmp_btn.setFillColor(sf::Color::Green);
+        tmp_btn.setOutlineColor(sf::Color::White);
+        tmp_btn.setOutlineThickness(5);
+
+        sf::Text tmp_btnTxt(m_gameBtns[i].m_text, font, 34);
+
+        tmp_btnTxt.setColor(sf::Color::White);
+        tmp_btnTxt.setStyle(sf::Text::Bold);
+        tmp_btnTxt.setPosition(m_gameBtns[i].m_location + sf::Vector2f(10,10));
+
+        m_window.draw(tmp_btn);
+        m_window.draw(tmp_btnTxt);
     }
 }

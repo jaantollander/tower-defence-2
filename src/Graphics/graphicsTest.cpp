@@ -108,6 +108,8 @@ int main()
                 //drawStats(window, dummyScore);
                 gE.addStatsWindow();
                 gE.drawStats(dummyScore);
+                gE.drawGameBtns();
+
                 break;
             }
         }
@@ -136,17 +138,30 @@ int main()
                         }
                         case gameScreen :   // We're in game screen
                         {
-                            sf::Vector2f gameBtnPressed = gameScreenPoller(window, creatures, gameBtns);
+                            sf::Vector3f gameBtnPressed = gE.pollGameScreen();
 
-                            switch( (int) gameBtnPressed.x ){
-                                case -1: {
+                            switch( (int) gameBtnPressed.z ){
+                                case 0: {
                                     window.clear();
                                     currentScreen = mainScreen;
-                                    createAndDrawMenu(window, windowSize);
+                                    gE.drawMenu();
+                                    break;
+                                }
+                                case -1: {
+                                    std::cout << "Built a tower" << std::endl;
+                                    break;
+                                }
+                                case -2: {
+                                    std::cout << "Upgraded a tower" << std::endl;
+                                    break;
+                                }
+                                case -3: {
+                                    break;
                                 }
                                 default: {
-                                    creatures[1].x = gameBtnPressed.x;
-                                    creatures[1].y = gameBtnPressed.y;
+                                    creatures[1].x = gE.m_tileSize.x * gameBtnPressed.x;
+                                    creatures[1].y = gE.m_tileSize.y * gameBtnPressed.y;
+                                    break;
                                 }
                             }
 
@@ -167,8 +182,7 @@ int main()
 
         dummyScore ++;
 
-        window.display();
-
+        gE.m_window.display();
     }
 
     return 0;
