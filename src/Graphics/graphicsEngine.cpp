@@ -13,7 +13,7 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
     m_currentScreen = mainScreen;
 
     sf::Font m_font;
-    m_font.loadFromFile("FreeMono.ttf");
+    m_font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     addButtons();
 
@@ -67,7 +67,7 @@ void graphicsEngine::addStatsWindow(){
     m_window.draw(statsArea);
 
     sf::Font font;
-    font.loadFromFile("FreeMono.ttf");
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     sf::Text txt1("Points: ", font, 24);
     txt1.setColor(sf::Color::Black);
@@ -91,7 +91,7 @@ void graphicsEngine::addStatsWindow(){
 void graphicsEngine::drawStats(int score){
 
     sf::Font font;
-    font.loadFromFile("FreeMono.ttf");
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
     ss << score;
@@ -122,7 +122,7 @@ void graphicsEngine::drawStats(int score){
 void graphicsEngine::drawMenu(){
 
     sf::Font font;
-    font.loadFromFile("FreeMono.ttf");
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     for(int i=0; i < m_menuBtns.size(); i++){
 
@@ -227,7 +227,7 @@ sf::Vector3f graphicsEngine::pollGameScreen(){
 void graphicsEngine::drawGameBtns(){
 
     sf::Font font;
-    font.loadFromFile("FreeMono.ttf");
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     for(int i=0; i < m_gameBtns.size(); i++){
 
