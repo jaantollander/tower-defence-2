@@ -16,6 +16,8 @@ GameEngine::~GameEngine() {
 
 }
 
+GameMap GameEngine::game_map() { return m_game_map; }
+
 void GameEngine::add_score(int amount) {
     int new_score = m_score + amount;
     if (new_score < 0)
@@ -191,6 +193,7 @@ void GameEngine::update() {
     towers_attack();
     increment_time();
 }
+
 
 std::vector<int> GameEngine::high_score(const std::string &filename) {
     std::ifstream is(filename);

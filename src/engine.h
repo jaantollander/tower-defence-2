@@ -67,6 +67,9 @@ public:
     /// TODO: Events: game over, level completed
     void update();
 
+    /// Getter for game map
+    GameMap game_map();
+
     /// Function that reads high scores from a file
     /// top 5 scores are saved. File format is: """
     /// 2890

@@ -114,13 +114,13 @@ int main() {
 
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
-    auto game_engine = GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
+    auto game_engine = new GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
 
     // Set towers
     //TODO: remove this eventually when gui is ready.
-    game_engine.upgrade_tower(2, 3, 0);
-    game_engine.upgrade_tower(4, 2, 1);
-    game_engine.upgrade_tower(3, 5, 1);
+    game_engine->upgrade_tower(0, 0, 0);
+    game_engine->upgrade_tower(1, 1, 1);
+    game_engine->upgrade_tower(2, 2, 1);
 
 
 // =================== Graphics =======================
@@ -170,7 +170,7 @@ int main() {
                 window.clear();
                 // Let's draw the window and sidebar
                 // Let's draw the tiles on the window
-                gE.drawTiles(game_map);
+                gE.drawTiles(game_engine->game_map());
                 // Let's draw the creatures
                 gE.drawCreatures(creatures);
                 // Let's show stats
@@ -207,9 +207,23 @@ int main() {
                             switch( menuBtnPressed )
                             {
                                 case 1:{break;}
-                                case 0:{gE.m_currentScreen = gameScreen;}
-                                case -1:{std::cout << "Map set to 1" << std::endl;}
-                                case -2:{std::cout << "Map set to 2" << std::endl;}
+                                case 0:{gE.m_currentScreen = gameScreen; break;}
+                                case -1:{
+                                    GameMap map1 = game_map_from_file("../src/maps/example.txt",
+                                                                      &empty_tower_type, &root_tower_type);
+                                    delete(game_engine);
+                                    std::cout << "1" << std::endl;
+                                    game_engine = new GameEngine(0, timestep, 0, 100, lives, game_level, map1);
+                                    break;
+                                }
+                                case -2:{
+                                    GameMap map2 = game_map_from_file("../src/maps/teromap.txt",
+                                                                      &empty_tower_type, &root_tower_type);
+                                    delete(game_engine);
+                                    std::cout << "2" << std::endl;
+                                    game_engine = new GameEngine(0, timestep, 0, 100, lives, game_level, map2);
+                                    break;
+                                }
                             }
                             break;
                         }
@@ -276,6 +290,6 @@ int main() {
         gE.m_window.display();
     }
 
-    std::cout << "All tests done!" << std::endl;
+
     return 0;
 }
