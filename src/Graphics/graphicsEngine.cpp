@@ -156,8 +156,9 @@ void graphicsEngine::drawTiles(GameMap map){
 
     for (int i = 0; i < tileAmount_x; ++i) {
         for (int j = 0; j < tileAmount_y; ++j) {
+
             sf::RectangleShape tmpTile(m_tileSize);
-            tmpTile.setPosition(i*m_tileSize.x, j*m_tileSize.y); // OBS j,i !
+            tmpTile.setPosition(i*m_tileSize.x, j*m_tileSize.y);
             tmpTile.setOutlineColor(sf::Color::White);
             tmpTile.setOutlineThickness(2);
 
@@ -173,6 +174,17 @@ void graphicsEngine::drawTiles(GameMap map){
                     break;
             }
             m_window.draw(tmpTile);
+
+            if( map.tiles().tile(i,j)->tower()->damage() > 0 ){
+                sf::CircleShape tmpTower(std::min(m_tileSize.x,
+                                                  m_tileSize.y) / 2, 3);
+                tmpTower.setPosition(i*m_tileSize.x, j*m_tileSize.y);
+                tmpTower.setOutlineColor(sf::Color::White);
+                tmpTower.setOutlineThickness(5);
+
+                m_window.draw(tmpTower);
+            }
+
         }
     }
 }
@@ -197,7 +209,25 @@ void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
     }
 }
 
+/*
+void graphicsEngine::drawTowers(GameMap map) {
+    for (int i = 0; i < map.enemies().size(); ++i) {
+        sf::CircleShape tmpTower(std::min(m_tileSize.x, m_tileSize.y) / 2, 3);
+        tmpTower.setPosition(creatures[i].x, creatures[i].y); // OBS j,i !
 
+        switch ((int) creatures[i].z) {
+            case 1:
+                tmpTower.setFillColor(sf::Color::Blue);
+                break;
+            case 2:
+                tmpTower.setFillColor(sf::Color::Yellow);
+                break;
+        }
+
+        m_window.draw(tmpTower);
+    }
+}
+*/
 int graphicsEngine::pollMainScreen(){
     int btnPressed = 1;
 
