@@ -69,6 +69,20 @@ void sep(int length=80) {
 
 /// Run tower defence game. Currently used for testing.
 int main() {
+    // Enemy type instances
+    auto enemy_type_1 = EnemyType1();
+    auto enemy_type_2 = EnemyType2();
+
+    // Initial values
+    int initial_money = 1000;
+    double timestep = 0.01;
+    int lives = 10;
+
+    EnemySpawnInterval enemy_spawn_interval = {
+            {1.0, &enemy_type_1},
+            {2.0, &enemy_type_2}
+    };
+
     // Tower type instances
     auto empty_tower_type = EmptyTowerType();
     auto root_tower_type = RootTowerType();
@@ -87,9 +101,6 @@ int main() {
     tower_type_b.add_upgrade_option(&tower_type_b2);
     tower_type_b.add_upgrade_option(&tower_type_b3);
 
-    // Enemy type instances
-    auto enemy_type_1 = EnemyType1();
-    auto enemy_type_2 = EnemyType2();
 
     std::cout << "Initializing GameMap" << std::endl;
     sep();
@@ -99,17 +110,14 @@ int main() {
 
     std::cout << "Initializing GameLevel" << std::endl;
     sep();
-    EnemySpawnInterval enemy_spawn_interval = {
-            {1.0, &enemy_type_1},
-            {2.0, &enemy_type_2}
-    };
-    auto game_level = GameLevel(1000, 0, 0, enemy_spawn_interval);
+    auto game_level = GameLevel(initial_money, 0, 0, enemy_spawn_interval);
 
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
-    auto game_engine = GameEngine(0, 0.01, 0, 0, 10, game_level, game_map);
+    auto game_engine = GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
 
     // Set towers
+    //TODO: remove this eventually when gui is ready.
     game_engine.upgrade_tower(2, 3, 0);
     game_engine.upgrade_tower(4, 2, 1);
     game_engine.upgrade_tower(3, 5, 1);
