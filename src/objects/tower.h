@@ -52,6 +52,7 @@ private:
 
     /// Pointer to the types of towers that this tower type can be upgraded to.
     /// If collection is empty tower type cannot be upgraded.
+    /// TODO: : replace with map name -> option
     std::vector<TowerType *> m_upgrade_options;
 
     // Initial values for new towers

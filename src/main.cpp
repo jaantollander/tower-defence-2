@@ -113,21 +113,7 @@ int main() {
     //TODO: fix x and y coordinates
     game_engine.upgrade_tower(2, 3, 0);
     game_engine.upgrade_tower(4, 2, 1);
-
-    // Set enemies
-    //TODO: fix x and y coordinates
-    Enemy e1 = enemy_type_1.create_enemy(3, 0);
-    Enemy e2 = enemy_type_1.create_enemy(3, 1);
-    Enemy e3 = enemy_type_1.create_enemy(3, 2);
-    game_engine.add_enemy(&e1);
-    game_engine.add_enemy(&e2);
-    game_engine.add_enemy(&e3);
-
-    std::cout << "Tower attack test.." << std::endl;
-
-    game_engine.towers_attack();
-
-    game_engine.update_high_score("../src/score.txt");
+    game_engine.upgrade_tower(3, 5, 1);
 
 
 // =================== Graphics =======================
