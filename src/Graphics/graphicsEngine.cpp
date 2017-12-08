@@ -177,8 +177,9 @@ void graphicsEngine::drawTiles(GameMap map){
 
             if( map.tiles().tile(i,j)->tower()->damage() > 0 ){
                 sf::CircleShape tmpTower(std::min(m_tileSize.x,
-                                                  m_tileSize.y) / 2, 3);
-                tmpTower.setPosition(i*m_tileSize.x, j*m_tileSize.y);
+                                                  m_tileSize.y) / 2.5, 3);
+                tmpTower.setPosition(sf::Vector2f((i+0.12) * m_tileSize.x,
+                                                  (j+0.12) * m_tileSize.y));
                 tmpTower.setOutlineColor(sf::Color::White);
                 tmpTower.setOutlineThickness(5);
 
@@ -209,25 +210,21 @@ void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
     }
 }
 
-/*
-void graphicsEngine::drawTowers(GameMap map) {
-    for (int i = 0; i < map.enemies().size(); ++i) {
-        sf::CircleShape tmpTower(std::min(m_tileSize.x, m_tileSize.y) / 2, 3);
-        tmpTower.setPosition(creatures[i].x, creatures[i].y); // OBS j,i !
+void graphicsEngine::drawEnemies(Enemies enemies){
 
-        switch ((int) creatures[i].z) {
-            case 1:
-                tmpTower.setFillColor(sf::Color::Blue);
-                break;
-            case 2:
-                tmpTower.setFillColor(sf::Color::Yellow);
-                break;
-        }
+    //std::cout << enemies.size() << std::endl;
 
-        m_window.draw(tmpTower);
+    for (int i = 0; i < enemies.size(); ++i) {
+        sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y) / 2);
+        tmpEnemy.setPosition(enemies[i]->x() * m_tileSize.x,
+                             enemies[i]->y() * m_tileSize.y);
+        tmpEnemy.setFillColor(sf::Color::Red);
+
+
+        m_window.draw(tmpEnemy);
     }
 }
-*/
+
 int graphicsEngine::pollMainScreen(){
     int btnPressed = 1;
 

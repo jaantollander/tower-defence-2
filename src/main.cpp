@@ -123,6 +123,15 @@ int main() {
     game_engine->upgrade_tower(2, 2, 1);
 
 
+    std::cout << game_engine.game_map().enemies().size() << std::endl;
+
+    std::cout << "Tower attack test.." << std::endl;
+
+    //game_engine.towers_attack();
+
+    game_engine.update_high_score("../src/score.txt");
+
+
 // =================== Graphics =======================
 
 
@@ -134,6 +143,8 @@ int main() {
     window.setKeyRepeatEnabled(false);
 
     graphicsEngine gE = graphicsEngine(window);
+
+// ------------------------------------------------------ //
 
     // Create some creatures to be drawn on tiles
     std::vector<sf::Vector3f> creatures;
@@ -172,7 +183,7 @@ int main() {
                 // Let's draw the tiles on the window
                 gE.drawTiles(game_engine->game_map());
                 // Let's draw the creatures
-                gE.drawCreatures(creatures);
+                gE.drawEnemies(game_map.enemies());
                 // Let's show stats
                 gE.addStatsWindow();
                 gE.drawStats(dummyScore);

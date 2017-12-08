@@ -20,7 +20,7 @@ public:
     void drawGameBtns();
 
     void drawCreatures(std::vector<sf::Vector3f> creatures);
-    void drawTowers(GameMap map);
+    void drawEnemies(Enemies enemies);
 
     int pollMainScreen();
     sf::Vector3f pollGameScreen();
