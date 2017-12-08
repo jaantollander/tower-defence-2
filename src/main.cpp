@@ -123,14 +123,6 @@ int main() {
     game_engine->upgrade_tower(2, 2, 1);
 
 
-    std::cout << game_engine.game_map().enemies().size() << std::endl;
-
-    std::cout << "Tower attack test.." << std::endl;
-
-    //game_engine.towers_attack();
-
-    game_engine.update_high_score("../src/score.txt");
-
 
 // =================== Graphics =======================
 
