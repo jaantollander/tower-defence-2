@@ -74,7 +74,7 @@ int main() {
     auto enemy_type_2 = EnemyType2();
 
     // Initial values
-    int initial_money = 1000;
+    int initial_money = 600;
     double timestep = 0.01;
     int lives = 10;
 
@@ -89,8 +89,8 @@ int main() {
 
     auto tower_type_a = TowerTypeA();
     auto tower_type_a2 = TowerTypeA2();
-
     auto tower_type_b = TowerTypeB();
+
     auto tower_type_b2 = TowerTypeB2();
     auto tower_type_b3 = TowerTypeB3();
 
@@ -98,8 +98,8 @@ int main() {
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
-    tower_type_b.add_upgrade_option(&tower_type_b2);
-    tower_type_b2.add_upgrade_option(&tower_type_b3);
+   // tower_type_b.add_upgrade_option(&tower_type_b2);
+   // tower_type_b2.add_upgrade_option(&tower_type_b3);
 
 
     std::cout << "Initializing GameMap" << std::endl;
@@ -115,12 +115,6 @@ int main() {
     std::cout << "Initializing GameEngine" << std::endl;
     sep();
     auto game_engine = new GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
-
-    // Set towers
-    //TODO: remove this eventually when gui is ready.
-    game_engine->upgrade_tower(0, 0, 0);
-    game_engine->upgrade_tower(1, 1, 1);
-    game_engine->upgrade_tower(2, 2, 1);
 
     game_engine->add_enemy(new Enemy(4, 4, 0, 0, 100, &enemy_type_1));
 
@@ -171,7 +165,7 @@ int main() {
                 gE.drawEnemies(game_engine->game_map().enemies());
                 // Let's show stats
                 gE.addStatsWindow();
-                gE.drawStats(dummyScore);
+                gE.drawStats(game_engine->score());
                 gE.drawGameBtns();
 
                 break;
@@ -214,7 +208,7 @@ int main() {
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "1" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, 100, lives, game_level, map1);
+                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map1);
                                     break;
                                 }
                                 case -2:{
@@ -222,7 +216,7 @@ int main() {
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "2" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, 100, lives, game_level, map2);
+                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map2);
                                     break;
                                 }
                             }
@@ -255,9 +249,7 @@ int main() {
                                 default: {
                                     if( gE.m_buildFlag ){
                                         game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
-                                        std::cout << "Built tower at " <<
-                                                  gameBtnPressed.x << " ; " <<
-                                                  gameBtnPressed.y << std::endl;
+                                        std::cout << game_engine->money() << std::endl;
                                         gE.m_buildFlag = false;
                                     }else if( gE.m_upgFlag ){
                                         game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 1);
