@@ -122,6 +122,8 @@ int main() {
     game_engine->upgrade_tower(1, 1, 1);
     game_engine->upgrade_tower(2, 2, 1);
 
+    game_engine->add_enemy(new Enemy(4, 4, 0, 0, 100, &enemy_type_1));
+
 
 
 // =================== Graphics =======================
@@ -174,7 +176,7 @@ int main() {
                 // Let's draw the tiles on the window
                 gE.drawTiles(game_engine->game_map());
                 // Let's draw the creatures
-                gE.drawEnemies(game_map.enemies());
+                gE.drawEnemies(game_engine->game_map().enemies());
                 // Let's show stats
                 gE.addStatsWindow();
                 gE.drawStats(dummyScore);
@@ -265,6 +267,7 @@ int main() {
                                                   gameBtnPressed.y << std::endl;
                                         gE.m_buildFlag = false;
                                     }else if( gE.m_upgFlag ){
+                                        game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
                                         std::cout << "Upgraded tower at " <<
                                                   gameBtnPressed.x << " ; " <<
                                                   gameBtnPressed.y << std::endl;
