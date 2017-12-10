@@ -2,6 +2,8 @@
 #include <fstream>
 #include "engine.h"
 
+#define TOWER_AMOUNT 3
+
 
 GameEngine::GameEngine(double time, double timestep, int score, int money, int lives,
                        GameLevel &game_level, GameMap &game_map) :
@@ -17,6 +19,8 @@ GameEngine::~GameEngine() {
 }
 
 GameMap GameEngine::game_map() { return m_game_map; }
+int GameEngine::money() { return m_money; }
+int GameEngine::score() { return m_score; }
 
 void GameEngine::add_score(int amount) {
     int new_score = m_score + amount;
@@ -45,8 +49,10 @@ void GameEngine::upgrade_tower(int x, int y, int index) {
     auto tiles = m_game_map.tiles();
     auto tile = tiles.tile(x, y);
 
-    if (add_money(tile->tower()->tower_type()->cost()))
-        tile->upgrade_tower(index);
+    if (tile->tile_type() == grass && tile->upgrade_level() + 1 < TOWER_AMOUNT) {
+        if (add_money(-tile->tower()->tower_type()->upgrade_options()[0] -> cost()))
+            tile->upgrade_tower(0);
+    }
 }
 
 void GameEngine::add_enemy(Enemy *enemy) {

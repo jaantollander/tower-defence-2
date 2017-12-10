@@ -66,7 +66,7 @@ int main() {
     auto enemy_type_2 = EnemyType2();
 
     // Initial values
-    int initial_money = 1000;
+    int initial_money = 600;
     double timestep = 0.01;
     int lives = 10;
 
@@ -81,17 +81,17 @@ int main() {
 
     auto tower_type_a = TowerTypeA();
     auto tower_type_a2 = TowerTypeA2();
-
     auto tower_type_b = TowerTypeB();
+
     auto tower_type_b2 = TowerTypeB2();
     auto tower_type_b3 = TowerTypeB3();
 
     // Define tower hierarchy (upgrade options)
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
-    root_tower_type.add_upgrade_option(&tower_type_b);
-    tower_type_b.add_upgrade_option(&tower_type_b2);
-    tower_type_b.add_upgrade_option(&tower_type_b3);
+    tower_type_a2.add_upgrade_option(&tower_type_b);
+   // tower_type_b.add_upgrade_option(&tower_type_b2);
+   // tower_type_b2.add_upgrade_option(&tower_type_b3);
 
 
     std::cout << "Initializing GameMap" << std::endl;
@@ -108,11 +108,7 @@ int main() {
     sep();
     auto game_engine = new GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
 
-    // Set towers
-    //TODO: remove this eventually when gui is ready.
-    game_engine->upgrade_tower(0, 0, 0);
-    game_engine->upgrade_tower(1, 1, 1);
-    game_engine->upgrade_tower(2, 2, 1);
+    game_engine->add_enemy(new Enemy(4, 4, 0, 0, 100, &enemy_type_1));
 
 
 
@@ -128,17 +124,9 @@ int main() {
     graphicsEngine gE = graphicsEngine(window);
 
 // ------------------------------------------------------ //
-
-    // Create some creatures to be drawn on tiles
-    std::vector<sf::Vector3f> creatures;
-    creatures.push_back(sf::Vector3f(60, 60, 1 ));
-    creatures.push_back(sf::Vector3f(300, 120, 2 ));
-
-// ------------------------------------------------------ //
     // Draw (and update) the objects to the screen
 
     // Create the menu
-    //std::vector<sf::Vector2f> menuBtns = createAndDrawMenu(window, windowSize);
     gE.drawMenu();
     std::vector<sf::Vector2f> gameBtns;
     // Start a clock
@@ -147,10 +135,6 @@ int main() {
     //TODO: update game engine, start, stop
     while (window.isOpen())
     {
-
-        // Window has to be cleaned every time to avoid overlap
-        //window.clear();
-
         // Draw the screens
         //TODO: refactor to screen_event_handler function
         switch( gE.m_currentScreen )
@@ -167,7 +151,7 @@ int main() {
                 // Let's draw the tiles on the window
                 gE.drawTiles(game_engine->game_map());
                 // Let's draw the creatures
-                gE.drawEnemies(game_map.enemies());
+                gE.drawEnemies(game_engine->game_map().enemies());
                 // Let's show stats
                 gE.addStatsWindow();
                 //TODO: real values
@@ -198,7 +182,6 @@ int main() {
                     {
                         case mainScreen:    // We're in main screen
                         {
-                            //gE.m_currentScreen = mainScreenPoller(window, windowSize);
                             int menuBtnPressed = gE.pollMainScreen();
 
                             // TODO: enum
@@ -216,7 +199,7 @@ int main() {
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "1" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, 100, lives, game_level, map1);
+                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map1);
                                     break;
                                 }
                                 case -2:{
@@ -224,7 +207,7 @@ int main() {
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "2" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, 100, lives, game_level, map2);
+                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map2);
                                     break;
                                 }
                             }
@@ -232,50 +215,10 @@ int main() {
                         }
                         case gameScreen :   // We're in game screen
                         {
-                            sf::Vector3f gameBtnPressed = gE.pollGameScreen();
-
-                            switch( (int) gameBtnPressed.z ){
-                                case 0: {
-                                    window.clear();
-                                    gE.m_currentScreen = mainScreen;
-                                    gE.drawMenu();
-                                    break;
-                                }
-                                case -1: {
-                                    std::cout << "Select a place to build" << std::endl;
-                                    gE.m_buildFlag = true;
-                                    break;
-                                }
-                                case -2: {
-                                    std::cout << "Select the tower to upgrade" << std::endl;
-                                    gE.m_upgFlag = true;
-                                    break;
-                                }
-                                case -3: {
-                                    break;
-                                }
-                                default: {
-                                    if( gE.m_buildFlag ){
-                                        std::cout << "Built tower at " <<
-                                                  gameBtnPressed.x << " ; " <<
-                                                  gameBtnPressed.y << std::endl;
-                                        gE.m_buildFlag = false;
-                                    }else if( gE.m_upgFlag ){
-                                        std::cout << "Upgraded tower at " <<
-                                                  gameBtnPressed.x << " ; " <<
-                                                  gameBtnPressed.y << std::endl;
-                                        gE.m_upgFlag = false;
-                                    } else{
-                                        creatures[1].x = gE.m_tileSize.x * gameBtnPressed.x;
-                                        creatures[1].y = gE.m_tileSize.y * gameBtnPressed.y;
-                                    }
-                                    break;
-                                }
-                            }
-
-
+                            gE.mouseBtnEventGame(game_engine);
                             break;
                         }
+
                     }
                     break;
                 }
@@ -284,9 +227,6 @@ int main() {
 
         // What's our in-game time?
         sf::Time elapsedTime = clock.restart();
-        // Update creatures' positions
-        float displacement = 100 * elapsedTime.asSeconds(); // pix/s * s = pix
-        creatures[1].y = fmod(creatures[1].y + displacement, gE.m_windowSize.y);
 
         gE.m_window.display();
     }

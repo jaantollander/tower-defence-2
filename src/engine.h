@@ -70,6 +70,10 @@ public:
     /// Getter for game map
     GameMap game_map();
 
+    /// Getter for money and score
+    int money();
+    int score();
+
     /// Function that reads high scores from a file
     /// top 5 scores are saved. File format is: """
     /// 2890
