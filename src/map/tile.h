@@ -66,11 +66,14 @@ public:
     /// Update tower, true if successful. Delete the old tower.
     bool upgrade_tower(int index);
 
+    int upgrade_level();
+
 private:
     const TileType m_tile_type;
     const Direction m_direction;
 
     /// Tile can contains one or zero towers.
+    int m_upgraded;
     Tower *m_tower;
 };
 

@@ -53,7 +53,8 @@ Direction to_direction(char c) {
 Tile::Tile(TileType tile_type, Direction direction, Tower *tower) :
         m_tile_type(tile_type),
         m_direction(direction),
-        m_tower(tower)
+        m_tower(tower),
+        m_upgraded(0)
         { }
 
 Tile::~Tile() {
@@ -72,8 +73,11 @@ Tower *Tile::tower() const {
     return m_tower;
 }
 
+int Tile::upgrade_level() { return m_upgraded; }
+
 bool Tile::upgrade_tower(int index) {
     auto new_tower = m_tower->upgrade(index);
     delete(m_tower);
+    m_upgraded++;
     m_tower = new_tower;
 }
