@@ -26,11 +26,13 @@ TowerType *Tower::tower_type() {
 }
 
 Tower *Tower::upgrade(int index) {
-    //TODO: check index out of bounds
     auto upgrade_options = m_tower_type->upgrade_options();
-    auto new_tower_type = upgrade_options[index];
-    //TODO: x and y types
-    return new_tower_type->create_tower(this->x(), this->y());
+    if (upgrade_options.size() <= index) { return nullptr; }
+    else {
+        auto new_tower_type = upgrade_options[index];
+        //TODO: x and y types
+        return new_tower_type->create_tower(this->x(), this->y());
+    }
 }
 
 TowerType::~TowerType() {

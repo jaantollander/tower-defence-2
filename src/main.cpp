@@ -97,9 +97,9 @@ int main() {
     // Upgrade options
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
-    root_tower_type.add_upgrade_option(&tower_type_b);
+    tower_type_a2.add_upgrade_option(&tower_type_b);
     tower_type_b.add_upgrade_option(&tower_type_b2);
-    tower_type_b.add_upgrade_option(&tower_type_b3);
+    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
 
     std::cout << "Initializing GameMap" << std::endl;
@@ -262,12 +262,13 @@ int main() {
                                 }
                                 default: {
                                     if( gE.m_buildFlag ){
+                                        game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
                                         std::cout << "Built tower at " <<
                                                   gameBtnPressed.x << " ; " <<
                                                   gameBtnPressed.y << std::endl;
                                         gE.m_buildFlag = false;
                                     }else if( gE.m_upgFlag ){
-                                        game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
+                                        game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 1);
                                         std::cout << "Upgraded tower at " <<
                                                   gameBtnPressed.x << " ; " <<
                                                   gameBtnPressed.y << std::endl;
