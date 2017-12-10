@@ -224,47 +224,10 @@ int main() {
                         }
                         case gameScreen :   // We're in game screen
                         {
-                            sf::Vector3f gameBtnPressed = gE.pollGameScreen();
-
-                            switch( (int) gameBtnPressed.z ){
-                                case 0: {
-                                    window.clear();
-                                    gE.m_currentScreen = mainScreen;
-                                    gE.drawMenu();
-                                    break;
-                                }
-                                case -1: {
-                                    std::cout << "Select a place to build" << std::endl;
-                                    gE.m_buildFlag = true;
-                                    break;
-                                }
-                                case -2: {
-                                    std::cout << "Select the tower to upgrade" << std::endl;
-                                    gE.m_upgFlag = true;
-                                    break;
-                                }
-                                case -3: {
-                                    break;
-                                }
-                                default: {
-                                    if( gE.m_buildFlag ){
-                                        game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
-                                        std::cout << game_engine->money() << std::endl;
-                                        gE.m_buildFlag = false;
-                                    }else if( gE.m_upgFlag ){
-                                        game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 1);
-                                        std::cout << "Upgraded tower at " <<
-                                                  gameBtnPressed.x << " ; " <<
-                                                  gameBtnPressed.y << std::endl;
-                                        gE.m_upgFlag = false;
-                                    }
-                                    break;
-                                }
-                            }
-
-
+                            gE.mouseBtnEventHandler(game_engine);
                             break;
                         }
+
                     }
                     break;
                 }

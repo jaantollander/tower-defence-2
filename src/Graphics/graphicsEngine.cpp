@@ -180,11 +180,13 @@ void graphicsEngine::drawTiles(GameMap map){
                                                   (j+0.12) * m_tileSize.y));
 
                 switch(map.tiles().tile(i,j)->upgrade_level()){
-                    case 1: tmpTower.setFillColor(sf::Color::Cyan);
+                    case 1: tmpTower.setFillColor(sf::Color(200,200,200));
                         break;
-                    case 2: tmpTower.setFillColor(sf::Color::Magenta);
+                    case 2: tmpTower.setFillColor(sf::Color::Cyan);
                         break;
-                    default:tmpTower.setFillColor(sf::Color(200,200,200));
+                    case 3: tmpTower.setFillColor(sf::Color::Magenta);
+                        break;
+                    default:tmpTower.setFillColor(sf::Color::White);
                         break;
                 }
 
@@ -225,6 +227,50 @@ void graphicsEngine::drawEnemies(Enemies enemies){
         tmpEnemy.setFillColor(sf::Color::Red);
 
         m_window.draw(tmpEnemy);
+    }
+}
+
+
+void graphicsEngine::mouseBtnEventHandler(GameEngine *game_engine){
+
+    sf::Vector3f gameBtnPressed = pollGameScreen();
+
+    switch( (int) gameBtnPressed.z ){
+        case 0: {
+            m_window.clear();
+            m_currentScreen = mainScreen;
+            drawMenu();
+            break;
+        }
+        case -1: {
+            std::cout << "Select a place to build" << std::endl;
+            m_buildFlag = true;
+            break;
+        }
+        case -2: {
+            std::cout << "Select the tower to upgrade" << std::endl;
+            m_upgFlag = true;
+            break;
+        }
+        case -3: {
+            break;
+        }
+        default: {
+            if( m_buildFlag ){
+                game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
+                std::cout << "Built tower at " <<
+                          gameBtnPressed.x << " ; " <<
+                          gameBtnPressed.y << std::endl;
+                m_buildFlag = false;
+            }else if( m_upgFlag ){
+                game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 1);
+                std::cout << "Upgraded tower at " <<
+                          gameBtnPressed.x << " ; " <<
+                          gameBtnPressed.y << std::endl;
+                m_upgFlag = false;
+            }
+            break;
+        }
     }
 }
 
