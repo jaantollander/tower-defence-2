@@ -6,9 +6,9 @@
 #include "graphicsFunctions.h"
 #include "../map/map.h"
 
+
 class graphicsEngine{
 public:
-    
     graphicsEngine(sf::RenderWindow &window);
     void addButtons();
     void addStatsWindow();

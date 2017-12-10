@@ -9,20 +9,19 @@ std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
     std::vector<std::string>  buttonTexts; // Upper left corner
     //std::vector<sf::Drawable *> drawables;
 
-
-        // Create Start button
+    // Create Start button
     buttonLocations.push_back(sf::Vector2f(100, 200));
     buttonSizes.push_back(sf::Vector2f(160,120));
         buttonLocations.push_back(buttonLocations.back() + buttonSizes.back());
     buttonTexts.push_back("Start");
 
-        // Create Map1 selector
+    // Create Map1 selector
     buttonLocations.push_back(sf::Vector2f(330, 100));
     buttonSizes.push_back(sf::Vector2f(100,100));
     buttonLocations.push_back(buttonLocations.back() + buttonSizes.back());
     buttonTexts.push_back("Map\n 1");
 
-        // Create Map2 selector
+    // Create Map2 selector
     buttonLocations.push_back(sf::Vector2f(330, 230));
     buttonSizes.push_back(sf::Vector2f(100,100));
     buttonLocations.push_back(buttonLocations.back() + buttonSizes.back());
@@ -36,15 +35,15 @@ std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
         createAndDrawButton(window, buttonLocations[i*2], buttonSizes[i], buttonTexts[i], font);
     }
 
-
     //drawDrawables(window, drawables);
 
     return buttonLocations;
 }
 
 
-void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU, sf::Vector2f buttonSize,
-                         std::string &text, sf::Font &font){
+void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU,
+                         sf::Vector2f buttonSize, std::string &text,
+                         sf::Font &font){
     std::vector<sf::Drawable *> drawables;
 
     sf::RectangleShape button(buttonSize);
@@ -66,8 +65,8 @@ void createAndDrawButton(sf::RenderWindow &window, sf::Vector2f buttonLU, sf::Ve
 }
 
 
-std::vector<sf::Vector2f> createAndDrawGame(sf::RenderWindow &window,
-                            sf::Vector2f mapSize, sf::Vector2f sidebarSize)
+std::vector<sf::Vector2f> createAndDrawGame(
+        sf::RenderWindow &window, sf::Vector2f mapSize, sf::Vector2f sidebarSize)
 {
     std::vector<sf::Drawable *> drawables;
 

@@ -130,8 +130,7 @@ int main() {
 // ------------------------------------------------------ //
 
     // Create a window where stuff is drawn - 4:3 aspect ratio
-    sf::RenderWindow window(sf::VideoMode(800, 600),
-                            "Graphics test");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Graphics test");
     window.setKeyRepeatEnabled(false);
 
     graphicsEngine gE = graphicsEngine(window);
@@ -209,8 +208,13 @@ int main() {
 
                             switch( menuBtnPressed )
                             {
-                                case 1:{break;}
-                                case 0:{gE.m_currentScreen = gameScreen; break;}
+                                case 1:{
+                                    break;
+                                }
+                                case 0:{
+                                    gE.m_currentScreen = gameScreen;
+                                    break;
+                                }
                                 case -1:{
                                     GameMap map1 = game_map_from_file("../src/maps/example.txt",
                                                                       &empty_tower_type, &root_tower_type);

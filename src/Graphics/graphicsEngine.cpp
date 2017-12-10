@@ -1,9 +1,9 @@
 #include "graphicsEngine.h"
 #include "../map/map.h"
 
-graphicsEngine::graphicsEngine(sf::RenderWindow &window):
-                                        m_window(window){
 
+graphicsEngine::graphicsEngine(sf::RenderWindow &window):
+        m_window(window){
     m_mapSize = sf::Vector2f(600.f, 600.f);
     m_sideBarSize = sf::Vector2f(200.f, m_mapSize.y);
     m_windowSize = sf::Vector2f(m_mapSize.x + m_sideBarSize.x, m_mapSize.y);
@@ -17,7 +17,6 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
     m_font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     addButtons();
-
 }
 
 void graphicsEngine::addButtons(){
@@ -145,7 +144,6 @@ void graphicsEngine::drawMenu(){
     m_window.display();
 }
 
-
 void graphicsEngine::drawTiles(GameMap map){
 
     int tileAmount_x = map.tiles().xsize;
@@ -190,7 +188,6 @@ void graphicsEngine::drawTiles(GameMap map){
     }
 }
 
-
 void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
 
     for (int i = 0; i < creatures.size(); ++i) {
@@ -219,7 +216,6 @@ void graphicsEngine::drawEnemies(Enemies enemies){
         tmpEnemy.setPosition(enemies[i]->x() * m_tileSize.x,
                              enemies[i]->y() * m_tileSize.y);
         tmpEnemy.setFillColor(sf::Color::Red);
-
 
         m_window.draw(tmpEnemy);
     }
