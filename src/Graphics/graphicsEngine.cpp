@@ -178,8 +178,15 @@ void graphicsEngine::drawTiles(GameMap map){
                                                   m_tileSize.y) / 2.5, 3);
                 tmpTower.setPosition(sf::Vector2f((i+0.12) * m_tileSize.x,
                                                   (j+0.12) * m_tileSize.y));
-                tmpTower.setOutlineColor(sf::Color::White);
-                tmpTower.setOutlineThickness(5);
+
+                switch(map.tiles().tile(i,j)->upgrade_level()){
+                    case 1: tmpTower.setFillColor(sf::Color::Cyan);
+                        break;
+                    case 2: tmpTower.setFillColor(sf::Color::Magenta);
+                        break;
+                    default:tmpTower.setFillColor(sf::Color(200,200,200));
+                        break;
+                }
 
                 m_window.draw(tmpTower);
             }

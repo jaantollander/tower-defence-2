@@ -138,17 +138,9 @@ int main() {
     graphicsEngine gE = graphicsEngine(window);
 
 // ------------------------------------------------------ //
-
-    // Create some creatures to be drawn on tiles
-    std::vector<sf::Vector3f> creatures;
-    creatures.push_back(sf::Vector3f(60, 60, 1 ));
-    creatures.push_back(sf::Vector3f(300, 120, 2 ));
-
-// ------------------------------------------------------ //
     // Draw (and update) the objects to the screen
 
     // Create the menu
-    //std::vector<sf::Vector2f> menuBtns = createAndDrawMenu(window, windowSize);
     gE.drawMenu();
     std::vector<sf::Vector2f> gameBtns;
     int dummyScore = 1;
@@ -273,9 +265,6 @@ int main() {
                                                   gameBtnPressed.x << " ; " <<
                                                   gameBtnPressed.y << std::endl;
                                         gE.m_upgFlag = false;
-                                    } else{
-                                        creatures[1].x = gE.m_tileSize.x * gameBtnPressed.x;
-                                        creatures[1].y = gE.m_tileSize.y * gameBtnPressed.y;
                                     }
                                     break;
                                 }
@@ -292,9 +281,6 @@ int main() {
 
         // What's our in-game time?
         sf::Time elapsedTime = clock.restart();
-        // Update creatures' positions
-        float displacement = 100 * elapsedTime.asSeconds(); // pix/s * s = pix
-        creatures[1].y = fmod(creatures[1].y + displacement, gE.m_windowSize.y);
 
         dummyScore ++;
 
