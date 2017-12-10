@@ -95,12 +95,12 @@ void graphicsEngine::addStatsWindow(){
     m_window.draw(txt4);
 }
 
-void graphicsEngine::drawStats(double time, int score, int money, int lives) {
+void graphicsEngine::drawStats(GameEngine *game_engine) {
     sf::Font font;
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
-    ss << time;
+    ss << game_engine->time();
 
     sf::Text timestr(ss.str(), font, 22);
     timestr.setColor(sf::Color::Black);
@@ -108,7 +108,7 @@ void graphicsEngine::drawStats(double time, int score, int money, int lives) {
     m_window.draw(timestr);
 
     ss.str("");
-    ss << score;
+    ss << game_engine->score();
 
     sf::Text scorestr(ss.str(), font, 24);
     scorestr.setColor(sf::Color::Black);
@@ -116,7 +116,7 @@ void graphicsEngine::drawStats(double time, int score, int money, int lives) {
     m_window.draw(scorestr);
 
     ss.str("");
-    ss << money;
+    ss << game_engine->money();
 
     sf::Text moneystr(ss.str(), font, 24);
     moneystr.setColor(sf::Color::Black);
@@ -124,7 +124,7 @@ void graphicsEngine::drawStats(double time, int score, int money, int lives) {
     m_window.draw(moneystr);
 
     ss.str("");
-    ss << lives;
+    ss << game_engine->lives();
 
     sf::Text livesstr(ss.str(), font, 24);
     livesstr.setColor(sf::Color::Black);

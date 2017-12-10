@@ -132,7 +132,6 @@ int main() {
     // Start a clock
     sf::Clock clock;
     // While window has not been closed, keep on going
-    //TODO: update game engine, start, stop
     while (window.isOpen())
     {
         // Draw the screens
@@ -154,18 +153,14 @@ int main() {
                 gE.drawEnemies(game_engine->game_map().enemies());
                 // Let's show stats
                 gE.addStatsWindow();
-                //TODO: real values
-                gE.drawStats(
-                        game_engine->time(),
-                        game_engine->score(),
-                        game_engine->money(),
-                        game_engine->lives()
-                );
+                gE.drawStats(game_engine);
                 gE.drawGameBtns();
 
                 break;
             }
         }
+
+        //TODO: update game engine, start, stop
 
         // Sniff for window events
         sf::Event event;
