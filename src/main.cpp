@@ -155,7 +155,12 @@ int main() {
                 // Let's show stats
                 gE.addStatsWindow();
                 //TODO: real values
-                gE.drawStats(0.0, 0, 0, 0);
+                gE.drawStats(
+                        game_engine->time(),
+                        game_engine->score(),
+                        game_engine->money(),
+                        game_engine->lives()
+                );
                 gE.drawGameBtns();
 
                 break;

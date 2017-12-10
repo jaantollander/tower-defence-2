@@ -244,7 +244,6 @@ void graphicsEngine::drawEnemies(Enemies enemies){
     }
 }
 
-
 void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
 
     sf::Vector3f gameBtnPressed = pollGameScreen();

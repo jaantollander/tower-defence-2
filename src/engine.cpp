@@ -18,9 +18,27 @@ GameEngine::~GameEngine() {
 
 }
 
+double GameEngine::time() const {
+    return m_time;
+}
+
+const double GameEngine::timestep() const {
+    return m_timestep;
+}
+
+int GameEngine::score() const {
+    return m_score;
+}
+
+int GameEngine::money() const {
+    return m_money;
+}
+
+int GameEngine::lives() const {
+    return m_lives;
+}
+
 GameMap GameEngine::game_map() { return m_game_map; }
-int GameEngine::money() { return m_money; }
-int GameEngine::score() { return m_score; }
 
 void GameEngine::add_score(int amount) {
     int new_score = m_score + amount;
@@ -199,7 +217,6 @@ void GameEngine::update() {
     towers_attack();
     increment_time();
 }
-
 
 std::vector<int> GameEngine::high_score(const std::string &filename) {
     std::ifstream is(filename);

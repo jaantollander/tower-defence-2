@@ -20,6 +20,12 @@ public:
 
     ~GameEngine();
 
+    double time() const;
+    const double timestep() const;
+    int score() const;
+    int money() const;
+    int lives() const;
+
     /// Increments the game time by one timestep.
     void increment_time();
 
@@ -69,10 +75,6 @@ public:
 
     /// Getter for game map
     GameMap game_map();
-
-    /// Getter for money and score
-    int money();
-    int score();
 
     /// Function that reads high scores from a file
     /// top 5 scores are saved. File format is: """
