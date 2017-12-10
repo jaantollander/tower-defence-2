@@ -231,7 +231,7 @@ void graphicsEngine::drawEnemies(Enemies enemies){
 }
 
 
-void graphicsEngine::mouseBtnEventHandler(GameEngine *game_engine){
+void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
 
     sf::Vector3f gameBtnPressed = pollGameScreen();
 

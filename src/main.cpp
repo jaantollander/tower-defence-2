@@ -137,16 +137,11 @@ int main() {
     // Create the menu
     gE.drawMenu();
     std::vector<sf::Vector2f> gameBtns;
-    int dummyScore = 1;
     // Start a clock
     sf::Clock clock;
     // While window has not been closed, keep on going
     while (window.isOpen())
     {
-
-        // Window has to be cleaned every time to avoid overlap
-        //window.clear();
-
         // Draw the screens
         switch( gE.m_currentScreen )
         {
@@ -191,7 +186,6 @@ int main() {
                     {
                         case mainScreen:    // We're in main screen
                         {
-                            //gE.m_currentScreen = mainScreenPoller(window, windowSize);
                             int menuBtnPressed = gE.pollMainScreen();
 
                             switch( menuBtnPressed )
@@ -224,7 +218,7 @@ int main() {
                         }
                         case gameScreen :   // We're in game screen
                         {
-                            gE.mouseBtnEventHandler(game_engine);
+                            gE.mouseBtnEventGame(game_engine);
                             break;
                         }
 
@@ -236,8 +230,6 @@ int main() {
 
         // What's our in-game time?
         sf::Time elapsedTime = clock.restart();
-
-        dummyScore ++;
 
         gE.m_window.display();
     }

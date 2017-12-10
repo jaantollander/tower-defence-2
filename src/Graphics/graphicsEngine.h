@@ -23,7 +23,7 @@ public:
     void drawCreatures(std::vector<sf::Vector3f> creatures);
     void drawEnemies(Enemies enemies);
 
-    void mouseBtnEventHandler(GameEngine *game_engine);
+    void mouseBtnEventGame(GameEngine *game_engine);
     int pollMainScreen();
     sf::Vector3f pollGameScreen();
     
