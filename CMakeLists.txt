@@ -5,8 +5,6 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "")
 set(EXECUTABLE_OUTPUT_PATH ../build)
 
-#TODO: CXX_FLAGS, flags for graphics
-
 add_executable(
         tower_defence_2
         src/geom2D.cpp

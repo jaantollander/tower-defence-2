@@ -2,6 +2,9 @@
 #include "../map/map.h"
 
 
+//FIXME: font path
+
+
 graphicsEngine::graphicsEngine(sf::RenderWindow &window):
         m_window(window){
     m_mapSize = sf::Vector2f(600.f, 600.f);
@@ -56,8 +59,8 @@ void graphicsEngine::addButtons(){
     ));
 }
 
+//TODO: time, score, money, lives
 void graphicsEngine::addStatsWindow(){
-
     sf::RectangleShape statsArea(m_sideBarSize); // Stats
     statsArea.setPosition(m_mapSize.x, 0);
     statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
@@ -68,54 +71,66 @@ void graphicsEngine::addStatsWindow(){
     sf::Font font;
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
-    sf::Text txt1("Points: ", font, 24);
+    sf::Text txt1("Time: ", font, 24);
     txt1.setColor(sf::Color::Black);
     txt1.setStyle(sf::Text::Bold);
-    txt1.setPosition(sf::Vector2f(640, 50));
+    txt1.setPosition(sf::Vector2f(640, 0));
     m_window.draw(txt1);
 
-    sf::Text txt2("Round: ", font, 24);
+    sf::Text txt2("Score: ", font, 24);
     txt2.setColor(sf::Color::Black);
     txt2.setStyle(sf::Text::Bold);
-    txt2.setPosition(650, 150);
+    txt2.setPosition(650, 100);
     m_window.draw(txt2);
 
-    sf::Text txt3("Resources: ", font, 24);
+    sf::Text txt3("Money: ", font, 24);
     txt3.setColor(sf::Color::Black);
     txt3.setStyle(sf::Text::Bold);
-    txt3.setPosition(620, 250);
+    txt3.setPosition(620, 200);
     m_window.draw(txt3);
+
+    sf::Text txt4("Lives: ", font, 24);
+    txt4.setColor(sf::Color::Black);
+    txt4.setStyle(sf::Text::Bold);
+    txt4.setPosition(620, 300);
+    m_window.draw(txt4);
 }
 
-void graphicsEngine::drawStats(int score){
-
+void graphicsEngine::drawStats(double time, int score, int money, int lives) {
     sf::Font font;
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
+    ss << time;
+
+    sf::Text timestr(ss.str(), font, 22);
+    timestr.setColor(sf::Color::Black);
+    timestr.setPosition(sf::Vector2f(660, 30));
+    m_window.draw(timestr);
+
+    ss.str("");
     ss << score;
 
-    sf::Text points(ss.str(), font, 22);
-    points.setColor(sf::Color::Black);
-    points.setPosition(sf::Vector2f(660, 80));
-    m_window.draw(points);
+    sf::Text scorestr(ss.str(), font, 24);
+    scorestr.setColor(sf::Color::Black);
+    scorestr.setPosition(660, 130);
+    m_window.draw(scorestr);
 
     ss.str("");
-    ss << 1;
+    ss << money;
 
-    sf::Text round(ss.str(), font, 24);
-    round.setColor(sf::Color::Black);
-    round.setPosition(660, 180);
-    m_window.draw(round);
+    sf::Text moneystr(ss.str(), font, 24);
+    moneystr.setColor(sf::Color::Black);
+    moneystr.setPosition(660, 230);
+    m_window.draw(moneystr);
 
     ss.str("");
-    ss << 100;
+    ss << lives;
 
-    sf::Text resources(ss.str(), font, 24);
-    resources.setColor(sf::Color::Black);
-    resources.setPosition(660, 280);
-    m_window.draw(resources);
-
+    sf::Text livesstr(ss.str(), font, 24);
+    livesstr.setColor(sf::Color::Black);
+    livesstr.setPosition(660, 330);
+    m_window.draw(livesstr);
 }
 
 void graphicsEngine::drawMenu(){

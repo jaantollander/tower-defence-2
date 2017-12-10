@@ -12,49 +12,41 @@ public:
     EmptyTowerType() : TowerType("EmptyTower", 0, 0, 0, 0) { }
 };
 
-
 /// Empty tower type. Can be upgraded into a tower defined by upgrade options.
 class RootTowerType : public TowerType {
 public:
     RootTowerType() : TowerType("RootTower", 0, 0, 0, 0) { }
 };
 
-
 class TowerTypeA : public TowerType {
 public:
     TowerTypeA() : TowerType("Tower1", 100, 10, 2.0, 2.0) { }
 };
-
 
 class TowerTypeA2 : public TowerType {
 public:
     TowerTypeA2() : TowerType("Tower2", 100, 15, 2.0, 1.5) { }
 };
 
-
 class TowerTypeB : public TowerType {
 public:
     TowerTypeB() : TowerType("TowerTypeB", 100, 5, 4.0, 2.0) { }
 };
-
 
 class TowerTypeB2 : public TowerType {
 public:
     TowerTypeB2() : TowerType("TowerTypeB2", 150, 10, 4.0, 1.0) { }
 };
 
-
 class TowerTypeB3 : public TowerType {
 public:
     TowerTypeB3() : TowerType("TowerTypeB3", 150, 20, 5.0, 2.0) { }
 };
 
-
 class EnemyType1 : public EnemyType {
 public:
     EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 100) { }
 };
-
 
 class EnemyType2 : public EnemyType {
 public:
@@ -94,7 +86,7 @@ int main() {
     auto tower_type_b2 = TowerTypeB2();
     auto tower_type_b3 = TowerTypeB3();
 
-    // Upgrade options
+    // Define tower hierarchy (upgrade options)
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     root_tower_type.add_upgrade_option(&tower_type_b);
@@ -149,10 +141,10 @@ int main() {
     //std::vector<sf::Vector2f> menuBtns = createAndDrawMenu(window, windowSize);
     gE.drawMenu();
     std::vector<sf::Vector2f> gameBtns;
-    int dummyScore = 1;
     // Start a clock
     sf::Clock clock;
     // While window has not been closed, keep on going
+    //TODO: update game engine, start, stop
     while (window.isOpen())
     {
 
@@ -160,6 +152,7 @@ int main() {
         //window.clear();
 
         // Draw the screens
+        //TODO: refactor to screen_event_handler function
         switch( gE.m_currentScreen )
         {
             case mainScreen:
@@ -177,7 +170,8 @@ int main() {
                 gE.drawEnemies(game_map.enemies());
                 // Let's show stats
                 gE.addStatsWindow();
-                gE.drawStats(dummyScore);
+                //TODO: real values
+                gE.drawStats(0.0, 0, 0, 0);
                 gE.drawGameBtns();
 
                 break;
@@ -188,6 +182,7 @@ int main() {
         sf::Event event;
 
         // Something was clicked ->
+        //TODO: refactor to poll_event_handler function
         while(window.pollEvent(event)) {
             switch (event.type)
             {
@@ -206,6 +201,7 @@ int main() {
                             //gE.m_currentScreen = mainScreenPoller(window, windowSize);
                             int menuBtnPressed = gE.pollMainScreen();
 
+                            // TODO: enum
                             switch( menuBtnPressed )
                             {
                                 case 1:{
@@ -291,8 +287,6 @@ int main() {
         // Update creatures' positions
         float displacement = 100 * elapsedTime.asSeconds(); // pix/s * s = pix
         creatures[1].y = fmod(creatures[1].y + displacement, gE.m_windowSize.y);
-
-        dummyScore ++;
 
         gE.m_window.display();
     }

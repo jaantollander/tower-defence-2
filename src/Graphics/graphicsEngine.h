@@ -9,14 +9,14 @@
 
 class graphicsEngine{
 public:
-    graphicsEngine(sf::RenderWindow &window);
+    explicit graphicsEngine(sf::RenderWindow &window);
     void addButtons();
     void addStatsWindow();
 
     void drawMenu();
 
     void drawTiles(GameMap map);
-    void drawStats(int score);
+    void drawStats(double time, int score, int money, int lives);
     void drawGameBtns();
 
     void drawCreatures(std::vector<sf::Vector3f> creatures);
