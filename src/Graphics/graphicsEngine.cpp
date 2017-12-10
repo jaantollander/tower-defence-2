@@ -80,25 +80,25 @@ void graphicsEngine::addStatsWindow(){
     txt2.setPosition(650, 150);
     m_window.draw(txt2);
 
-    sf::Text txt3("Resources: ", font, 24);
+    sf::Text txt3("Money: ", font, 24);
     txt3.setColor(sf::Color::Black);
     txt3.setStyle(sf::Text::Bold);
     txt3.setPosition(620, 250);
     m_window.draw(txt3);
 }
 
-void graphicsEngine::drawStats(int score){
+void graphicsEngine::drawStats(GameEngine *game_engine){
 
     sf::Font font;
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
-    ss << score;
+    ss << game_engine->score();
 
-    sf::Text points(ss.str(), font, 22);
-    points.setColor(sf::Color::Black);
-    points.setPosition(sf::Vector2f(660, 80));
-    m_window.draw(points);
+    sf::Text score(ss.str(), font, 22);
+    score.setColor(sf::Color::Black);
+    score.setPosition(sf::Vector2f(660, 80));
+    m_window.draw(score);
 
     ss.str("");
     ss << 1;
@@ -109,12 +109,12 @@ void graphicsEngine::drawStats(int score){
     m_window.draw(round);
 
     ss.str("");
-    ss << 100;
+    ss << game_engine->money();
 
-    sf::Text resources(ss.str(), font, 24);
-    resources.setColor(sf::Color::Black);
-    resources.setPosition(660, 280);
-    m_window.draw(resources);
+    sf::Text money(ss.str(), font, 24);
+    money.setColor(sf::Color::Black);
+    money.setPosition(660, 280);
+    m_window.draw(money);
 
 }
 

@@ -17,7 +17,7 @@ public:
     void drawMenu();
 
     void drawTiles(GameMap map);
-    void drawStats(int score);
+    void drawStats(GameEngine *game_engine);
     void drawGameBtns();
 
     void drawCreatures(std::vector<sf::Vector3f> creatures);
