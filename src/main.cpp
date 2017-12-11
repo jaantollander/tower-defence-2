@@ -67,7 +67,7 @@ int main()  {
 
     // Initial values
     const int initial_money = 600;
-    const double timestep = 0.005;
+    const double timestep = 0.01;
     const int initial_lives = 10;
 
     EnemySpawnInterval enemy_spawn_interval = {
@@ -93,15 +93,14 @@ int main()  {
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
-    tower_type_b.add_upgrade_option(&tower_type_b2);
-    tower_type_b2.add_upgrade_option(&tower_type_b3);
+//    tower_type_b.add_upgrade_option(&tower_type_b2);
+//    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
 
     auto game_map = game_map_from_file(
             "../src/maps/map2.txt", &empty_tower_type, &root_tower_type);
     auto game_level = GameLevel(initial_money, initial_lives, 0, enemy_spawn_interval);
     auto game_engine = new GameEngine(0, timestep, 0, game_level, game_map);
-
 
 // =================== Graphics =======================
 
@@ -123,18 +122,13 @@ int main()  {
     // Start a clock
     sf::Clock clock;
     // While window has not been closed, keep on going
-    while (window.isOpen())
-    {
+    while (window.isOpen()) {
         // Draw the screens
         //TODO: refactor to screen_event_handler function
-        switch( gE.m_currentScreen )
-        {
+        switch(gE.m_currentScreen) {
             case mainScreen:
-            {
                 break;
-            }
-            case gameScreen:
-            {
+            case gameScreen: {
                 // Window has to be cleaned every time to avoid overlap
                 window.clear();
                 // Let's draw the window and sidebar
@@ -146,7 +140,6 @@ int main()  {
                 gE.addStatsWindow();
                 gE.drawStats(game_engine);
                 gE.drawGameBtns();
-
                 break;
             }
         }
@@ -157,33 +150,27 @@ int main()  {
         // Something was clicked ->
         //TODO: refactor to poll_event_handler function
         while(window.pollEvent(event)) {
-            switch (event.type)
-            {
-                case sf::Event::Closed : // Window was closed
-                {
+            switch (event.type) {
+                // Window was closed
+                case sf::Event::Closed : {
                     window.close();
                     break;
                 }
-
-                case sf::Event::MouseButtonReleased : // LMouseButton was clicked
-                {
-                    switch(gE.m_currentScreen)   // What is the current screen state?
-                    {
-                        case mainScreen:    // We're in main screen
-                        {
+                // LMouseButton was clicked
+                case sf::Event::MouseButtonReleased : {
+                    // What is the current screen state?
+                    switch(gE.m_currentScreen) {
+                        case mainScreen: {
                             int menuBtnPressed = gE.pollMainScreen();
-
-                            // TODO: enum
-                            switch( menuBtnPressed )
-                            {
-                                case 1:{
+                            switch(menuBtnPressed) {
+                                case 1: {
                                     break;
                                 }
-                                case 0:{
+                                case 0: {
                                     gE.m_currentScreen = gameScreen;
                                     break;
                                 }
-                                case -1:{
+                                case -1: {
                                     GameMap map1 = game_map_from_file("../src/maps/map1.txt",
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
@@ -193,7 +180,7 @@ int main()  {
                                                                  map1);
                                     break;
                                 }
-                                case -2:{
+                                case -2: {
                                     GameMap map2 = game_map_from_file("../src/maps/map2.txt",
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
@@ -203,15 +190,15 @@ int main()  {
                                                                  map2);
                                     break;
                                 }
+                                default:
+                                    break;
                             }
                             break;
                         }
-                        case gameScreen :   // We're in game screen
-                        {
+                        case gameScreen : {
                             gE.mouseBtnEventGame(game_engine);
                             break;
                         }
-
                     }
                     break;
                 }
