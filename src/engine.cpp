@@ -209,7 +209,6 @@ void GameEngine::increment_time() {
 }
 
 GameState GameEngine::update() {
-    //TODO: states
     advance_game_level();
     enemy_movement();
 

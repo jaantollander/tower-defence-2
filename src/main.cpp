@@ -73,7 +73,9 @@ int main()  {
     EnemySpawnInterval enemy_spawn_interval = {
             {4.0, &enemy_type_1},
             {8.0, &enemy_type_2},
-            {13.0, &enemy_type_2}
+            {13.0, &enemy_type_2},
+            {18.0, &enemy_type_2},
+            {21.0, &enemy_type_2}
     };
 
     // Tower type instances
@@ -221,9 +223,19 @@ int main()  {
 
         // Update game logic
         if (gE.m_currentScreen == gameScreen) {
-            //FIXME: enemy movement, path, draw enemies
-            game_engine->update();
-            auto enemies = game_engine->game_map().enemies();
+            //FIXME: draw enemies properly
+            auto state = game_engine->update();
+
+            switch (state) {
+                case level_completed:
+                    //TODO: handle level completed
+                    break;
+                case game_over:
+                    //TODO: handle game over
+                    break;
+                default:
+                    break; // Do nothing
+            }
         }
 
         gE.m_window.display();
