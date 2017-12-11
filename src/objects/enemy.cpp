@@ -19,7 +19,6 @@ int Enemy::money() const {
     return m_enemy_type->money();
 }
 
-
 EnemyType::EnemyType(const std::string &name, int score, int money,
                      double speed, int health) :
         m_name(name),
@@ -29,13 +28,12 @@ EnemyType::EnemyType(const std::string &name, int score, int money,
         m_health(health)
         {}
 
-
 EnemyType::~EnemyType() {
 
 }
 
-Enemy EnemyType::create_enemy(double x, double y) {
-    return Enemy(x, y, 1, m_speed, m_health, this);
+Enemy * EnemyType::create_enemy(double x, double y) {
+    return new Enemy(x, y, 1.0, m_speed, m_health, this);
 }
 
 int EnemyType::score() const {

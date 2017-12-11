@@ -50,7 +50,7 @@ public:
 
 class EnemyType2 : public EnemyType {
 public:
-    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.1, 100) { }
+    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.35, 100) { }
 };
 
 void sep(int length=80) {
@@ -60,19 +60,20 @@ void sep(int length=80) {
 
 
 /// Run tower defence game. Currently used for testing.
-int main() {
+int main()  {
     // Enemy type instances
     auto enemy_type_1 = EnemyType1();
     auto enemy_type_2 = EnemyType2();
 
     // Initial values
-    int initial_money = 600;
-    double timestep = 0.01;
-    int lives = 10;
+    const int initial_money = 600;
+    const double timestep = 0.005;
+    const int initial_lives = 10;
 
     EnemySpawnInterval enemy_spawn_interval = {
-            {1.0, &enemy_type_1},
-            {2.0, &enemy_type_2}
+            {4.0, &enemy_type_1},
+            {8.0, &enemy_type_2},
+            {13.0, &enemy_type_2}
     };
 
     // Tower type instances
@@ -90,26 +91,14 @@ int main() {
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
-   // tower_type_b.add_upgrade_option(&tower_type_b2);
-   // tower_type_b2.add_upgrade_option(&tower_type_b3);
+    tower_type_b.add_upgrade_option(&tower_type_b2);
+    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
 
-    std::cout << "Initializing GameMap" << std::endl;
-    sep();
     auto game_map = game_map_from_file(
             "../src/maps/teromap.txt", &empty_tower_type, &root_tower_type);
-    std::cout << game_map << std::endl;
-
-    std::cout << "Initializing GameLevel" << std::endl;
-    sep();
     auto game_level = GameLevel(initial_money, 0, 0, enemy_spawn_interval);
-
-    std::cout << "Initializing GameEngine" << std::endl;
-    sep();
-    auto game_engine = new GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
-
-    game_engine->add_enemy(new Enemy(4, 4, 0, 0, 100, &enemy_type_1));
-
+    auto game_engine = new GameEngine(0, timestep, 0, 0, initial_lives, game_level, game_map);
 
 
 // =================== Graphics =======================
@@ -160,8 +149,6 @@ int main() {
             }
         }
 
-        //TODO: update game engine, start, stop
-
         // Sniff for window events
         sf::Event event;
 
@@ -199,7 +186,7 @@ int main() {
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "1" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map1);
+                                    game_engine = new GameEngine(0, timestep, 0, initial_money, initial_lives, game_level, map1);
                                     break;
                                 }
                                 case -2:{
@@ -207,7 +194,7 @@ int main() {
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "2" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map2);
+                                    game_engine = new GameEngine(0.0, timestep, 0, initial_money, initial_lives, game_level, map2);
                                     break;
                                 }
                             }
@@ -227,6 +214,13 @@ int main() {
 
         // What's our in-game time?
         sf::Time elapsedTime = clock.restart();
+
+        // Update game logic
+        if (gE.m_currentScreen == gameScreen) {
+            //FIXME: enemy movement, path, draw enemies
+            game_engine->update();
+            auto enemies = game_engine->game_map().enemies();
+        }
 
         gE.m_window.display();
     }

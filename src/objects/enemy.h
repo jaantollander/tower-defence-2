@@ -34,7 +34,7 @@ public:
     int money() const;
 
     /// Create new enemy of this type.
-    Enemy create_enemy(double x, double y);
+    Enemy * create_enemy(double x, double y);
 
 private:
     /// Name of the enemy

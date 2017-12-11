@@ -38,7 +38,9 @@ int GameEngine::lives() const {
     return m_lives;
 }
 
-GameMap GameEngine::game_map() { return m_game_map; }
+GameMap GameEngine::game_map() {
+    return m_game_map;
+}
 
 void GameEngine::add_score(int amount) {
     int new_score = m_score + amount;
@@ -88,7 +90,7 @@ void GameEngine::advance_game_level() {
         auto enemy = enemy_type->create_enemy(start.x, start.y);
 
         // Add new enemies to game map
-        m_game_map.add_enemy(&enemy);
+        m_game_map.add_enemy(enemy);
     }
 
 }
@@ -100,6 +102,7 @@ void GameEngine::enemy_movement() {
     for (auto enemy : enemies) {
         enemy->distace_travelled(enemy->speed() * m_timestep);
         auto d = enemy->distance_travelled();
+
         if (path.has_reached_end(d)) {
             //reduce players score
             this->add_score(-enemy->score());
