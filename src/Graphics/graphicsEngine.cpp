@@ -233,8 +233,8 @@ void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
 void graphicsEngine::drawEnemies(Enemies enemies){
     for (auto &enemy : enemies) {
         sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y) / 2);
-        tmpEnemy.setPosition(enemy->x() * m_tileSize.x,
-                             enemy->y() * m_tileSize.y);
+        tmpEnemy.setPosition((enemy->x()-0.5) * m_tileSize.x,
+                             (enemy->y()-0.5) * m_tileSize.y);
         tmpEnemy.setFillColor(sf::Color::Red);
 
         m_window.draw(tmpEnemy);
