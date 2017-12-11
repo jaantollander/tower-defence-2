@@ -5,6 +5,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_FLAGS "")
 set(EXECUTABLE_OUTPUT_PATH ../build)
 
+# Build tests with cmake -Dtest=ON
 option(test "Build all tests." OFF)
 
 add_executable(
@@ -57,7 +58,6 @@ if (test)
         src/Graphics/graphicsEngine.cpp
         test/test_source.cpp
     )
-    #add_executable(UnitTests test/test_source.cpp)
 
     # Standard linking to gtest stuff.
     target_link_libraries(UnitTests gtest gtest_main)
