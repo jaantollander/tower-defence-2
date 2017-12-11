@@ -234,10 +234,10 @@ void graphicsEngine::drawEnemies(Enemies enemies){
 
     //std::cout << enemies.size() << std::endl;
 
-    for (int i = 0; i < enemies.size(); ++i) {
+    for (auto &enemy : enemies) {
         sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y) / 2);
-        tmpEnemy.setPosition(enemies[i]->x() * m_tileSize.x,
-                             enemies[i]->y() * m_tileSize.y);
+        tmpEnemy.setPosition(enemy->x() * m_tileSize.x,
+                             enemy->y() * m_tileSize.y);
         tmpEnemy.setFillColor(sf::Color::Red);
 
         m_window.draw(tmpEnemy);

@@ -2,8 +2,8 @@
 doc/html
 doc/latex
 cmake-build-debug/
-build/tower_defence_2
 build/
+
 
 ### C template
 # Prerequisites
