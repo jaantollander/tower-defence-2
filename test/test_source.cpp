@@ -115,7 +115,7 @@ protected:
 		//std::cout << "Initializing GameMap" << std::endl;
 		//sep();
 		auto game_map = game_map_from_file(
-		    "../src/maps/teromap.txt", &empty_tower_type, &root_tower_type);
+		    "../src/maps/map2.txt", &empty_tower_type, &root_tower_type);
 		//std::cout << game_map << std::endl;
 
 		//std::cout << "Initializing GameLevel" << std::endl;
@@ -157,8 +157,8 @@ protected:
 
 TEST_F(td_test, initialization_load_map) {
 
-	game_map_from_file("../src/maps/teromap.txt", empty_tower_type, root_tower_type);
-	game_map_from_file("../src/maps/example.txt", empty_tower_type, root_tower_type);
+	game_map_from_file("../src/maps/map2.txt", empty_tower_type, root_tower_type);
+	game_map_from_file("../src/maps/map1.txt", empty_tower_type, root_tower_type);
 
 	EXPECT_EQ(1, 1);
 }

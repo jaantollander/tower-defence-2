@@ -5,11 +5,10 @@
 #define TOWER_AMOUNT 3
 
 
-GameEngine::GameEngine(double time, double timestep, int score, int money, int lives,
+GameEngine::GameEngine(double time, double timestep, int score,
                        GameLevel &game_level, GameMap &game_map) :
-        m_time(time), m_score(score), m_money(money), m_timestep(timestep),
-        m_lives(lives), m_game_map(game_map),
-        m_game_level(game_level) {
+        m_time(time), m_score(score), m_timestep(timestep),
+        m_game_map(game_map), m_game_level(game_level) {
     m_money = game_level.initial_money();
     m_lives = game_level.initial_lives();
 }

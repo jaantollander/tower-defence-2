@@ -96,9 +96,9 @@ int main()  {
 
 
     auto game_map = game_map_from_file(
-            "../src/maps/teromap.txt", &empty_tower_type, &root_tower_type);
-    auto game_level = GameLevel(initial_money, 0, 0, enemy_spawn_interval);
-    auto game_engine = new GameEngine(0, timestep, 0, 0, initial_lives, game_level, game_map);
+            "../src/maps/map2.txt", &empty_tower_type, &root_tower_type);
+    auto game_level = GameLevel(initial_money, initial_lives, 0, enemy_spawn_interval);
+    auto game_engine = new GameEngine(0, timestep, 0, game_level, game_map);
 
 
 // =================== Graphics =======================
@@ -182,19 +182,23 @@ int main()  {
                                     break;
                                 }
                                 case -1:{
-                                    GameMap map1 = game_map_from_file("../src/maps/example.txt",
+                                    GameMap map1 = game_map_from_file("../src/maps/map1.txt",
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "1" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, initial_money, initial_lives, game_level, map1);
+                                    game_engine = new GameEngine(0, timestep, 0,
+                                                                 game_level,
+                                                                 map1);
                                     break;
                                 }
                                 case -2:{
-                                    GameMap map2 = game_map_from_file("../src/maps/teromap.txt",
+                                    GameMap map2 = game_map_from_file("../src/maps/map2.txt",
                                                                       &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
                                     std::cout << "2" << std::endl;
-                                    game_engine = new GameEngine(0.0, timestep, 0, initial_money, initial_lives, game_level, map2);
+                                    game_engine = new GameEngine(0.0, timestep,
+                                                                 0, game_level,
+                                                                 map2);
                                     break;
                                 }
                             }

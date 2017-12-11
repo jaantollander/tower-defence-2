@@ -2,7 +2,7 @@
 doc/html
 doc/latex
 cmake-build-debug/
-tower_defence_2
+build/tower_defence_2
 
 
 ### C template

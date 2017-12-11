@@ -15,7 +15,7 @@
 /// modifies the properties of the objects by using the rules of the game logic.
 class GameEngine {
 public:
-    GameEngine(double time, double timestep, int score, int money, int lives,
+    GameEngine(double time, double timestep, int score,
                    GameLevel &game_level, GameMap &game_map);
 
     ~GameEngine();
