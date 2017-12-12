@@ -13,6 +13,10 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
 
     m_currentScreen = mainScreen;
 
+    for (int i = 0; i < 5; ++i) {
+        m_gameEvents.push_back("");
+    }
+
     sf::Font m_font;
     m_font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
@@ -56,79 +60,6 @@ void graphicsEngine::addButtons(){
     ));
 }
 
-void graphicsEngine::addStatsWindow(){
-    sf::RectangleShape statsArea(m_sideBarSize); // Stats
-    statsArea.setPosition(m_mapSize.x, 0);
-    statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
-    statsArea.setOutlineColor(sf::Color::White);
-    statsArea.setOutlineThickness(5);
-    m_window.draw(statsArea);
-
-    sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
-
-    sf::Text txt1("Time: ", font, 24);
-    txt1.setColor(sf::Color::Black);
-    txt1.setStyle(sf::Text::Bold);
-    txt1.setPosition(sf::Vector2f(640, 0));
-    m_window.draw(txt1);
-
-    sf::Text txt2("Score: ", font, 24);
-    txt2.setColor(sf::Color::Black);
-    txt2.setStyle(sf::Text::Bold);
-    txt2.setPosition(650, 100);
-    m_window.draw(txt2);
-
-    sf::Text txt3("Money: ", font, 24);
-    txt3.setColor(sf::Color::Black);
-    txt3.setStyle(sf::Text::Bold);
-    txt3.setPosition(620, 200);
-    m_window.draw(txt3);
-
-    sf::Text txt4("Lives: ", font, 24);
-    txt4.setColor(sf::Color::Black);
-    txt4.setStyle(sf::Text::Bold);
-    txt4.setPosition(620, 300);
-    m_window.draw(txt4);
-}
-
-void graphicsEngine::drawStats(GameEngine *game_engine) {
-    sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
-
-    std::stringstream ss;
-    ss << game_engine->time();
-
-    sf::Text timestr(ss.str(), font, 22);
-    timestr.setColor(sf::Color::Black);
-    timestr.setPosition(sf::Vector2f(660, 30));
-    m_window.draw(timestr);
-
-    ss.str("");
-    ss << game_engine->score();
-
-    sf::Text scorestr(ss.str(), font, 24);
-    scorestr.setColor(sf::Color::Black);
-    scorestr.setPosition(660, 130);
-    m_window.draw(scorestr);
-
-    ss.str("");
-    ss << game_engine->money();
-
-    sf::Text moneystr(ss.str(), font, 24);
-    moneystr.setColor(sf::Color::Black);
-    moneystr.setPosition(660, 230);
-    m_window.draw(moneystr);
-
-    ss.str("");
-    ss << game_engine->lives();
-
-    sf::Text livesstr(ss.str(), font, 24);
-    livesstr.setColor(sf::Color::Black);
-    livesstr.setPosition(660, 330);
-    m_window.draw(livesstr);
-}
-
 void graphicsEngine::drawMenu(){
 
     sf::Font font;
@@ -153,6 +84,103 @@ void graphicsEngine::drawMenu(){
         m_window.draw(tmp_btnTxt);
     }
     m_window.display();
+}
+
+void graphicsEngine::addStatsWindow(){
+    sf::RectangleShape statsArea(m_sideBarSize); // Stats
+    statsArea.setPosition(m_mapSize.x, 0);
+    statsArea.setFillColor(sf::Color(200,200,200));	// Light gray
+    statsArea.setOutlineColor(sf::Color::White);
+    statsArea.setOutlineThickness(5);
+    m_window.draw(statsArea);
+
+    sf::Font font;
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+
+    sf::Text txt1("Time: ", font, 20);
+    txt1.setColor(sf::Color::Black);
+    txt1.setStyle(sf::Text::Bold);
+    txt1.setPosition(sf::Vector2f(640, 0));
+    m_window.draw(txt1);
+
+    sf::Text txt2("Score: ", font, 20);
+    txt2.setColor(sf::Color::Black);
+    txt2.setStyle(sf::Text::Bold);
+    txt2.setPosition(640, 70);
+    m_window.draw(txt2);
+
+    sf::Text txt3("Money: ", font, 20);
+    txt3.setColor(sf::Color::Black);
+    txt3.setStyle(sf::Text::Bold);
+    txt3.setPosition(640, 140);
+    m_window.draw(txt3);
+
+    sf::Text txt4("Lives: ", font, 20);
+    txt4.setColor(sf::Color::Black);
+    txt4.setStyle(sf::Text::Bold);
+    txt4.setPosition(640, 210);
+    m_window.draw(txt4);
+}
+
+void graphicsEngine::drawStats(GameEngine *game_engine) {
+    sf::Font font;
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+
+    std::stringstream ss;
+    ss << game_engine->time();
+
+    sf::Text timestr(ss.str(), font, 20);
+    timestr.setColor(sf::Color::Black);
+    timestr.setPosition(sf::Vector2f(660, 25));
+    m_window.draw(timestr);
+
+    ss.str("");
+    ss << game_engine->score();
+
+    sf::Text scorestr(ss.str(), font, 20);
+    scorestr.setColor(sf::Color::Black);
+    scorestr.setPosition(660, 95);
+    m_window.draw(scorestr);
+
+    ss.str("");
+    ss << game_engine->money();
+
+    sf::Text moneystr(ss.str(), font, 20);
+    moneystr.setColor(sf::Color::Black);
+    moneystr.setPosition(660, 165);
+    m_window.draw(moneystr);
+
+    ss.str("");
+    ss << game_engine->lives();
+
+    sf::Text livesstr(ss.str(), font, 20);
+    livesstr.setColor(sf::Color::Black);
+    livesstr.setPosition(660, 235);
+    m_window.draw(livesstr);
+}
+
+void graphicsEngine::drawEventBox(){
+    sf::Font font;
+    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+
+    sf::RectangleShape bg(sf::Vector2f(200,150));
+    bg.setPosition(600, 260);
+    bg.setFillColor(sf::Color::Black);
+
+    m_window.draw(bg);
+
+
+    for (int i = 0; i < m_gameEvents.size(); ++i) {
+        sf::Text tmpStr(m_gameEvents[i], font, 18);
+        tmpStr.setColor(sf::Color::White);
+        tmpStr.setPosition(605, 265 + i*20);
+        m_window.draw(tmpStr);
+    }
+}
+
+void graphicsEngine::addEvent(std::string str){
+    m_gameEvents.push_back(str);
+    m_gameEvents.pop_front();
 }
 
 void graphicsEngine::drawTiles(GameMap map){
@@ -231,12 +259,12 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -1: {
-            std::cout << "Select a place to build" << std::endl;
+            addEvent("Build for 100$");
             m_buildFlag = true;
             break;
         }
         case -2: {
-            std::cout << "Select the tower to upgrade" << std::endl;
+            addEvent("Upgrade for 50$");
             m_upgFlag = true;
             break;
         }

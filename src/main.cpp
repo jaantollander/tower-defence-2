@@ -116,6 +116,7 @@ int main()  {
                 // Let's show stats
                 gE.addStatsWindow();
                 gE.drawStats(game_engine);
+                gE.drawEventBox();
                 gE.drawGameBtns();
                 break;
             }
@@ -145,6 +146,7 @@ int main()  {
                                 }
                                 case 0: {
                                     gE.m_currentScreen = gameScreen;
+                                    gE.addEvent("Game has started!");
                                     break;
                                 }
                                 case -1: {
