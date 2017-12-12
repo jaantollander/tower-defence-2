@@ -59,6 +59,35 @@ void sep(int length=80) {
 }
 
 
+enum MapChoices {
+    map1,
+    map2
+};
+
+
+/// Initialize new game engine
+GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
+        TowerType *root_tower_type, int initial_money, int initial_lives,
+        EnemySpawnInterval &enemy_spawn_interval, double timestep) {
+    std::string map_path;
+    switch (map_choice) {
+        case map1: {
+            map_path = "../src/maps/map1.txt";
+            break;
+        }
+        case map2: {
+            map_path = "../src/maps/map2.txt";
+            break;
+        }
+        default:
+            throw std::exception();
+    }
+    auto game_map = game_map_from_file(map_path, empty_tower_type, root_tower_type);
+    auto game_level = GameLevel(initial_money, initial_lives, 0, enemy_spawn_interval);
+    return new GameEngine(0, timestep, 0, game_level, game_map);
+}
+
+
 /// Run tower defence game. Currently used for testing.
 int main()  {
     // Enemy type instances
@@ -96,11 +125,9 @@ int main()  {
 //    tower_type_b.add_upgrade_option(&tower_type_b2);
 //    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
-
-    auto game_map = game_map_from_file(
-            "../src/maps/map2.txt", &empty_tower_type, &root_tower_type);
-    auto game_level = GameLevel(initial_money, initial_lives, 0, enemy_spawn_interval);
-    auto game_engine = new GameEngine(0, timestep, 0, game_level, game_map);
+    auto game_engine = new_game_engine(
+            map1, &empty_tower_type, &root_tower_type, initial_money,
+            initial_lives, enemy_spawn_interval, timestep);
 
 // =================== Graphics =======================
 
@@ -171,23 +198,23 @@ int main()  {
                                     break;
                                 }
                                 case -1: {
-                                    GameMap map1 = game_map_from_file("../src/maps/map1.txt",
-                                                                      &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
-                                    std::cout << "1" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0,
-                                                                 game_level,
-                                                                 map1);
+                                    game_engine = new_game_engine(
+                                            map1, &empty_tower_type,
+                                            &root_tower_type,
+                                            initial_money,
+                                            initial_lives, enemy_spawn_interval,
+                                            timestep);
                                     break;
                                 }
                                 case -2: {
-                                    GameMap map2 = game_map_from_file("../src/maps/map2.txt",
-                                                                      &empty_tower_type, &root_tower_type);
                                     delete(game_engine);
-                                    std::cout << "2" << std::endl;
-                                    game_engine = new GameEngine(0.0, timestep,
-                                                                 0, game_level,
-                                                                 map2);
+                                    game_engine = new_game_engine(
+                                            map2, &empty_tower_type,
+                                            &root_tower_type,
+                                            initial_money,
+                                            initial_lives, enemy_spawn_interval,
+                                            timestep);
                                     break;
                                 }
                                 default:
