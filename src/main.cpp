@@ -45,25 +45,23 @@ public:
 
 class EnemyType1 : public EnemyType {
 public:
-    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 100) { }
+    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 1000) { }
 };
 
 class EnemyType2 : public EnemyType {
 public:
-    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.35, 100) { }
+    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.35, 1000) { }
 };
 
-void sep(int length=80) {
-    for (int i = 0; i < length; ++i) { std::cout <<  '='; }
-    std::cout << std::endl;
-}
-
+class EnemyType3 : public EnemyType {
+public:
+    EnemyType3() : EnemyType("Enemy2", 60, 200, 0.45, 2000) { }
+};
 
 enum MapChoices {
     map1,
     map2
 };
-
 
 /// Initialize new game engine
 GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
@@ -93,6 +91,7 @@ int main()  {
     // Enemy type instances
     auto enemy_type_1 = EnemyType1();
     auto enemy_type_2 = EnemyType2();
+    auto enemy_type_3 = EnemyType3();
 
     // Initial values
     const int initial_money = 600;
@@ -102,9 +101,14 @@ int main()  {
     EnemySpawnInterval enemy_spawn_interval = {
             {4.0, &enemy_type_1},
             {8.0, &enemy_type_2},
-            {13.0, &enemy_type_2},
-            {18.0, &enemy_type_2},
-            {21.0, &enemy_type_2}
+            {13.0, &enemy_type_3},
+            {18.0, &enemy_type_1},
+            {21.0, &enemy_type_2},
+            {23.0, &enemy_type_3},
+            {25.0, &enemy_type_1},
+            {27.0, &enemy_type_2},
+            {28.0, &enemy_type_3},
+            {29.0, &enemy_type_2},
     };
 
     // Tower type instances
@@ -128,6 +132,8 @@ int main()  {
     auto game_engine = new_game_engine(
             map1, &empty_tower_type, &root_tower_type, initial_money,
             initial_lives, enemy_spawn_interval, timestep);
+    auto state = level_unfinished;
+    bool score_saved = false;
 
 // =================== Graphics =======================
 
@@ -199,6 +205,8 @@ int main()  {
                                 }
                                 case -1: {
                                     delete(game_engine);
+                                    state = level_unfinished;
+                                    score_saved = false;
                                     game_engine = new_game_engine(
                                             map1, &empty_tower_type,
                                             &root_tower_type,
@@ -209,6 +217,8 @@ int main()  {
                                 }
                                 case -2: {
                                     delete(game_engine);
+                                    state = level_unfinished;
+                                    score_saved = false;
                                     game_engine = new_game_engine(
                                             map2, &empty_tower_type,
                                             &root_tower_type,
@@ -237,18 +247,25 @@ int main()  {
 
         // Update game logic
         if (gE.m_currentScreen == gameScreen) {
-            //FIXME: draw enemies properly
-            auto state = game_engine->update();
-
             switch (state) {
                 case level_completed:
                     //TODO: handle level completed
+                    if (not score_saved) {
+                        game_engine->update_high_score("../src/score.txt");
+                        score_saved = true;
+                    }
                     break;
                 case game_over:
                     //TODO: handle game over
+                    if (not score_saved) {
+                        game_engine->update_high_score("../src/score.txt");
+                        score_saved = true;
+                    }
                     break;
-                default:
-                    break; // Do nothing
+                default: {
+                    state = game_engine->update();
+                    break;
+                }
             }
         }
 
