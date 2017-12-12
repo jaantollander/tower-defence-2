@@ -13,7 +13,7 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
 
     m_currentScreen = mainScreen;
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 6; ++i) {
         m_gameEvents.push_back("");
     }
 
