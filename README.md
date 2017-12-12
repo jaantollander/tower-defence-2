@@ -70,6 +70,10 @@ for testing tools.
 
 [CMake](https://cmake.org/) is used to control the compilation process.
 
+```
+cmake CMakeLists.txt
+```
+
 ----
 
 Documentation is generated using [Doxygen](https://www.stack.nl/~dimitri/doxygen/index.html). Doxygen creates static `HTML` and `latex` files using supplied input markdown files and docstring found inside the source code.

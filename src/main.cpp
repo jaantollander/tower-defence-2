@@ -4,59 +4,9 @@
 
 #include "engine.h"
 #include "Graphics/graphicsEngine.h"
+#include "assets/towers.h"
+#include "assets/enemies.h"
 
-
-/// Empty tower type. Cannot be upgraded into any tower.
-class EmptyTowerType : public TowerType {
-public:
-    EmptyTowerType() : TowerType("EmptyTower", 0, 0, 0, 0) { }
-};
-
-/// Empty tower type. Can be upgraded into a tower defined by upgrade options.
-class RootTowerType : public TowerType {
-public:
-    RootTowerType() : TowerType("RootTower", 0, 0, 0, 0) { }
-};
-
-class TowerTypeA : public TowerType {
-public:
-    TowerTypeA() : TowerType("Tower1", 100, 10, 2.0, 2.0) { }
-};
-
-class TowerTypeA2 : public TowerType {
-public:
-    TowerTypeA2() : TowerType("Tower2", 100, 15, 2.0, 1.5) { }
-};
-
-class TowerTypeB : public TowerType {
-public:
-    TowerTypeB() : TowerType("TowerTypeB", 100, 5, 4.0, 2.0) { }
-};
-
-class TowerTypeB2 : public TowerType {
-public:
-    TowerTypeB2() : TowerType("TowerTypeB2", 150, 10, 4.0, 1.0) { }
-};
-
-class TowerTypeB3 : public TowerType {
-public:
-    TowerTypeB3() : TowerType("TowerTypeB3", 150, 20, 5.0, 2.0) { }
-};
-
-class EnemyType1 : public EnemyType {
-public:
-    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 1000) { }
-};
-
-class EnemyType2 : public EnemyType {
-public:
-    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.35, 1000) { }
-};
-
-class EnemyType3 : public EnemyType {
-public:
-    EnemyType3() : EnemyType("Enemy2", 60, 200, 0.45, 2000) { }
-};
 
 enum MapChoices {
     map1,
@@ -70,11 +20,11 @@ GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
     std::string map_path;
     switch (map_choice) {
         case map1: {
-            map_path = "../src/maps/map1.txt";
+            map_path = "../src/assets/map1.txt";
             break;
         }
         case map2: {
-            map_path = "../src/maps/map2.txt";
+            map_path = "../src/assets/map2.txt";
             break;
         }
         default:
@@ -135,20 +85,14 @@ int main()  {
     auto state = level_unfinished;
     bool score_saved = false;
 
-// =================== Graphics =======================
-
-
-// ------------------------------------------------------ //
-
+    // =================== Graphics =======================
     // Create a window where stuff is drawn - 4:3 aspect ratio
     sf::RenderWindow window(sf::VideoMode(800, 600), "Graphics test");
     window.setKeyRepeatEnabled(false);
 
     graphicsEngine gE = graphicsEngine(window);
 
-// ------------------------------------------------------ //
     // Draw (and update) the objects to the screen
-
     // Create the menu
     gE.drawMenu();
     std::vector<sf::Vector2f> gameBtns;
@@ -251,14 +195,14 @@ int main()  {
                 case level_completed:
                     //TODO: handle level completed
                     if (not score_saved) {
-                        game_engine->update_high_score("../src/score.txt");
+                        game_engine->update_high_score("../src/assets/score.txt");
                         score_saved = true;
                     }
                     break;
                 case game_over:
                     //TODO: handle game over
                     if (not score_saved) {
-                        game_engine->update_high_score("../src/score.txt");
+                        game_engine->update_high_score("../src/assets/score.txt");
                         score_saved = true;
                     }
                     break;

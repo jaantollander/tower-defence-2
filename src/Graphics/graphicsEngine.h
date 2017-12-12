@@ -20,7 +20,6 @@ public:
     void drawStats(GameEngine *game_engine);
     void drawGameBtns();
 
-    void drawCreatures(std::vector<sf::Vector3f> creatures);
     void drawEnemies(Enemies enemies);
 
     void mouseBtnEventGame(GameEngine *game_engine);
@@ -44,8 +43,6 @@ public:
 
     sf::Font m_font;
     std::vector<sf::Drawable *> m_statsTexts;
-
-
 };
 
 

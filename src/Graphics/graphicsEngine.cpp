@@ -2,9 +2,6 @@
 #include "../map/map.h"
 
 
-//FIXME: font path
-
-
 graphicsEngine::graphicsEngine(sf::RenderWindow &window):
         m_window(window){
     m_mapSize = sf::Vector2f(600.f, 600.f);
@@ -208,25 +205,6 @@ void graphicsEngine::drawTiles(GameMap map){
             }
 
         }
-    }
-}
-
-void graphicsEngine::drawCreatures(std::vector<sf::Vector3f> creatures){
-
-    for (int i = 0; i < creatures.size(); ++i) {
-        sf::CircleShape tmpCreature(std::min(m_tileSize.x, m_tileSize.y) / 2);
-        tmpCreature.setPosition(creatures[i].x, creatures[i].y); // OBS j,i !
-
-        switch((int) creatures[i].z) {
-            case 1:
-                tmpCreature.setFillColor(sf::Color::Blue);
-                break;
-            case 2:
-                tmpCreature.setFillColor(sf::Color::Yellow);
-                break;
-        }
-
-        m_window.draw(tmpCreature);
     }
 }
 

@@ -46,8 +46,8 @@ TEST(initialization, tower_options) {
 
 TEST(initialization, GameMap) {
 	//std::cout << "Initializing GameMap" << std::endl;
-	auto game_map = game_map_from_file("../src/maps/map1.txt", &empty_tower_type, &root_tower_type);
-	auto game_map2 = game_map_from_file("../src/maps/map2.txt", &empty_tower_type, &root_tower_type);
+	auto game_map = game_map_from_file("../src/assets/map1.txt", &empty_tower_type, &root_tower_type);
+	auto game_map2 = game_map_from_file("../src/assets/map2.txt", &empty_tower_type, &root_tower_type);
 
 }
 
@@ -58,7 +58,7 @@ TEST(initialization, GameLevel) {
 
 TEST(initialization, GameEngine) {
 	//std::cout << "Initializing GameEngine" << std::endl;
-	auto game_map = game_map_from_file("../src/maps/map2.txt", &empty_tower_type, &root_tower_type);
+	auto game_map = game_map_from_file("../src/assets/map2.txt", &empty_tower_type, &root_tower_type);
 	auto game_level = GameLevel(initial_money, 0, 0, enemy_spawn_interval);
 	auto game_engine = new GameEngine(0, timestep, 0, game_level, game_map);
 }

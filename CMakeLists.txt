@@ -14,6 +14,8 @@ add_executable(
         src/objects/object.cpp
         src/objects/enemy.cpp
         src/objects/tower.cpp
+        src/assets/towers.cpp
+        src/assets/enemies.cpp
         src/level.cpp
         src/map/tile.cpp
         src/map/tiles.cpp
