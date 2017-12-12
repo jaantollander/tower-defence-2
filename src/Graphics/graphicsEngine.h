@@ -3,6 +3,7 @@
 
 #include "graphicsButton.h"
 #include <sstream>
+#include <queue>
 #include "graphicsFunctions.h"
 #include "../map/map.h"
 #include "../engine.h"
@@ -12,14 +13,15 @@ class graphicsEngine{
 public:
     explicit graphicsEngine(sf::RenderWindow &window);
     void addButtons();
-    void addStatsWindow();
-
     void drawMenu();
 
-    void drawTiles(GameMap map);
+    void addStatsWindow();
     void drawStats(GameEngine *game_engine);
+    void drawEventBox();
+    void addEvent(std::string str);
     void drawGameBtns();
 
+    void drawTiles(GameMap map);
     void drawEnemies(Enemies enemies);
 
     void mouseBtnEventGame(GameEngine *game_engine);
@@ -40,6 +42,9 @@ public:
 
     std::vector<graphicsButton> m_menuBtns;
     std::vector<graphicsButton> m_gameBtns;
+
+    std::deque<std::string> m_gameEvents;
+
 
     sf::Font m_font;
     std::vector<sf::Drawable *> m_statsTexts;
