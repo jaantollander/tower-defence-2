@@ -189,10 +189,7 @@ void GameEngine::towers_attack() {
                 auto enemies = this->m_game_map.enemies();
                 auto target = find_targets(tower, enemies);
                 if (target != nullptr) {
-
-                    //TODO: attack_speed
-                    tower->deal_damage(*target);
-
+                    tower->attack(*target, m_timestep);
                     if (target->is_dead()) {
                         this->add_money(target->money());
                         this->add_score(target->score());

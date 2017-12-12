@@ -19,12 +19,12 @@ public:
 
 class TowerTypeA : public TowerType {
 public:
-    TowerTypeA() : TowerType("Tower1", 100, 10, 2.0, 2.0) { }
+    TowerTypeA() : TowerType("Tower1", 100, 10, 2.0, 0.1) { }
 };
 
 class TowerTypeA2 : public TowerType {
 public:
-    TowerTypeA2() : TowerType("Tower2", 100, 15, 2.0, 1.5) { }
+    TowerTypeA2() : TowerType("Tower2", 100, 15, 2.0, 0.1) { }
 };
 
 class TowerTypeB : public TowerType {

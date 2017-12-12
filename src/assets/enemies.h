@@ -7,17 +7,17 @@
 
 class EnemyType1 : public EnemyType {
 public:
-    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 1000) { }
+    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 100) { }
 };
 
 class EnemyType2 : public EnemyType {
 public:
-    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.35, 1000) { }
+    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.35, 100) { }
 };
 
 class EnemyType3 : public EnemyType {
 public:
-    EnemyType3() : EnemyType("Enemy2", 60, 200, 0.45, 2000) { }
+    EnemyType3() : EnemyType("Enemy2", 60, 200, 0.45, 200) { }
 };
 
 #endif //TOWER_DEFENCE_2_ENEMIES_H
