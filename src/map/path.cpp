@@ -48,7 +48,7 @@ LineString construct_path(int x, int y, Tiles &tiles) {
     // end of the path
     switch (direction) {
         case north:
-            y -= 1;
+            y += 1;
             path.emplace_back(Point((x + 0.5)*tilesize, (y + 0.0)*tilesize));
             break;
         case east:
@@ -56,7 +56,7 @@ LineString construct_path(int x, int y, Tiles &tiles) {
             path.emplace_back(Point((x + 1.0)*tilesize, (y + 0.5)*tilesize));
             break;
         case south:
-            y += 1;
+            y -= 1;
             path.emplace_back(Point((x + 0.5)*tilesize, (y + 1.0)*tilesize));
             break;
         case west:
@@ -72,11 +72,17 @@ LineString construct_path(int x, int y, Tiles &tiles) {
 
 Path::Path(LineString &path) : m_path(path), m_length(length(path)) { }
 
-Point Path::start() { return m_path.front(); }
+Point Path::start() {
+    return m_path.front();
+}
 
-double Path::distance_from_end(double d) { return m_length - d; }
+double Path::distance_from_end(double d) {
+    return m_length - d;
+}
 
-bool Path::has_reached_end(double d) { return d >= m_length; }
+bool Path::has_reached_end(double d) {
+    return d >= m_length;
+}
 
 Point Path::position(double d) {
     if (d <= 0)

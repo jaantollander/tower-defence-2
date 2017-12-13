@@ -221,10 +221,11 @@ void graphicsEngine::drawTiles(GameMap map){
             m_window.draw(tmpTile);
 
             if( map.tiles().tile(i,j)->tower()->damage() > 0 ){
-                sf::CircleShape tmpTower(std::min(m_tileSize.x,
-                                                  m_tileSize.y) / 2.5, 3);
-                tmpTower.setPosition(sf::Vector2f((i+0.12) * m_tileSize.x,
-                                                  (j+0.12) * m_tileSize.y));
+                sf::CircleShape tmpTower(
+                        std::min(m_tileSize.x, m_tileSize.y) / 2.5, 3);
+                tmpTower.setPosition(
+                        sf::Vector2f((float) (i+0.12) * m_tileSize.x,
+                                     (float) (j+0.12) * m_tileSize.y));
 
                 switch(map.tiles().tile(i,j)->upgrade_level()){
                     case 1: tmpTower.setFillColor(sf::Color(200,200,200));
