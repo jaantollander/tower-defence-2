@@ -148,12 +148,57 @@ TEST(Game_engine, score_life) {
 }
 
 
-TEST(Game_engine, enemies) {
-	// TODO
+/// Initialize new game engine
+enum MapChoices {
+    map1,
+    map2
+};
 
-
+GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
+        TowerType *root_tower_type, int initial_money, int initial_lives,
+        EnemySpawnInterval &enemy_spawn_interval, double timestep) {
+    std::string map_path;
+    switch (map_choice) {
+        case map1: {
+            map_path = "../src/assets/map1.txt";
+            break;
+        }
+        case map2: {
+            map_path = "../src/assets/map2.txt";
+            break;
+        }
+        default:
+            throw std::exception();
+    }
+    auto game_map = game_map_from_file(map_path, empty_tower_type, root_tower_type);
+    auto game_level = GameLevel(initial_money, initial_lives, 0, enemy_spawn_interval);
+    return new GameEngine(0, timestep, 0, game_level, game_map);
 }
 
+
+TEST(Game_map, map) {
+
+	auto test_map = test_game_engine->game_map();
+	ASSERT_EQ(test_map.name(),"example");
+
+	//TODO test tiles and path
+}
+
+
+
+TEST(Game_map, enemies) {
+	auto test_map = test_game_engine->game_map();
+
+	auto test_enemy1 = Enemy(1, 2, 3,4, 5, &enemy_type_1 );
+	auto test_enemy2 = Enemy(6, 7, 8, 9, 10, &enemy_type_2 );
+
+	test_map.add_enemy(&test_enemy1);
+	test_map.add_enemy(&test_enemy2);
+	auto test_enemies = test_map.enemies();
+
+	ASSERT_EQ(test_enemies.size(), 2);
+
+}
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);
