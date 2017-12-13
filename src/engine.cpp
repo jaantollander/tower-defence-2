@@ -2,7 +2,7 @@
 #include <fstream>
 #include "engine.h"
 
-#define TOWER_AMOUNT 3
+#define TOWER_AMOUNT 4
 
 
 GameEngine::GameEngine(double time, double timestep, int score,
@@ -67,7 +67,7 @@ void GameEngine::upgrade_tower(int x, int y, int index) {
     auto tiles = m_game_map.tiles();
     auto tile = tiles.tile(x, y);
 
-    if (tile->tile_type() == grass && tile->upgrade_level() + 1 < TOWER_AMOUNT) {
+    if (tile->tile_type() == grass && tile->upgrade_level() + 1 <= TOWER_AMOUNT) {
         if (add_money(-tile->tower()->tower_type()->upgrade_options()[0] -> cost()))
             tile->upgrade_tower(0);
     }
@@ -96,7 +96,6 @@ void GameEngine::advance_game_level() {
 void GameEngine::enemy_movement() {
     auto enemies = m_game_map.enemies();
     auto path = m_game_map.path();
-
     for (auto enemy : enemies) {
         enemy->distace_travelled(enemy->speed() * m_timestep);
         auto d = enemy->distance_travelled();

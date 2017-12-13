@@ -19,6 +19,8 @@ int Enemy::money() const {
     return m_enemy_type->money();
 }
 
+std::string Enemy::name() const { return m_enemy_type->name(); }
+
 EnemyType::EnemyType(const std::string &name, int score, int money,
                      double speed, int health) :
         m_name(name),
@@ -43,3 +45,5 @@ int EnemyType::score() const {
 int EnemyType::money() const {
     return m_money;
 }
+
+std::string EnemyType::name() const { return m_name; }

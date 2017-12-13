@@ -39,26 +39,87 @@ GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
 /// Run tower defence game. Currently used for testing.
 int main()  {
     // Enemy type instances
-    auto enemy_type_1 = EnemyType1();
-    auto enemy_type_2 = EnemyType2();
-    auto enemy_type_3 = EnemyType3();
+    auto basic_enemy    = EnemyType1();
+    auto tank           = EnemyType2();
+    auto runner         = EnemyType3();
+    auto lord           = EnemyType4();
+    auto king           = EnemyType5();
 
     // Initial values
-    const int initial_money = 600;
+    const int initial_money = 400;
     const double timestep = 0.01;
     const int initial_lives = 10;
 
     EnemySpawnInterval enemy_spawn_interval = {
-            {4.0, &enemy_type_1},
-            {8.0, &enemy_type_2},
-            {13.0, &enemy_type_3},
-            {18.0, &enemy_type_1},
-            {21.0, &enemy_type_2},
-            {23.0, &enemy_type_3},
-            {25.0, &enemy_type_1},
-            {27.0, &enemy_type_2},
-            {28.0, &enemy_type_3},
-            {29.0, &enemy_type_2},
+            {4.0, &basic_enemy},
+            {5.0, &basic_enemy},
+            {8.0, &basic_enemy},
+            {9.0, &basic_enemy},
+            {12.0, &basic_enemy},
+            {13.0, &basic_enemy},
+            {19.0, &basic_enemy},
+            {20.0, &basic_enemy},
+            {23.0, &basic_enemy},
+            {24.0, &basic_enemy},
+
+
+
+            {50.0, &basic_enemy},
+            {51.0, &basic_enemy},
+            {52.0, &basic_enemy},
+            {57.0, &tank},
+            {61.0, &tank},
+            {64.0, &basic_enemy},
+            {65.0, &basic_enemy},
+            {70.0, &tank},
+            {73.0, &tank},
+            {75.0, &runner},
+
+
+            {115.0, &runner},
+            {116.0, &runner},
+            {117.0, &runner},
+            {120.0, &runner},
+            {121.0, &runner},
+            {122.0, &runner},
+            {130.0, &tank},
+            {131.0, &tank},
+            {132.0, &tank},
+            {135.0, &lord},
+            {142.0, &lord},
+            {145.0, &lord},
+
+
+            {180.0, &basic_enemy},
+            {180.5, &basic_enemy},
+            {181.0, &basic_enemy},
+            {181.5, &basic_enemy},
+            {182.0, &tank},
+            {188.0, &basic_enemy},
+            {188.5, &basic_enemy},
+            {189.0, &basic_enemy},
+            {189.5, &basic_enemy},
+            {190.0, &tank},
+            {196.0, &basic_enemy},
+            {196.5, &basic_enemy},
+            {197.0, &basic_enemy},
+            {197.5, &basic_enemy},
+            {198.0, &tank},
+            {204.0, &basic_enemy},
+            {204.5, &basic_enemy},
+            {205.0, &basic_enemy},
+            {205.5, &basic_enemy},
+            {206.0, &lord},
+            {207.0, &lord},
+
+
+            {242.0, &lord},
+            {244.0, &king},
+            {248.0, &lord},
+            {250.0, &king},
+            {254.0, &lord},
+            {256.0, &king},
+
     };
 
     // Tower type instances
@@ -76,7 +137,7 @@ int main()  {
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
-//    tower_type_b.add_upgrade_option(&tower_type_b2);
+    tower_type_b.add_upgrade_option(&tower_type_b2);
 //    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
     auto game_engine = new_game_engine(

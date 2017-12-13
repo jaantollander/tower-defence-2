@@ -12,7 +12,7 @@ Object::Object(double x, double y, double radius, double speed, int health,
         m_damage(damage),
         m_attack_speed(attack_speed),
         m_attack_range(attack_range),
-        m_targeting_policy(target_last),
+        m_targeting_policy(target_first),
         m_time_since_last_attack(attack_speed)
         { }
 

@@ -15,6 +15,7 @@ public:
           EnemyType *enemy_type);
     ~Enemy();
 
+    std::string name() const;
     int score() const;
     int money() const;
 
@@ -32,6 +33,7 @@ public:
 
     int score() const;
     int money() const;
+    std::string name() const;
 
     /// Create new enemy of this type.
     Enemy * create_enemy(double x, double y);

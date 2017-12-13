@@ -185,6 +185,8 @@ void graphicsEngine::addEvent(std::string str){
 
 void graphicsEngine::drawTiles(GameMap map){
 
+    sf::Color l_blue(0, 128, 255);
+
     int tileAmount_x = map.tiles().xsize;
     int tileAmount_y = map.tiles().ysize;
 
@@ -205,7 +207,7 @@ void graphicsEngine::drawTiles(GameMap map){
                     break;
                 case grass: tmpTile.setFillColor(sf::Color::Green);
                     break;
-                case water: tmpTile.setFillColor(sf::Color::Blue);
+                case water: tmpTile.setFillColor(l_blue);
                     break;
                 case undefined_tile_type: tmpTile.setFillColor(sf::Color::Black);
                     break;
@@ -237,11 +239,21 @@ void graphicsEngine::drawTiles(GameMap map){
 }
 
 void graphicsEngine::drawEnemies(Enemies enemies){
+
+    sf::Color l_red(255, 128, 0);
+    sf::Color d_red(255, 0, 128);
+    sf::Color purple(255, 0, 255);
+
     for (auto &enemy : enemies) {
-        sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y) / 2);
-        tmpEnemy.setPosition((enemy->x()-0.5) * m_tileSize.x,
-                             (enemy->y()-0.5) * m_tileSize.y);
-        tmpEnemy.setFillColor(sf::Color::Red);
+        sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y)  / 3);
+        tmpEnemy.setPosition((enemy->x()-0.5) * m_tileSize.x + 10,
+                             (enemy->y()-0.5) * m_tileSize.y + 10);
+        std::string tmp_name = enemy->name();
+        if (tmp_name == "Basic")        { tmpEnemy.setFillColor(l_red); }
+        else if (tmp_name == "Tank")    { tmpEnemy.setFillColor(d_red); }
+        else if (tmp_name == "Runner")  { tmpEnemy.setFillColor(purple); }
+        else if (tmp_name == "Lord")    { tmpEnemy.setFillColor(sf::Color::Red); }
+        else tmpEnemy.setFillColor(sf::Color::Black);
 
         m_window.draw(tmpEnemy);
     }
@@ -264,7 +276,8 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -2: {
-            addEvent("Upgrade for 50$");
+            addEvent("Upgrade for");
+            addEvent("80/120/180$");
             m_upgFlag = true;
             break;
         }
@@ -274,15 +287,9 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
         default: {
             if( m_buildFlag ){
                 game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
-                std::cout << "Built tower at " <<
-                          gameBtnPressed.x << " ; " <<
-                          gameBtnPressed.y << std::endl;
                 m_buildFlag = false;
             }else if( m_upgFlag ){
                 game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 1);
-                std::cout << "Upgraded tower at " <<
-                          gameBtnPressed.x << " ; " <<
-                          gameBtnPressed.y << std::endl;
                 m_upgFlag = false;
             }
             break;
