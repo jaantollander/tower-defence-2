@@ -165,7 +165,7 @@ int main() {
                 gE.drawEnemies(game_engine->game_map().enemies());
                 // Let's show stats
                 gE.addStatsWindow();
-                gE.drawStats(game_engine->score());
+                gE.drawStats(game_engine);
                 gE.drawGameBtns();
 
                 break;
