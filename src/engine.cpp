@@ -5,11 +5,10 @@
 #define TOWER_AMOUNT 3
 
 
-GameEngine::GameEngine(double time, double timestep, int score, int money, int lives,
+GameEngine::GameEngine(double time, double timestep, int score,
                        GameLevel &game_level, GameMap &game_map) :
-        m_time(time), m_score(score), m_money(money), m_timestep(timestep),
-        m_lives(lives), m_game_map(game_map),
-        m_game_level(game_level) {
+        m_time(time), m_score(score), m_timestep(timestep),
+        m_game_map(game_map), m_game_level(game_level) {
     m_money = game_level.initial_money();
     m_lives = game_level.initial_lives();
 }
@@ -18,9 +17,29 @@ GameEngine::~GameEngine() {
 
 }
 
-GameMap GameEngine::game_map() { return m_game_map; }
-int GameEngine::money() { return m_money; }
-int GameEngine::score() { return m_score; }
+double GameEngine::time() const {
+    return m_time;
+}
+
+const double GameEngine::timestep() const {
+    return m_timestep;
+}
+
+int GameEngine::score() const {
+    return m_score;
+}
+
+int GameEngine::money() const {
+    return m_money;
+}
+
+int GameEngine::lives() const {
+    return m_lives;
+}
+
+GameMap GameEngine::game_map() {
+    return m_game_map;
+}
 
 void GameEngine::add_score(int amount) {
     int new_score = m_score + amount;
@@ -40,9 +59,8 @@ bool GameEngine::add_money(int amount) {
     }
 }
 
-bool GameEngine::reduce_life() {
+void GameEngine::reduce_life() {
     m_lives--;
-    return m_lives <= 0;
 }
 
 void GameEngine::upgrade_tower(int x, int y, int index) {
@@ -55,7 +73,7 @@ void GameEngine::upgrade_tower(int x, int y, int index) {
     }
 }
 
-void GameEngine::add_enemy(Enemy *enemy) {
+void GameEngine::add_enemy(Enemy *enemy)  {
     m_game_map.add_enemy(enemy);
 }
 
@@ -70,7 +88,7 @@ void GameEngine::advance_game_level() {
         auto enemy = enemy_type->create_enemy(start.x, start.y);
 
         // Add new enemies to game map
-        m_game_map.add_enemy(&enemy);
+        m_game_map.add_enemy(enemy);
     }
 
 }
@@ -82,15 +100,13 @@ void GameEngine::enemy_movement() {
     for (auto enemy : enemies) {
         enemy->distace_travelled(enemy->speed() * m_timestep);
         auto d = enemy->distance_travelled();
+
         if (path.has_reached_end(d)) {
             //reduce players score
             this->add_score(-enemy->score());
 
             // Reduce life and check if player dies
-            if (this->reduce_life()) {
-                //TODO: player is dead game over
-
-            }
+            this->reduce_life();
             m_game_map.remove_enemy(enemy);
         } else {
             // Update enemy's x and y positions
@@ -98,7 +114,6 @@ void GameEngine::enemy_movement() {
             enemy->position(p.x, p.y);
         }
     }
-
 }
 
 Enemy* GameEngine::find_targets(Tower *tower, Enemies &enemies) {
@@ -174,10 +189,7 @@ void GameEngine::towers_attack() {
                 auto enemies = this->m_game_map.enemies();
                 auto target = find_targets(tower, enemies);
                 if (target != nullptr) {
-
-                    //TODO: attack_speed
-                    tower->deal_damage(*target);
-
+                    tower->attack(*target, m_timestep);
                     if (target->is_dead()) {
                         this->add_money(target->money());
                         this->add_score(target->score());
@@ -193,13 +205,22 @@ void GameEngine::increment_time() {
     m_time += m_timestep;
 }
 
-void GameEngine::update() {
+GameState GameEngine::update() {
     advance_game_level();
     enemy_movement();
-    towers_attack();
-    increment_time();
-}
 
+    if (m_lives <= 0)
+        return game_over;
+
+    towers_attack();
+
+    if (m_game_level.done() and m_game_map.enemies().empty())
+        return level_completed;
+
+    increment_time();
+
+    return level_unfinished;
+}
 
 std::vector<int> GameEngine::high_score(const std::string &filename) {
     std::ifstream is(filename);

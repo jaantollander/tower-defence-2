@@ -25,11 +25,17 @@ public:
     /// \return
     int initial_lives() const;
 
+    /// Count of how many enemies have spawned.
+    int enemies_spawned() const;
+
     /// Spawn new enemies according to game time
     /// \param time
     /// \return Collection of enemy type pointers to use for spawning new
     ///         enemies.
     std::vector<EnemyType *> spawn_enemies(double time);
+
+    /// True if all enemies have spawned else false.
+    bool done();
 
 private:
     const int m_initial_money;

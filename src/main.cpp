@@ -4,83 +4,61 @@
 
 #include "engine.h"
 #include "Graphics/graphicsEngine.h"
+#include "assets/towers.h"
+#include "assets/enemies.h"
 
 
-/// Empty tower type. Cannot be upgraded into any tower.
-class EmptyTowerType : public TowerType {
-public:
-    EmptyTowerType() : TowerType("EmptyTower", 0, 0, 0, 0) { }
+enum MapChoices {
+    map1,
+    map2
 };
 
-
-/// Empty tower type. Can be upgraded into a tower defined by upgrade options.
-class RootTowerType : public TowerType {
-public:
-    RootTowerType() : TowerType("RootTower", 0, 0, 0, 0) { }
-};
-
-
-class TowerTypeA : public TowerType {
-public:
-    TowerTypeA() : TowerType("Tower1", 100, 10, 2.0, 2.0) { }
-};
-
-
-class TowerTypeA2 : public TowerType {
-public:
-    TowerTypeA2() : TowerType("Tower2", 100, 15, 2.0, 1.5) { }
-};
-
-
-class TowerTypeB : public TowerType {
-public:
-    TowerTypeB() : TowerType("TowerTypeB", 100, 5, 4.0, 2.0) { }
-};
-
-
-class TowerTypeB2 : public TowerType {
-public:
-    TowerTypeB2() : TowerType("TowerTypeB2", 150, 10, 4.0, 1.0) { }
-};
-
-
-class TowerTypeB3 : public TowerType {
-public:
-    TowerTypeB3() : TowerType("TowerTypeB3", 150, 20, 5.0, 2.0) { }
-};
-
-
-class EnemyType1 : public EnemyType {
-public:
-    EnemyType1() : EnemyType("Enemy1", 50, 100, 0.5, 100) { }
-};
-
-
-class EnemyType2 : public EnemyType {
-public:
-    EnemyType2() : EnemyType("Enemy2", 40, 110, 0.1, 100) { }
-};
-
-void sep(int length=80) {
-    for (int i = 0; i < length; ++i) { std::cout <<  '='; }
-    std::cout << std::endl;
+/// Initialize new game engine
+GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
+        TowerType *root_tower_type, int initial_money, int initial_lives,
+        EnemySpawnInterval &enemy_spawn_interval, double timestep) {
+    std::string map_path;
+    switch (map_choice) {
+        case map1: {
+            map_path = "../src/assets/map1.txt";
+            break;
+        }
+        case map2: {
+            map_path = "../src/assets/map2.txt";
+            break;
+        }
+        default:
+            throw std::exception();
+    }
+    auto game_map = game_map_from_file(map_path, empty_tower_type, root_tower_type);
+    auto game_level = GameLevel(initial_money, initial_lives, 0, enemy_spawn_interval);
+    return new GameEngine(0, timestep, 0, game_level, game_map);
 }
 
 
 /// Run tower defence game. Currently used for testing.
-int main() {
+int main()  {
     // Enemy type instances
     auto enemy_type_1 = EnemyType1();
     auto enemy_type_2 = EnemyType2();
+    auto enemy_type_3 = EnemyType3();
 
     // Initial values
-    int initial_money = 600;
-    double timestep = 0.01;
-    int lives = 10;
+    const int initial_money = 600;
+    const double timestep = 0.01;
+    const int initial_lives = 10;
 
     EnemySpawnInterval enemy_spawn_interval = {
-            {1.0, &enemy_type_1},
-            {2.0, &enemy_type_2}
+            {4.0, &enemy_type_1},
+            {8.0, &enemy_type_2},
+            {13.0, &enemy_type_3},
+            {18.0, &enemy_type_1},
+            {21.0, &enemy_type_2},
+            {23.0, &enemy_type_3},
+            {25.0, &enemy_type_1},
+            {27.0, &enemy_type_2},
+            {28.0, &enemy_type_3},
+            {29.0, &enemy_type_2},
     };
 
     // Tower type instances
@@ -94,68 +72,40 @@ int main() {
     auto tower_type_b2 = TowerTypeB2();
     auto tower_type_b3 = TowerTypeB3();
 
-    // Upgrade options
+    // Define tower hierarchy (upgrade options)
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
-   // tower_type_b.add_upgrade_option(&tower_type_b2);
-   // tower_type_b2.add_upgrade_option(&tower_type_b3);
+//    tower_type_b.add_upgrade_option(&tower_type_b2);
+//    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
+    auto game_engine = new_game_engine(
+            map1, &empty_tower_type, &root_tower_type, initial_money,
+            initial_lives, enemy_spawn_interval, timestep);
+    auto state = level_unfinished;
+    bool score_saved = false;
 
-    std::cout << "Initializing GameMap" << std::endl;
-    sep();
-    auto game_map = game_map_from_file(
-            "../src/maps/teromap.txt", &empty_tower_type, &root_tower_type);
-    std::cout << game_map << std::endl;
-
-    std::cout << "Initializing GameLevel" << std::endl;
-    sep();
-    auto game_level = GameLevel(initial_money, 0, 0, enemy_spawn_interval);
-
-    std::cout << "Initializing GameEngine" << std::endl;
-    sep();
-    auto game_engine = new GameEngine(0, timestep, 0, 0, lives, game_level, game_map);
-
-    game_engine->add_enemy(new Enemy(4, 4, 0, 0, 100, &enemy_type_1));
-
-
-
-// =================== Graphics =======================
-
-
-// ------------------------------------------------------ //
-
+    // =================== Graphics =======================
     // Create a window where stuff is drawn - 4:3 aspect ratio
     sf::RenderWindow window(sf::VideoMode(800, 600), "Graphics test");
     window.setKeyRepeatEnabled(false);
 
     graphicsEngine gE = graphicsEngine(window);
 
-// ------------------------------------------------------ //
     // Draw (and update) the objects to the screen
-
     // Create the menu
     gE.drawMenu();
     std::vector<sf::Vector2f> gameBtns;
-    int dummyScore = 1;
     // Start a clock
     sf::Clock clock;
     // While window has not been closed, keep on going
-    while (window.isOpen())
-    {
-
-        // Window has to be cleaned every time to avoid overlap
-        //window.clear();
-
+    while (window.isOpen()) {
         // Draw the screens
-        switch( gE.m_currentScreen )
-        {
+        //TODO: refactor to screen_event_handler function
+        switch(gE.m_currentScreen) {
             case mainScreen:
-            {
                 break;
-            }
-            case gameScreen:
-            {
+            case gameScreen: {
                 // Window has to be cleaned every time to avoid overlap
                 window.clear();
                 // Let's draw the window and sidebar
@@ -166,8 +116,8 @@ int main() {
                 // Let's show stats
                 gE.addStatsWindow();
                 gE.drawStats(game_engine);
+                gE.drawEventBox();
                 gE.drawGameBtns();
-
                 break;
             }
         }
@@ -176,58 +126,62 @@ int main() {
         sf::Event event;
 
         // Something was clicked ->
+        //TODO: refactor to poll_event_handler function
         while(window.pollEvent(event)) {
-            switch (event.type)
-            {
-                case sf::Event::Closed : // Window was closed
-                {
+            switch (event.type) {
+                // Window was closed
+                case sf::Event::Closed : {
                     window.close();
                     break;
                 }
-
-                case sf::Event::MouseButtonReleased : // LMouseButton was clicked
-                {
-                    switch(gE.m_currentScreen)   // What is the current screen state?
-                    {
-                        case mainScreen:    // We're in main screen
-                        {
-                            //gE.m_currentScreen = mainScreenPoller(window, windowSize);
+                // LMouseButton was clicked
+                case sf::Event::MouseButtonReleased : {
+                    // What is the current screen state?
+                    switch(gE.m_currentScreen) {
+                        case mainScreen: {
                             int menuBtnPressed = gE.pollMainScreen();
-
-                            switch( menuBtnPressed )
-                            {
-                                case 1:{
+                            switch(menuBtnPressed) {
+                                case 1: {
                                     break;
                                 }
-                                case 0:{
+                                case 0: {
                                     gE.m_currentScreen = gameScreen;
+                                    gE.addEvent("Game has started!");
                                     break;
                                 }
-                                case -1:{
-                                    GameMap map1 = game_map_from_file("../src/maps/example.txt",
-                                                                      &empty_tower_type, &root_tower_type);
+                                case -1: {
                                     delete(game_engine);
-                                    std::cout << "1" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map1);
+                                    state = level_unfinished;
+                                    score_saved = false;
+                                    game_engine = new_game_engine(
+                                            map1, &empty_tower_type,
+                                            &root_tower_type,
+                                            initial_money,
+                                            initial_lives, enemy_spawn_interval,
+                                            timestep);
                                     break;
                                 }
-                                case -2:{
-                                    GameMap map2 = game_map_from_file("../src/maps/teromap.txt",
-                                                                      &empty_tower_type, &root_tower_type);
+                                case -2: {
                                     delete(game_engine);
-                                    std::cout << "2" << std::endl;
-                                    game_engine = new GameEngine(0, timestep, 0, initial_money, lives, game_level, map2);
+                                    state = level_unfinished;
+                                    score_saved = false;
+                                    game_engine = new_game_engine(
+                                            map2, &empty_tower_type,
+                                            &root_tower_type,
+                                            initial_money,
+                                            initial_lives, enemy_spawn_interval,
+                                            timestep);
                                     break;
                                 }
+                                default:
+                                    break;
                             }
                             break;
                         }
-                        case gameScreen :   // We're in game screen
-                        {
-                            gE.mouseBtnEventHandler(game_engine);
+                        case gameScreen : {
+                            gE.mouseBtnEventGame(game_engine);
                             break;
                         }
-
                     }
                     break;
                 }
@@ -237,7 +191,29 @@ int main() {
         // What's our in-game time?
         sf::Time elapsedTime = clock.restart();
 
-        dummyScore ++;
+        // Update game logic
+        if (gE.m_currentScreen == gameScreen) {
+            switch (state) {
+                case level_completed:
+                    //TODO: handle level completed
+                    if (not score_saved) {
+                        game_engine->update_high_score("../src/assets/score.txt");
+                        score_saved = true;
+                    }
+                    break;
+                case game_over:
+                    //TODO: handle game over
+                    if (not score_saved) {
+                        game_engine->update_high_score("../src/assets/score.txt");
+                        score_saved = true;
+                    }
+                    break;
+                default: {
+                    state = game_engine->update();
+                    break;
+                }
+            }
+        }
 
         gE.m_window.display();
     }

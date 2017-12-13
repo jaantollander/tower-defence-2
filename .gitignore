@@ -2,6 +2,8 @@
 doc/html
 doc/latex
 cmake-build-debug/
+build/tower_defence_2
+src/assets/score.txt
 
 
 ### C template

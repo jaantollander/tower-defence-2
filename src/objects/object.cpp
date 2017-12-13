@@ -12,7 +12,8 @@ Object::Object(double x, double y, double radius, double speed, int health,
         m_damage(damage),
         m_attack_speed(attack_speed),
         m_attack_range(attack_range),
-        m_targeting_policy(target_last)
+        m_targeting_policy(target_last),
+        m_time_since_last_attack(attack_speed)
         { }
 
 double Object::x() const {
@@ -53,6 +54,10 @@ double Object::attack_range() const {
 
 TargetingPolicy Object::targeting_policy() const {
     return m_targeting_policy;
+}
+
+double Object::time_since_last_attack() const {
+    return m_time_since_last_attack;
 }
 
 void Object::position(double x, double y) {
@@ -102,7 +107,10 @@ double Object::distance(Object &other) {
             (m_radius + other.radius());
 }
 
-void Object::deal_damage(Object& other) {
-    other.health(-m_damage);
+void Object::attack(Object &other, double timestep) {
+    if (m_time_since_last_attack >= m_attack_speed) {
+        other.health(-m_damage);
+        m_time_since_last_attack = 0.0;
+    }
+    m_time_since_last_attack += timestep;
 }
-

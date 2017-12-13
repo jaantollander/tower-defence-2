@@ -16,6 +16,10 @@ int GameLevel::initial_lives() const {
     return m_initial_lives;
 }
 
+int GameLevel::enemies_spawned() const {
+    return m_enemies_spawned;
+}
+
 std::vector<EnemyType *> GameLevel::spawn_enemies(double time) {
     std::vector<EnemyType *> enemies = {};
     auto size = m_enemy_spawn_interval.size();
@@ -28,4 +32,8 @@ std::vector<EnemyType *> GameLevel::spawn_enemies(double time) {
             break;
     }
     return enemies;
+}
+
+bool GameLevel::done() {
+    return m_enemies_spawned == m_enemy_spawn_interval.size();
 }

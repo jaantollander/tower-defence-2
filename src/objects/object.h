@@ -31,6 +31,7 @@ public:
     double attack_speed() const;
     double attack_range() const;
     TargetingPolicy targeting_policy() const;
+    double time_since_last_attack() const;
 
     void position(double x, double y);
 
@@ -56,8 +57,8 @@ public:
     /// Distance from other object
     double distance(Object &other);
 
-    /// Deal damage to another object
-    void deal_damage(Object &other);
+    /// Attack to another object. Takes account the attack speed of the object.
+    void attack(Object &other, double timestep);
 
 protected:
     /// x coordinate of the object
@@ -84,6 +85,8 @@ protected:
     double m_attack_range;
     /// Targeting policy, how will the object choose its target
     TargetingPolicy m_targeting_policy;
+    /// Time since last time tower attacked. Used for attack speed.
+    double m_time_since_last_attack;
 };
 
 

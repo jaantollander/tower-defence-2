@@ -10,15 +10,34 @@
 #include "level.h"
 
 
+/// Game states
+enum GameState {
+    ///
+    level_unfinished,
+
+    ///
+    level_completed,
+
+    ///
+    game_over,
+};
+
+
 /// Game class contains the game map, enemies, towers and game stats. This
 /// class is also responsible for the implementation of the main game loop which
 /// modifies the properties of the objects by using the rules of the game logic.
 class GameEngine {
 public:
-    GameEngine(double time, double timestep, int score, int money, int lives,
+    GameEngine(double time, double timestep, int score,
                    GameLevel &game_level, GameMap &game_map);
 
     ~GameEngine();
+
+    double time() const;
+    const double timestep() const;
+    int score() const;
+    int money() const;
+    int lives() const;
 
     /// Increments the game time by one timestep.
     void increment_time();
@@ -34,7 +53,7 @@ public:
 
     /// Reduce one life from the player. Player dies if lives reach zero.
     /// \returns true if player dies else false.
-    bool reduce_life();
+    void reduce_life();
 
     /// Upgrade existing tower into new one.
     void upgrade_tower(int x, int y, int index);
@@ -65,14 +84,10 @@ public:
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
     /// TODO: Events: game over, level completed
-    void update();
+    GameState update();
 
     /// Getter for game map
     GameMap game_map();
-
-    /// Getter for money and score
-    int money();
-    int score();
 
     /// Function that reads high scores from a file
     /// top 5 scores are saved. File format is: """
