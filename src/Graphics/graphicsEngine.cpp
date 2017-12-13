@@ -65,6 +65,12 @@ void graphicsEngine::drawMenu(){
     sf::Font font;
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
+    sf::Texture background;
+    background.loadFromFile("../src/assets/tower2.jpg");
+    sf::Sprite bg(background);
+    m_window.draw(bg);
+
+
     for(int i=0; i < m_menuBtns.size(); i++){
 
         sf::RectangleShape tmp_btn(m_menuBtns[i].m_size);

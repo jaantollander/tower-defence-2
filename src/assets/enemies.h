@@ -7,7 +7,7 @@
 
 class EnemyType1 : public EnemyType {
 public:
-    EnemyType1() : EnemyType("Basic", 15, 15, 0.5, 120) { }
+    EnemyType1() : EnemyType("Basic", 12, 12, 0.5, 120) { }
 };
 
 class EnemyType2 : public EnemyType {

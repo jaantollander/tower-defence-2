@@ -34,7 +34,7 @@ public:
 
 class TowerTypeB2 : public TowerType {
 public:
-    TowerTypeB2() : TowerType("TowerTypeB2", 180, 32, 4.8, 1.4) { }
+    TowerTypeB2() : TowerType("TowerTypeB2", 180, 32, 4.0, 1.25) { }
 };
 
 class TowerTypeB3 : public TowerType {

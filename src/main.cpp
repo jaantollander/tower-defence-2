@@ -120,6 +120,22 @@ int main()  {
             {254.0, &lord},
             {256.0, &king},
 
+
+            {280.0, &king},
+            {282.0, &king},
+            {288.0, &tank},
+            {289.0, &tank},
+            {290.0, &tank},
+            {291.0, &tank},
+            {292.0, &tank},
+            {296.0, &king},
+            {297.0, &king},
+            {298.0, &king},
+            {299.0, &king},
+            {300.0, &king},
+            {301.0, &king},
+            {302.0, &king}
+
     };
 
     // Tower type instances
