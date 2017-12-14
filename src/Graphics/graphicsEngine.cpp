@@ -57,19 +57,19 @@ void graphicsEngine::addButtons(){
 
     m_gameBtns.push_back(graphicsButton(
             sf::Vector2f(600, 210),
-            sf::Vector2f(80, 66),
-            std::string("N")
-    ));
-
-    m_gameBtns.push_back(graphicsButton(
-            sf::Vector2f(666, 210),
-            sf::Vector2f(80, 66),
+            sf::Vector2f(66, 60),
             std::string("F")
     ));
 
     m_gameBtns.push_back(graphicsButton(
+            sf::Vector2f(666, 210),
+            sf::Vector2f(66, 60),
+            std::string("L")
+    ));
+
+    m_gameBtns.push_back(graphicsButton(
             sf::Vector2f(733, 210),
-            sf::Vector2f(80, 66),
+            sf::Vector2f(66, 60),
             std::string("W")
     ));
 }
@@ -330,11 +330,11 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -2: {
-            addEvent("Targeting: Near");
+            addEvent("Targeting: First");
             break;
         }
         case -3: {
-            addEvent("Targeting: First");
+            addEvent("Targeting: Last");
             break;
         }
         case -4: {
