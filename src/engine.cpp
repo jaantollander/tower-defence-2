@@ -73,6 +73,18 @@ void GameEngine::upgrade_tower(int x, int y, int index) {
     }
 }
 
+void GameEngine::change_targeting(TargetingPolicy new_policy) {
+    auto tiles = this->m_game_map.tiles();
+    // Iterate over all tower in tiles
+    for (int y = 0; y < tiles.ysize; ++y) {
+        for (int x = 0; x < tiles.xsize; ++x) {
+            auto tile = tiles.tile(x, y);
+            auto tower = tile->tower();
+            tower->change_policy(new_policy);
+        }
+    }
+}
+
 void GameEngine::add_enemy(Enemy *enemy)  {
     m_game_map.add_enemy(enemy);
 }

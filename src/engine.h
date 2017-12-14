@@ -66,6 +66,9 @@ public:
     /// Upgrade existing tower into new one.
     void upgrade_tower(int x, int y, int index);
 
+    /// Change targeting policy of all towers
+    void change_targeting(TargetingPolicy new_policy);
+
     /// Add new enemy to game map
     void add_enemy(Enemy *enemy);
 

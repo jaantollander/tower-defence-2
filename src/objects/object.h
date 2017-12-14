@@ -51,6 +51,9 @@ public:
     /// Change attack speed
     void attack_speed(int new_speed);
 
+    /// Change target policy
+    void change_policy(TargetingPolicy new_policy);
+
     /// Change distace travelled
     void distace_travelled(double d);
 

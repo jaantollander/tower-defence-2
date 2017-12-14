@@ -81,6 +81,24 @@ void graphicsEngine::drawMenu(){
         m_window.draw(tmp_btn);
         m_window.draw(tmp_btnTxt);
     }
+
+    std::vector<int> score = high_score("../src/assets/score.txt");
+    std::stringstream scorestream;
+    scorestream << "High Scores:" << std::endl;
+    auto it = score.begin();
+    int i = 1;
+    while (it != score.end()) {
+        scorestream << i << ": " << *it << std::endl;
+        it++;
+        i++;
+    }
+    sf::Text scores(scorestream.str(), font, 20);
+    scores.setColor(sf::Color::Black);
+    scores.setStyle(sf::Text::Bold);
+    scores.setPosition(sf::Vector2f(70, 440));
+    m_window.draw(scores);
+
+
     m_window.display();
 }
 

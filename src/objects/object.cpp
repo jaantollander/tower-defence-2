@@ -65,6 +65,10 @@ void Object::position(double x, double y) {
     m_y = y;
 }
 
+void Object::change_policy(TargetingPolicy new_policy) {
+    m_targeting_policy = new_policy;
+}
+
 bool Object::is_dead() {
     return m_health <= 0;
 }
