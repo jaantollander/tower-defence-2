@@ -118,4 +118,7 @@ private:
 };
 
 
+#include "Graphics/graphicsEngine.h"
+
+
 #endif //TOWER_DEFENCE_2_GAME_H
