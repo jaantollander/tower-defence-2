@@ -25,17 +25,17 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
 
 void graphicsEngine::addButtons(){
     m_menuBtns.push_back(graphicsButton(
-            sf::Vector2f(100, 200),
-            sf::Vector2f(160, 120),
-            std::string("Start")
+            sf::Vector2f(70, 150),
+            sf::Vector2f(220, 120),
+            std::string("New Game/\n Continue")
     ));
     m_menuBtns.push_back(graphicsButton(
-            sf::Vector2f(330, 100),
+            sf::Vector2f(70, 300),
             sf::Vector2f(100, 100),
             std::string("Map\n 1")
     ));
     m_menuBtns.push_back(graphicsButton(
-            sf::Vector2f(330, 230),
+            sf::Vector2f(190, 300),
             sf::Vector2f(100, 100),
             std::string("Map\n 2")
     ));
@@ -44,19 +44,13 @@ void graphicsEngine::addButtons(){
     m_gameBtns.push_back(graphicsButton(
             sf::Vector2f(600, 500),
             sf::Vector2f(200, 100),
-            std::string(" Main\n  Menu")
+            std::string("MainMenu/\n  Pause")
     ));
 
     m_gameBtns.push_back(graphicsButton(
             sf::Vector2f(600, 400),
-            sf::Vector2f(100, 100),
-            std::string("Buy")
-    ));
-
-    m_gameBtns.push_back(graphicsButton(
-            sf::Vector2f(700, 400),
-            sf::Vector2f(100, 100),
-            std::string("Up-\ngrd")
+            sf::Vector2f(200, 100),
+            std::string("Buy/\n  Upgrade")
     ));
 }
 
@@ -283,26 +277,17 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -1: {
-            addEvent("Build for 100$");
+            addEvent("Build or upgrade");
             m_buildFlag = true;
             break;
         }
         case -2: {
-            addEvent("Upgrade for");
-            addEvent("80/120/180$");
-            m_upgFlag = true;
-            break;
-        }
-        case -3: {
             break;
         }
         default: {
             if( m_buildFlag ){
                 game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 0);
                 m_buildFlag = false;
-            }else if( m_upgFlag ){
-                game_engine->upgrade_tower(gameBtnPressed.x, gameBtnPressed.y, 1);
-                m_upgFlag = false;
             }
             break;
         }
@@ -377,7 +362,7 @@ void graphicsEngine::drawGameBtns(){
         tmp_btn.setOutlineColor(sf::Color::White);
         tmp_btn.setOutlineThickness(5);
 
-        sf::Text tmp_btnTxt(m_gameBtns[i].m_text, font, 34);
+        sf::Text tmp_btnTxt(m_gameBtns[i].m_text, font, 30);
 
         tmp_btnTxt.setColor(sf::Color::White);
         tmp_btnTxt.setStyle(sf::Text::Bold);
