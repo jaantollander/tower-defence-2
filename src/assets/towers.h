@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../objects/tower.h"
 
-#define MULTIPLIER 0.8
+#define MULTIPLIER_2 0.8
 
 /// Empty tower type. Cannot be upgraded into any tower.
 class EmptyTowerType : public TowerType {
@@ -20,22 +20,22 @@ public:
 
 class TowerTypeA : public TowerType {
 public:
-    TowerTypeA() : TowerType("Tower1", 100, 8, 3.0, 1.9 * MULTIPLIER) { }
+    TowerTypeA() : TowerType("Tower1", 100, 8, 3.0, 1.9 * MULTIPLIER_2) { }
 };
 
 class TowerTypeA2 : public TowerType {
 public:
-    TowerTypeA2() : TowerType("Tower2", 80, 15, 3.4, 1.6 * MULTIPLIER) { }
+    TowerTypeA2() : TowerType("Tower2", 80, 15, 3.4, 1.6 * MULTIPLIER_2) { }
 };
 
 class TowerTypeB : public TowerType {
 public:
-    TowerTypeB() : TowerType("TowerTypeB", 120, 24, 4.0, 1.4 * MULTIPLIER) { }
+    TowerTypeB() : TowerType("TowerTypeB", 120, 24, 4.0, 1.4 * MULTIPLIER_2) { }
 };
 
 class TowerTypeB2 : public TowerType {
 public:
-    TowerTypeB2() : TowerType("TowerTypeB2", 180, 32, 4.0, 1.25 * MULTIPLIER) { }
+    TowerTypeB2() : TowerType("TowerTypeB2", 180, 32, 4.0, 1.25 * MULTIPLIER_2) { }
 };
 
 //Last one is unused
