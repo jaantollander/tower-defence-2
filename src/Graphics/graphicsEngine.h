@@ -14,8 +14,6 @@ class graphicsEngine{
 public:
     explicit graphicsEngine(sf::RenderWindow &window);
 
-    friend class GameEngine;
-
     void addButtons();
     void drawMenu();
 
