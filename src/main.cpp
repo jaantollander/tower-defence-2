@@ -252,6 +252,14 @@ int main()  {
                                             timestep);
                                     break;
                                 }
+                                case -3: {
+                                    std::cout << "Slow"<< std::endl;
+                                    break;
+                                }
+                                case -4: {
+                                    std::cout << "Fast"<< std::endl;
+                                    break;
+                                }
                                 default:
                                     break;
                             }
