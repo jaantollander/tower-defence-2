@@ -8,7 +8,9 @@
 #include "map/tile.h"
 #include "map/map.h"
 #include "level.h"
-#include "Graphics/graphicsEngine.h"
+
+
+// Deferred declaration
 class graphicsEngine;
 
 class graphicsEngine;
@@ -118,5 +120,8 @@ std::vector<int> high_score(const std::string &filename);
 /// the file where high scores are kept
 /// Returns true if high scores were changed
 bool update_high_score(const std::string &filename, GameEngine engine);
+
+#include "Graphics/graphicsEngine.h"
+
 
 #endif //TOWER_DEFENCE_2_GAME_H
