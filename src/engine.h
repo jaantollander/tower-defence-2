@@ -8,7 +8,10 @@
 #include "map/tile.h"
 #include "map/map.h"
 #include "level.h"
-#include "Graphics/graphicsEngine.h"
+
+
+// Deferred declaration
+class graphicsEngine;
 
 
 /// Game states
@@ -113,6 +116,9 @@ private:
     GameLevel m_game_level;
     GameMap m_game_map;
 };
+
+
+#include "Graphics/graphicsEngine.h"
 
 
 #endif //TOWER_DEFENCE_2_GAME_H
