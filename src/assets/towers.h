@@ -18,6 +18,12 @@ public:
     RootTowerType() : TowerType("RootTower", 0, 0, 0, 0) { }
 };
 
+
+/// Towers of the game. Towers are upgraded using a linear upgrade path.
+/// As the tower is upgraded, it get better damage, range and fire rate.
+/// The game should be somewhat balanced so that it's possible to win but
+/// also possible to lose.
+
 class TowerTypeA : public TowerType {
 public:
     TowerTypeA() : TowerType("Tower1", 100, 8, 3.0, 1.9 * MULTIPLIER_2) { }
@@ -38,11 +44,6 @@ public:
     TowerTypeB2() : TowerType("TowerTypeB2", 180, 32, 4.0, 1.25 * MULTIPLIER_2) { }
 };
 
-//Last one is unused
-class TowerTypeB3 : public TowerType {
-public:
-    TowerTypeB3() : TowerType("TowerTypeB3", 150, 20, 5.0, 2.0) { }
-};
 
 
 #endif //TOWER_DEFENCE_2_TOWERS_H

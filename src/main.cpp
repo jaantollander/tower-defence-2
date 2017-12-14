@@ -146,16 +146,13 @@ int main()  {
     auto tower_type_a = TowerTypeA();
     auto tower_type_a2 = TowerTypeA2();
     auto tower_type_b = TowerTypeB();
-
     auto tower_type_b2 = TowerTypeB2();
-    auto tower_type_b3 = TowerTypeB3();
 
     // Define tower hierarchy (upgrade options)
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
     tower_type_b.add_upgrade_option(&tower_type_b2);
-//    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
     auto game_engine = new_game_engine(
             map1, &empty_tower_type, &root_tower_type, initial_money,

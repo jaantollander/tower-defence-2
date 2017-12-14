@@ -28,7 +28,7 @@ std::ostream& operator<<(std::ostream &os, TileType t);
 /// Convert char to tile type.
 TileType to_tile_type(char c);
 
-/// True is a tower can be built in this tile else false.
+/// True if a tower can be built in this tile else false.
 bool is_buildable(TileType t);
 
 /// Possible directions (cardinal directions) for the enemy path.
@@ -66,6 +66,7 @@ public:
     /// Update tower, true if successful. Delete the old tower.
     bool upgrade_tower(int index);
 
+    /// Return the level of the tower, eg. how many times it has been upgraded
     int upgrade_level();
 
 private:

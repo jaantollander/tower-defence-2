@@ -67,7 +67,7 @@ private:
 /// Print a representation of the game map
 std::ostream &operator<<(std::ostream& os, GameMap &obj);
 
-/// Loads game map from a text file. Example of mapfile formatting:
+/// Loads game map from a text file. Example of map file formatting:
 /// ```
 /// example;7;7;4;6;
 /// w ;w ;w ;pN;w ;w ;w ;
@@ -79,8 +79,8 @@ std::ostream &operator<<(std::ostream& os, GameMap &obj);
 /// w ;w ;w ;g ;pN;g ;g ;
 /// ```
 /// where tile types are:
-/// water as u, grass as g and path depending on the direction
-/// either n for north, s for south, e for east and w for west
+/// water as w, grass as g and path p, and depending on the direction
+/// either N for north, S for south, E for east and W for west
 GameMap game_map_from_file(const std::string &filename,
                            TowerType *empty_tower_type,
                            TowerType *root_tower_type);

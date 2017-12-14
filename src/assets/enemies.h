@@ -6,6 +6,10 @@
 
 #define MULTIPLIER 1.2
 
+/// All the enemy types in the game and their stats are defined here.
+/// The game has five different enemies with different movement speeds, healths and
+/// they also award varying amounts of money and scores.
+
 class EnemyType1 : public EnemyType {
 public:
     EnemyType1() : EnemyType("Basic", 12, 12, 0.5 * MULTIPLIER, 120) { }
