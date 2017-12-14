@@ -39,6 +39,8 @@ void graphicsEngine::addButtons(){
     ));
 
 
+
+
     m_gameBtns.push_back(graphicsButton(
             sf::Vector2f(600, 500),
             sf::Vector2f(200, 100),
@@ -49,6 +51,26 @@ void graphicsEngine::addButtons(){
             sf::Vector2f(600, 400),
             sf::Vector2f(200, 100),
             std::string("Buy/\n  Upgrade")
+    ));
+
+
+
+    m_gameBtns.push_back(graphicsButton(
+            sf::Vector2f(600, 210),
+            sf::Vector2f(80, 66),
+            std::string("N")
+    ));
+
+    m_gameBtns.push_back(graphicsButton(
+            sf::Vector2f(666, 210),
+            sf::Vector2f(80, 66),
+            std::string("F")
+    ));
+
+    m_gameBtns.push_back(graphicsButton(
+            sf::Vector2f(733, 210),
+            sf::Vector2f(80, 66),
+            std::string("W")
     ));
 }
 
@@ -118,6 +140,13 @@ void graphicsEngine::addStatsWindow(){
     txt4.setStyle(sf::Text::Bold);
     txt4.setPosition(610, 120);
     m_window.draw(txt4);
+
+    sf::Text txt5("Targeting: ", font, 24);
+    txt5.setColor(sf::Color::Black);
+    txt5.setStyle(sf::Text::Bold);
+    txt5.setPosition(625, 170);
+    m_window.draw(txt5);
+
 }
 
 void graphicsEngine::drawStats(GameEngine *game_engine) {
@@ -156,6 +185,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
     livesstr.setPosition(720, 120);
     m_window.draw(livesstr);
 }
+
 
 void graphicsEngine::drawEventBox(){
     sf::Font font;
@@ -264,8 +294,8 @@ void graphicsEngine::drawEnemies(Enemies enemies){
     }
 }
 
-// TODO: Does not work
 /*void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
+    // TODO: Does not work
     float d = tower.distance(enemy);// sqrt(pow(tower.x()-enemy.x(),2) + pow(tower.y()-enemy.y(),2));
     float rot = asin(tower.y() - enemy.y() / d) / 3.141 * 180;
     if(tower.x() > enemy.x() && rot != 0){ rot *= 2; }
@@ -300,6 +330,15 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -2: {
+            addEvent("Targeting: Near");
+            break;
+        }
+        case -3: {
+            addEvent("Targeting: First");
+            break;
+        }
+        case -4: {
+            addEvent("Targeting: Weak");
             break;
         }
         default: {
