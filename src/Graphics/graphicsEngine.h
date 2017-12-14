@@ -28,7 +28,7 @@ public:
     void drawTiles(GameMap map);
     void drawEnemies(Enemies enemies);
 
-    //void drawAttack(Tower tower, Enemy enemy);
+    void drawAttack(Tower tower, Enemy enemy);
 
     void mouseBtnEventGame(GameEngine *game_engine);
     void endMessage(bool win, bool done);

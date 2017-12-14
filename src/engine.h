@@ -9,6 +9,7 @@
 #include "map/map.h"
 #include "level.h"
 #include "Graphics/graphicsEngine.h"
+class graphicsEngine;
 
 class graphicsEngine;
 
