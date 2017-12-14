@@ -177,7 +177,7 @@ Enemy* GameEngine::find_targets(Tower *tower, Enemies &enemies) {
     }
 }
 
-void GameEngine::towers_attack() {
+void GameEngine::towers_attack(graphicsEngine& gE) {
     auto tiles = this->m_game_map.tiles();
     // Iterate over all tower in tiles
     for (int y = 0; y < tiles.ysize; ++y) {
@@ -189,6 +189,7 @@ void GameEngine::towers_attack() {
                 auto target = find_targets(tower, enemies);
                 if (target != nullptr) {
                     tower->attack(*target, m_timestep);
+                    gE.drawAttack(*tower, *target);
                     if (target->is_dead()) {
                         this->add_money(target->money());
                         this->add_score(target->score());
@@ -204,14 +205,14 @@ void GameEngine::increment_time() {
     m_time += m_timestep;
 }
 
-GameState GameEngine::update() {
+GameState GameEngine::update(graphicsEngine& gE) {
     advance_game_level();
     enemy_movement();
 
     if (m_lives <= 0)
         return game_over;
 
-    towers_attack();
+    towers_attack(gE);
 
     if (m_game_level.done() and m_game_map.enemies().empty())
         return level_completed;

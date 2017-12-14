@@ -50,6 +50,8 @@ int main()  {
     const double timestep = 0.01;
     const int initial_lives = 10;
 
+
+    //Spawn time and which enemy type to spawn
     EnemySpawnInterval enemy_spawn_interval = {
             {4.0, &basic_enemy},
             {5.0, &basic_enemy},
@@ -286,7 +288,7 @@ int main()  {
                     }
                     break;
                 default: {
-                    state = game_engine->update();
+                    state = game_engine->update(gE);
                     break;
                 }
             }

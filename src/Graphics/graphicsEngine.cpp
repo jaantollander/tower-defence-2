@@ -266,6 +266,11 @@ void graphicsEngine::drawEnemies(Enemies enemies){
     }
 }
 
+void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
+    
+}
+
+
 void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
 
     sf::Vector3f gameBtnPressed = pollGameScreen();

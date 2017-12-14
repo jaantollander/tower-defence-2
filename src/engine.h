@@ -8,6 +8,7 @@
 #include "map/tile.h"
 #include "map/map.h"
 #include "level.h"
+#include "Graphics/graphicsEngine.h"
 
 
 /// Game states
@@ -38,6 +39,8 @@ public:
     int score() const;
     int money() const;
     int lives() const;
+
+    friend class GraphicsEngine;
 
     /// Increments the game time by one timestep.
     void increment_time();
@@ -79,12 +82,12 @@ public:
 
     /// Towers attack enemies. Increase score and money if enemies die and
     /// remove dead enemies from the game.
-    void towers_attack();
+    void towers_attack(graphicsEngine& gE);
 
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
     /// TODO: Events: game over, level completed
-    GameState update();
+    GameState update(graphicsEngine& gE);
 
     /// Getter for game map
     GameMap game_map();

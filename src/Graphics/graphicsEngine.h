@@ -12,6 +12,9 @@
 class graphicsEngine{
 public:
     explicit graphicsEngine(sf::RenderWindow &window);
+
+    friend class GameEngine;
+
     void addButtons();
     void drawMenu();
 
@@ -23,6 +26,8 @@ public:
 
     void drawTiles(GameMap map);
     void drawEnemies(Enemies enemies);
+
+    void drawAttack(Tower tower, Enemy enemy);
 
     void mouseBtnEventGame(GameEngine *game_engine);
     int pollMainScreen();
