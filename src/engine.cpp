@@ -188,12 +188,14 @@ void GameEngine::towers_attack(graphicsEngine& gE) {
                 auto enemies = this->m_game_map.enemies();
                 auto target = find_targets(tower, enemies);
                 if (target != nullptr) {
-                    tower->attack(*target, m_timestep);
-                    gE.drawAttack(*tower, *target);
+                    if (tower->attack(*target, m_timestep)) {
+                        //gE.drawAttack(*tower, *target);
+                    }
                     if (target->is_dead()) {
                         this->add_money(target->money());
                         this->add_score(target->score());
                         this->m_game_map.remove_enemy(target);
+
                     }
                 }
             }
@@ -222,7 +224,7 @@ GameState GameEngine::update(graphicsEngine& gE) {
     return level_unfinished;
 }
 
-std::vector<int> GameEngine::high_score(const std::string &filename) {
+std::vector<int> high_score(const std::string &filename) {
     std::ifstream is(filename);
     if (is.fail()) { throw std::exception(); }
     std::vector<int> high_scores;
@@ -244,7 +246,7 @@ std::vector<int> GameEngine::high_score(const std::string &filename) {
     return high_scores;
 }
 
-bool GameEngine::update_high_score(const std::string &filename) {
+bool update_high_score(const std::string &filename, GameEngine engine) {
     std::vector<int> scores;
     try { scores = high_score(filename); }
     catch (invalid_file_format &) { return false; }
@@ -253,16 +255,16 @@ bool GameEngine::update_high_score(const std::string &filename) {
 
     //check if score better than previous
     while (it != scores.end()) {
-        if (m_score > *it) {
+        if (engine.score() > *it) {
             flag = true;
-            scores.insert(it, m_score);
+            scores.insert(it, engine.score());
             break;
         } else it++;
     }
 
     //check if there are less than five scores
     if (flag == false && scores.size() < 5) {
-        scores.insert(it, m_score);
+        scores.insert(it, engine.score());
         flag = true;
     }
 

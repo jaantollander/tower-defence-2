@@ -103,14 +103,15 @@ void Object::distace_travelled(double d) {
 }
 
 double Object::distance(Object &other) {
-    return hypot((m_x - other.x()), (m_y - other.y())) -
-            (m_radius + other.radius());
+    return hypot((m_x - other.x()), (m_y - other.y()));
 }
 
-void Object::attack(Object &other, double timestep) {
+bool Object::attack(Object &other, double timestep) {
     if (m_time_since_last_attack >= m_attack_speed) {
         other.health(-m_damage);
         m_time_since_last_attack = 0.0;
+        return true;
     }
     m_time_since_last_attack += timestep;
+    return false;
 }

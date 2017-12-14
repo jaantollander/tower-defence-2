@@ -58,7 +58,7 @@ public:
     double distance(Object &other);
 
     /// Attack to another object. Takes account the attack speed of the object.
-    void attack(Object &other, double timestep);
+    bool attack(Object &other, double timestep);
 
 protected:
     /// x coordinate of the object

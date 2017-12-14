@@ -10,6 +10,8 @@
 #include "level.h"
 #include "Graphics/graphicsEngine.h"
 
+class graphicsEngine;
+
 
 /// Game states
 enum GameState {
@@ -92,17 +94,7 @@ public:
     /// Getter for game map
     GameMap game_map();
 
-    /// Function that reads high scores from a file
-    /// top 5 scores are saved. File format is: """
-    /// 2890
-    /// 2510
-    /// """ etc.
-    std::vector<int> high_score(const std::string &filename);
-
-    /// Updates high score if needed, takes the name of
-    /// the file where high scores are kept
-    /// Returns true if high scores were changed
-    bool update_high_score(const std::string &filename);
+    friend bool update_high_score(const std::string &filename, GameEngine engine);
 
 private:
     double m_time;
@@ -114,5 +106,16 @@ private:
     GameMap m_game_map;
 };
 
+/// Function that reads high scores from a file
+/// top 5 scores are saved. File format is: """
+/// 2890
+/// 2510
+/// """ etc.
+std::vector<int> high_score(const std::string &filename);
+
+/// Updates high score if needed, takes the name of
+/// the file where high scores are kept
+/// Returns true if high scores were changed
+bool update_high_score(const std::string &filename, GameEngine engine);
 
 #endif //TOWER_DEFENCE_2_GAME_H

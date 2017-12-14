@@ -177,7 +177,7 @@ int main()  {
     std::vector<sf::Vector2f> gameBtns;
     // Start a clock
     sf::Clock clock;
-    gE.m_window.setFramerateLimit(30);
+    gE.m_window.setFramerateLimit(120);
     // While window has not been closed, keep on going
     while (window.isOpen()) {
         // Draw the screens
@@ -275,16 +275,16 @@ int main()  {
         if (gE.m_currentScreen == gameScreen) {
             switch (state) {
                 case level_completed:
-                    //TODO: handle level completed
+                    gE.endMessage(true, score_saved);
                     if (not score_saved) {
-                        game_engine->update_high_score("../src/assets/score.txt");
+                        update_high_score("../src/assets/score.txt", *game_engine);
                         score_saved = true;
                     }
                     break;
                 case game_over:
-                    //TODO: handle game over
+                    gE.endMessage(false, score_saved);
                     if (not score_saved) {
-                        game_engine->update_high_score("../src/assets/score.txt");
+                        update_high_score("../src/assets/score.txt", *game_engine);
                         score_saved = true;
                     }
                     break;

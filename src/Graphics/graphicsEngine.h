@@ -8,6 +8,7 @@
 #include "../map/map.h"
 #include "../engine.h"
 
+class GameEngine;
 
 class graphicsEngine{
 public:
@@ -27,9 +28,10 @@ public:
     void drawTiles(GameMap map);
     void drawEnemies(Enemies enemies);
 
-    void drawAttack(Tower tower, Enemy enemy);
+    //void drawAttack(Tower tower, Enemy enemy);
 
     void mouseBtnEventGame(GameEngine *game_engine);
+    void endMessage(bool win, bool done);
     int pollMainScreen();
     sf::Vector3f pollGameScreen();
     

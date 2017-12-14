@@ -83,6 +83,9 @@ void graphicsEngine::drawMenu(){
         m_window.draw(tmp_btn);
         m_window.draw(tmp_btnTxt);
     }
+
+
+
     m_window.display();
 }
 
@@ -260,9 +263,9 @@ void graphicsEngine::drawEnemies(Enemies enemies){
     }
 }
 
-void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
+/*void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
     
-}
+}*/
 
 
 void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
@@ -291,6 +294,13 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             }
             break;
         }
+    }
+}
+
+void graphicsEngine::endMessage(bool win, bool done) {
+    if (!done) {
+        if (win) addEvent("You won!");
+        else addEvent("You lost!");
     }
 }
 
