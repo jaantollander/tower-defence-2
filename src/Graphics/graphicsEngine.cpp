@@ -319,6 +319,10 @@ void graphicsEngine::drawEnemies(Enemies enemies){
         else if (tmp_name == "Lord")    { tmpEnemy.setFillColor(sf::Color::Red); }
         else tmpEnemy.setFillColor(sf::Color::Black);
 
+        tmpEnemy.setOutlineThickness( ((float) enemy->health() /
+                (float) enemy->max_health())*10 );
+        tmpEnemy.setOutlineColor(sf::Color::Black);
+
         m_window.draw(tmpEnemy);
     }
 }

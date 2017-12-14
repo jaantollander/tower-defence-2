@@ -27,6 +27,7 @@ public:
     double speed() const;
     double distance_travelled() const;
     int health() const;
+    int max_health() const;
     int damage() const;
     double attack_speed() const;
     double attack_range() const;

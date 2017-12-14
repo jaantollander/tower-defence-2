@@ -40,6 +40,10 @@ int Object::health() const {
     return m_health;
 }
 
+int Object::max_health() const {
+    return m_max_health;
+}
+
 int Object::damage() const {
     return m_damage;
 }
