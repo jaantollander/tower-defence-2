@@ -104,10 +104,6 @@ The graphics of this game depend on **Simple and Fast Multimedia Library (SFML)*
 sudo apt-get install libsfml-dev
 ```
 
-## Documentation
-![](doc/tower-defence-2.png)
-
-
 ## Authors
 
 - Jaan Tollander de Balsch
