@@ -105,8 +105,7 @@ sudo apt-get install libsfml-dev
 ```
 
 ## Documentation
-[Flowchart of the design](https://drive.google.com/file/d/1J8dBdwPWzzVpeGQODwca3JnyztVp2T0z/view?usp=sharing)
-
+![](doc/tower-defence-2.png)
 
 
 ## Authors
