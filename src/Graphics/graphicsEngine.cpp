@@ -264,12 +264,16 @@ void graphicsEngine::drawEnemies(Enemies enemies){
     }
 }
 
-void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
-    float d = sqrt(pow(tower.x()-enemy.x(),2) + pow(tower.y()-enemy.y(),2)) *
-                    m_tileSize.x;
-    float rot = acos(enemy.x()-tower.x() / d) / 3.141 * 180;
+// TODO: Does not work
+/*void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
+    float d = tower.distance(enemy);// sqrt(pow(tower.x()-enemy.x(),2) + pow(tower.y()-enemy.y(),2));
+    float rot = asin(tower.y() - enemy.y() / d) / 3.141 * 180;
+    if(tower.x() > enemy.x() && rot != 0){ rot *= 2; }
+    else if( tower.x() > enemy.x() && rot == 0){ rot = 180;}
 
-    sf::RectangleShape tmpLine(sf::Vector2f(d,10));
+    std::cout << rot << std::endl;
+
+    sf::RectangleShape tmpLine(sf::Vector2f(d*m_tileSize.x, 10));
 
     tmpLine.setPosition(tower.x()*m_tileSize.x, tower.y()*m_tileSize.y);
     tmpLine.setRotation(rot);
@@ -277,7 +281,7 @@ void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
 
     m_window.draw(tmpLine);
 }
-
+*/
 
 void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
 
