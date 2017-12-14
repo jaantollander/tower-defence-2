@@ -175,6 +175,7 @@ int main()  {
     std::vector<sf::Vector2f> gameBtns;
     // Start a clock
     sf::Clock clock;
+    gE.m_window.setFramerateLimit(30);
     // While window has not been closed, keep on going
     while (window.isOpen()) {
         // Draw the screens
