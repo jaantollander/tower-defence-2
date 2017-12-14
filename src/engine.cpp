@@ -11,6 +11,7 @@ GameEngine::GameEngine(double time, double timestep, int score,
         m_game_map(game_map), m_game_level(game_level) {
     m_money = game_level.initial_money();
     m_lives = game_level.initial_lives();
+    m_speed = normal;
 }
 
 GameEngine::~GameEngine() {
@@ -47,6 +48,13 @@ void GameEngine::add_score(int amount) {
         m_score = 0;
     else
         m_score = new_score;
+}
+
+void GameEngine::change_game_speed(GameSpeed new_speed) {
+    if (m_speed != new_speed) {
+        if (new_speed == fast) m_timestep = 2*m_timestep;
+        else if (new_speed == normal) m_timestep = m_timestep/2;
+    }
 }
 
 bool GameEngine::add_money(int amount) {

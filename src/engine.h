@@ -28,6 +28,11 @@ enum GameState {
     game_over,
 };
 
+enum GameSpeed {
+    normal,
+    fast
+};
+
 
 /// Game class contains the game map, enemies, towers and game stats. This
 /// class is also responsible for the implementation of the main game loop which
@@ -46,6 +51,9 @@ public:
     int lives() const;
 
     friend class GraphicsEngine;
+
+    /// Change the gamespeed to fast or normal
+    void change_game_speed(GameSpeed new_speed);
 
     /// Increments the game time by one timestep.
     void increment_time();
@@ -103,8 +111,9 @@ public:
     friend bool update_high_score(const std::string &filename, GameEngine engine);
 
 private:
+    GameSpeed m_speed;
     double m_time;
-    const double m_timestep;
+    double m_timestep;
     int m_score;
     int m_money;
     int m_lives;

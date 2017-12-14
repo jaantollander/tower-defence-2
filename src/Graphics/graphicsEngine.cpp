@@ -349,13 +349,16 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
         }
         case -2: {
             addEvent("Targeting: First");
+            game_engine->change_targeting(target_first);
             break;
         }
         case -3: {
+            game_engine->change_targeting(target_last);
             addEvent("Targeting: Last");
             break;
         }
         case -4: {
+            game_engine->change_targeting(target_least_health);
             addEvent("Targeting: Weak");
             break;
         }

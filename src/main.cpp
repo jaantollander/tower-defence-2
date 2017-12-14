@@ -46,7 +46,7 @@ int main()  {
 
     // Initial values
     const int initial_money = 400;
-    const double timestep = 0.02;
+    double timestep = 0.012;
     const int initial_lives = 10;
 
 
