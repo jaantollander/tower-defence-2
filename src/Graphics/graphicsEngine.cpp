@@ -38,6 +38,17 @@ void graphicsEngine::addButtons(){
             std::string("Map\n 2")
     ));
 
+    m_menuBtns.push_back(graphicsButton(
+            sf::Vector2f(70,70),
+            sf::Vector2f(100, 60),
+            std::string("Slow")
+    ));
+    m_menuBtns.push_back(graphicsButton(
+            sf::Vector2f(190, 70),
+            sf::Vector2f(100, 60),
+            std::string("Fast")
+    ));
+
 
 
 
