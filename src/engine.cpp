@@ -52,8 +52,14 @@ void GameEngine::add_score(int amount) {
 
 void GameEngine::change_game_speed(GameSpeed new_speed) {
     if (m_speed != new_speed) {
-        if (new_speed == fast) m_timestep = 2*m_timestep;
-        else if (new_speed == normal) m_timestep = m_timestep/2;
+        if (new_speed == fast) {
+            m_timestep = 2 * m_timestep;
+            m_speed = new_speed;
+        }
+        else if (new_speed == normal) {
+            m_timestep = m_timestep/2;
+            m_speed = new_speed;
+        }
     }
 }
 

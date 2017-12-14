@@ -253,11 +253,13 @@ int main()  {
                                     break;
                                 }
                                 case -3: {
-                                    std::cout << "Slow"<< std::endl;
+                                    std::cout << "Normal"<< std::endl;
+                                    game_engine->change_game_speed(normal);
                                     break;
                                 }
                                 case -4: {
                                     std::cout << "Fast"<< std::endl;
+                                    game_engine->change_game_speed(fast);
                                     break;
                                 }
                                 default:
