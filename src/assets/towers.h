@@ -4,7 +4,7 @@
 #include <iostream>
 #include "../objects/tower.h"
 
-#define MULTIPLIER_2 0.85
+#define MULTIPLIER_2 0.82
 
 /// Empty tower type. Cannot be upgraded into any tower.
 class EmptyTowerType : public TowerType {

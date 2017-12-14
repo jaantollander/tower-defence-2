@@ -17,9 +17,6 @@ public:
     /// Initialize graphics engine with a predefined app window
     explicit graphicsEngine(sf::RenderWindow &window);
 
-    friend class GameEngine;
-
-    // Create button objects for menu and game
     void addButtons();
 
     /// Draw contents of the main menu

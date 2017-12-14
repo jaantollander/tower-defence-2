@@ -11,6 +11,10 @@ Tiles::Tiles(int xsize_, int ysize_, double tilesize_,
     m_tiles = std::vector<std::vector<Tile*>>(ysize, std::vector<Tile*>(xsize, nullptr));
 }
 
+Tiles::~Tiles() {
+    
+}
+
 Tile* Tiles::tile(int x, int y) const {
     return m_tiles[y][x];
 }

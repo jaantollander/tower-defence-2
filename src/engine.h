@@ -13,8 +13,6 @@
 // Deferred declaration
 class graphicsEngine;
 
-class graphicsEngine;
-
 
 /// Game states
 enum GameState {
@@ -49,8 +47,6 @@ public:
     int score() const;
     int money() const;
     int lives() const;
-
-    friend class GraphicsEngine;
 
     /// Change the gamespeed to fast or normal
     void change_game_speed(GameSpeed new_speed);

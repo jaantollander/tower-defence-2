@@ -183,7 +183,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
-    ss << game_engine->time();
+    ss << (int) game_engine->time();
 
     sf::Text timestr(ss.str(), font, 20);
     timestr.setColor(sf::Color::Black);
@@ -307,11 +307,12 @@ void graphicsEngine::drawEnemies(Enemies enemies){
     sf::Color l_red(255, 128, 0);
     sf::Color d_red(255, 0, 128);
     sf::Color purple(255, 0, 255);
+    sf::Color pink(0, 128, 128);
 
     for (auto &enemy : enemies) {
-        sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y)  / 3);
-        tmpEnemy.setPosition((enemy->x()-0.5) * m_tileSize.x + 10,
-                             (enemy->y()-0.5) * m_tileSize.y + 10);
+        sf::CircleShape tmpEnemy(std::min(m_tileSize.x, m_tileSize.y)  / 4);
+        tmpEnemy.setPosition((enemy->x()-0.5) * m_tileSize.x + 15,
+                             (enemy->y()-0.5) * m_tileSize.y + 15);
         std::string tmp_name = enemy->name();
         if (tmp_name == "Basic")        { tmpEnemy.setFillColor(l_red); }
         else if (tmp_name == "Tank")    { tmpEnemy.setFillColor(d_red); }
@@ -321,7 +322,7 @@ void graphicsEngine::drawEnemies(Enemies enemies){
 
         tmpEnemy.setOutlineThickness( ((float) enemy->health() /
                 (float) enemy->max_health())*10 );
-        tmpEnemy.setOutlineColor(sf::Color::Black);
+        tmpEnemy.setOutlineColor(pink);
 
         m_window.draw(tmpEnemy);
     }

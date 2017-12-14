@@ -16,6 +16,8 @@ Object::Object(double x, double y, double radius, double speed, int health,
         m_time_since_last_attack(attack_speed)
         { }
 
+Object::~Object() { }
+
 double Object::x() const {
     return m_x;
 }
