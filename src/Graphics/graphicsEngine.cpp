@@ -1,6 +1,4 @@
 #include "graphicsEngine.h"
-#include "../map/map.h"
-
 
 graphicsEngine::graphicsEngine(sf::RenderWindow &window):
         m_window(window){
@@ -216,13 +214,13 @@ void graphicsEngine::drawTiles(GameMap map){
 
             if( map.tiles().tile(i,j)->tower()->damage() > 0 ){
                 sf::CircleShape tmpTower(
-                        std::min(m_tileSize.x, m_tileSize.y) / 2.5, 3);
+                        std::min(m_tileSize.x, m_tileSize.y) / 3, 3);
                 tmpTower.setPosition(
-                        sf::Vector2f((float) (i+0.12) * m_tileSize.x,
-                                     (float) (j+0.12) * m_tileSize.y));
+                        sf::Vector2f((float) (i+0.15) * m_tileSize.x,
+                                     (float) (j+0.17) * m_tileSize.y));
 
                 switch(map.tiles().tile(i,j)->upgrade_level()){
-                    case 1: tmpTower.setFillColor(sf::Color(200,200,200));
+                    case 1: tmpTower.setFillColor(sf::Color(100,100,100));
                         break;
                     case 2: tmpTower.setFillColor(sf::Color::Cyan);
                         break;
@@ -230,7 +228,13 @@ void graphicsEngine::drawTiles(GameMap map){
                         break;
                     default:tmpTower.setFillColor(sf::Color::White);
                         break;
-                }
+                    }
+                tmpTower.setOutlineThickness(
+                        abs(map.tiles().tile(i,j)->tower()->time_since_last_attack()* 6 -
+                                    map.tiles().tile(i,j)->tower()->attack_speed()* 6)
+                    );
+                tmpTower.setOutlineColor(sf::Color::Black);
+
 
                 m_window.draw(tmpTower);
             }
@@ -261,7 +265,17 @@ void graphicsEngine::drawEnemies(Enemies enemies){
 }
 
 void graphicsEngine::drawAttack(Tower tower, Enemy enemy) {
-    
+    float d = sqrt(pow(tower.x()-enemy.x(),2) + pow(tower.y()-enemy.y(),2)) *
+                    m_tileSize.x;
+    float rot = acos(enemy.x()-tower.x() / d) / 3.141 * 180;
+
+    sf::RectangleShape tmpLine(sf::Vector2f(d,10));
+
+    tmpLine.setPosition(tower.x()*m_tileSize.x, tower.y()*m_tileSize.y);
+    tmpLine.setRotation(rot);
+    tmpLine.setFillColor(sf::Color::Magenta);
+
+    m_window.draw(tmpLine);
 }
 
 

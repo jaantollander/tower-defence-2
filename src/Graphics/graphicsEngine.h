@@ -8,6 +8,8 @@
 #include "../map/map.h"
 #include "../engine.h"
 
+class GameEngine;
+
 
 class graphicsEngine{
 public:
