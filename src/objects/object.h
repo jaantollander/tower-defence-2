@@ -15,11 +15,13 @@ enum TargetingPolicy {
 };
 
 /// Base class for objects in tower defence. Contains position, speed and the
-/// movement of the object.
+/// movement of the object. Both tower and enemies inherit from this class.
 class Object {
 public:
     Object(double x, double y, double radius, double speed, int health,
            int damage, double attack_range, double attack_speed);
+
+    ~Object();
 
     double x() const;
     double y() const;

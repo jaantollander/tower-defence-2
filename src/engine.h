@@ -26,6 +26,9 @@ enum GameState {
     game_over,
 };
 
+
+/// Game speed can be either set to normal or fast, and game engine keeps track
+/// of the speed. Fast speed is double the normal.
 enum GameSpeed {
     normal,
     fast
@@ -48,7 +51,7 @@ public:
     int money() const;
     int lives() const;
 
-    /// Change the gamespeed to fast or normal
+    /// Change the game speed to fast or normal
     void change_game_speed(GameSpeed new_speed);
 
     /// Increments the game time by one timestep.
@@ -98,7 +101,6 @@ public:
 
     /// Updates the game loop. In practice this method will be called by the
     /// main graphics loop.
-    /// TODO: Events: game over, level completed
     GameState update(graphicsEngine& gE);
 
     /// Getter for game map
@@ -122,11 +124,13 @@ private:
 /// 2890
 /// 2510
 /// """ etc.
+/// High scores are visible on the menu screen.
 std::vector<int> high_score(const std::string &filename);
 
 /// Updates high score if needed, takes the name of
 /// the file where high scores are kept
 /// Returns true if high scores were changed
+/// High scores are visible on the menu screen
 bool update_high_score(const std::string &filename, GameEngine engine);
 
 #include "Graphics/graphicsEngine.h"

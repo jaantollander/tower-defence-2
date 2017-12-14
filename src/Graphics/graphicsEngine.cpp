@@ -67,20 +67,20 @@ void graphicsEngine::addButtons(){
 
 
     m_gameBtns.push_back(graphicsButton(
-            sf::Vector2f(600, 210),
-            sf::Vector2f(66, 60),
+            sf::Vector2f(600, 205),
+            sf::Vector2f(66, 55),
             std::string("F")
     ));
 
     m_gameBtns.push_back(graphicsButton(
-            sf::Vector2f(666, 210),
-            sf::Vector2f(66, 60),
+            sf::Vector2f(666, 205),
+            sf::Vector2f(66, 55),
             std::string("L")
     ));
 
     m_gameBtns.push_back(graphicsButton(
-            sf::Vector2f(733, 210),
-            sf::Vector2f(66, 60),
+            sf::Vector2f(733, 205),
+            sf::Vector2f(66, 55),
             std::string("W")
     ));
 }
@@ -183,7 +183,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
-    ss << game_engine->time();
+    ss << (int) game_engine->time();
 
     sf::Text timestr(ss.str(), font, 20);
     timestr.setColor(sf::Color::Black);

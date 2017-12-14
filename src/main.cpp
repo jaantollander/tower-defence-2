@@ -35,7 +35,7 @@ GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
 }
 
 
-/// Run tower defence game. Currently used for testing.
+/// Run tower defence game.
 int main()  {
     // Enemy type instances
     auto basic_enemy    = EnemyType1();
@@ -146,17 +146,15 @@ int main()  {
     auto tower_type_a = TowerTypeA();
     auto tower_type_a2 = TowerTypeA2();
     auto tower_type_b = TowerTypeB();
-
     auto tower_type_b2 = TowerTypeB2();
-    auto tower_type_b3 = TowerTypeB3();
 
     // Define tower hierarchy (upgrade options)
     root_tower_type.add_upgrade_option(&tower_type_a);
     tower_type_a.add_upgrade_option(&tower_type_a2);
     tower_type_a2.add_upgrade_option(&tower_type_b);
     tower_type_b.add_upgrade_option(&tower_type_b2);
-//    tower_type_b2.add_upgrade_option(&tower_type_b3);
 
+    // Initialize game engine and state
     auto game_engine = new_game_engine(
             map1, &empty_tower_type, &root_tower_type, initial_money,
             initial_lives, enemy_spawn_interval, timestep);
@@ -164,35 +162,41 @@ int main()  {
     bool score_saved = false;
 
     // =================== Graphics =======================
+
     // Create a window where stuff is drawn - 4:3 aspect ratio
     sf::RenderWindow window(sf::VideoMode(800, 600), "Graphics test");
+    // Listen only to singel key strokes (doesn't work well)
     window.setKeyRepeatEnabled(false);
 
+    // Initialize graphics engine
     graphicsEngine gE = graphicsEngine(window);
 
-    // Draw (and update) the objects to the screen
-    // Create the menu
+    // Create and draw the Main menu
     gE.drawMenu();
+
+    // Allocate game Buttons to be defined later
     std::vector<sf::Vector2f> gameBtns;
-    // Start a clock
+
+    // Start a clock and frame limit handling the game time
     sf::Clock clock;
     gE.m_window.setFramerateLimit(120);
+
     // While window has not been closed, keep on going
     while (window.isOpen()) {
         // Draw the screens
-        //TODO: refactor to screen_event_handler function
         switch(gE.m_currentScreen) {
+            // Main screen - Do nothing (already exists)
             case mainScreen:
                 break;
+            // Game screen - Update the graphics
             case gameScreen: {
-                // Window has to be cleaned every time to avoid overlap
+                // Clear window to avoid overlap
                 window.clear();
-                // Let's draw the window and sidebar
-                // Let's draw the tiles on the window
+                // Draw the tiles, path and towers
                 gE.drawTiles(game_engine->game_map());
-                // Let's draw the creatures
+                // Draw the enemies
                 gE.drawEnemies(game_engine->game_map().enemies());
-                // Let's show stats
+                // Draw game stats, events texts and buttons
                 gE.addStatsWindow();
                 gE.drawStats(game_engine);
                 gE.drawEventBox();
@@ -204,8 +208,7 @@ int main()  {
         // Sniff for window events
         sf::Event event;
 
-        // Something was clicked ->
-        //TODO: refactor to poll_event_handler function
+        // Something was clicked
         while(window.pollEvent(event)) {
             switch (event.type) {
                 // Window was closed
@@ -215,10 +218,11 @@ int main()  {
                 }
                 // LMouseButton was clicked
                 case sf::Event::MouseButtonReleased : {
-                    // What is the current screen state?
                     switch(gE.m_currentScreen) {
+                        // Menu was clicked
                         case mainScreen: {
                             int menuBtnPressed = gE.pollMainScreen();
+                            // Which button was clicked
                             switch(menuBtnPressed) {
                                 case 1: {
                                     break;
@@ -253,12 +257,10 @@ int main()  {
                                     break;
                                 }
                                 case -3: {
-                                    std::cout << "Normal"<< std::endl;
                                     game_engine->change_game_speed(normal);
                                     break;
                                 }
                                 case -4: {
-                                    std::cout << "Fast"<< std::endl;
                                     game_engine->change_game_speed(fast);
                                     break;
                                 }
@@ -267,6 +269,7 @@ int main()  {
                             }
                             break;
                         }
+                        // Game screen was clicked
                         case gameScreen : {
                             gE.mouseBtnEventGame(game_engine);
                             break;
@@ -277,11 +280,12 @@ int main()  {
             }
         }
 
-        // What's our in-game time?
+        // Restart the clock (not used)
         sf::Time elapsedTime = clock.restart();
 
-        // Update game logic
+        // Advance the game
         if (gE.m_currentScreen == gameScreen) {
+            // Check the game state
             switch (state) {
                 case level_completed:
                     gE.endMessage(true, score_saved);
@@ -297,6 +301,7 @@ int main()  {
                         score_saved = true;
                     }
                     break;
+                // Advance the game
                 default: {
                     state = game_engine->update(gE);
                     break;
@@ -304,6 +309,7 @@ int main()  {
             }
         }
 
+        // Make all new graphics visible
         gE.m_window.display();
     }
 
