@@ -183,7 +183,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
     font.loadFromFile("../src/Graphics/FreeMono.ttf");
 
     std::stringstream ss;
-    ss << game_engine->time();
+    ss << (int) game_engine->time();
 
     sf::Text timestr(ss.str(), font, 20);
     timestr.setColor(sf::Color::Black);

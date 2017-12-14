@@ -58,7 +58,7 @@ Tile::Tile(TileType tile_type, Direction direction, Tower *tower) :
         { }
 
 Tile::~Tile() {
-
+    delete(m_tower);
 }
 
 TileType Tile::tile_type() const {

@@ -10,6 +10,8 @@ public:
     Tiles(int xsize_, int ysize_, double tilesize_, TowerType *root_tower_type,
               TowerType *empty_tower_type);
 
+    ~Tiles();
+
     /// Number of tiles in x dimension.
     const int xsize;
 

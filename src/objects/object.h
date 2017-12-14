@@ -21,6 +21,8 @@ public:
     Object(double x, double y, double radius, double speed, int health,
            int damage, double attack_range, double attack_speed);
 
+    ~Object();
+
     double x() const;
     double y() const;
     double radius() const;

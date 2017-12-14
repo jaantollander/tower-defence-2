@@ -11,6 +11,7 @@ GameMap::GameMap(std::string &name, Tiles &tiles, Path &path) :
         {}
 
 GameMap::~GameMap() {
+
 }
 
 std::string GameMap::name() const {

@@ -19,7 +19,6 @@ private:
     const std::string m_msg;
 };
 
-//TODO: better data structure for removing arbitrary elements
 /// Type for collection of enemies.
 typedef std::vector<Enemy*> Enemies;
 
