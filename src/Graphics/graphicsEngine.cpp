@@ -98,25 +98,25 @@ void graphicsEngine::addStatsWindow(){
     sf::Text txt1("Time: ", font, 20);
     txt1.setColor(sf::Color::Black);
     txt1.setStyle(sf::Text::Bold);
-    txt1.setPosition(sf::Vector2f(640, 0));
+    txt1.setPosition(sf::Vector2f(610, 0));
     m_window.draw(txt1);
 
     sf::Text txt2("Score: ", font, 20);
     txt2.setColor(sf::Color::Black);
     txt2.setStyle(sf::Text::Bold);
-    txt2.setPosition(640, 70);
+    txt2.setPosition(610, 40);
     m_window.draw(txt2);
 
     sf::Text txt3("Money: ", font, 20);
     txt3.setColor(sf::Color::Black);
     txt3.setStyle(sf::Text::Bold);
-    txt3.setPosition(640, 140);
+    txt3.setPosition(610, 80);
     m_window.draw(txt3);
 
     sf::Text txt4("Lives: ", font, 20);
     txt4.setColor(sf::Color::Black);
     txt4.setStyle(sf::Text::Bold);
-    txt4.setPosition(640, 210);
+    txt4.setPosition(610, 120);
     m_window.draw(txt4);
 }
 
@@ -129,7 +129,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
 
     sf::Text timestr(ss.str(), font, 20);
     timestr.setColor(sf::Color::Black);
-    timestr.setPosition(sf::Vector2f(660, 25));
+    timestr.setPosition(sf::Vector2f(720, 0));
     m_window.draw(timestr);
 
     ss.str("");
@@ -137,7 +137,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
 
     sf::Text scorestr(ss.str(), font, 20);
     scorestr.setColor(sf::Color::Black);
-    scorestr.setPosition(660, 95);
+    scorestr.setPosition(720, 40);
     m_window.draw(scorestr);
 
     ss.str("");
@@ -145,7 +145,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
 
     sf::Text moneystr(ss.str(), font, 20);
     moneystr.setColor(sf::Color::Black);
-    moneystr.setPosition(660, 165);
+    moneystr.setPosition(720, 80);
     m_window.draw(moneystr);
 
     ss.str("");
@@ -153,7 +153,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
 
     sf::Text livesstr(ss.str(), font, 20);
     livesstr.setColor(sf::Color::Black);
-    livesstr.setPosition(660, 235);
+    livesstr.setPosition(720, 120);
     m_window.draw(livesstr);
 }
 
