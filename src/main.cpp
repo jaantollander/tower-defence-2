@@ -152,7 +152,7 @@ int main()  {
     auto game_engine = new_game_engine(
             map1, &empty_tower_type, &root_tower_type, initial_money,
             initial_lives, enemy_spawn_interval, timestep);
-    auto state = level_unfinished;
+    auto state = game_not_started;
     bool score_saved = false;
 
     // =================== Graphics =======================
@@ -224,12 +224,13 @@ int main()  {
                                 case 0: {
                                     gE.m_currentScreen = gameScreen;
                                     switch(state){
-                                        case level_unfinished:{
-                                            gE.addEvent("Game continued!");
+                                        case game_not_started:{
+                                            gE.addEvent("Game has started!");
+                                            state = level_unfinished;
                                             break;
                                         }
                                         default:{
-                                            gE.addEvent("Game has started!");
+                                            gE.addEvent("Game continued!");
                                             break;
                                         }
                                     }

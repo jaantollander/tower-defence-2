@@ -17,6 +17,9 @@ class graphicsEngine;
 /// Game states
 enum GameState {
     ///
+    game_not_started,
+
+    ///
     level_unfinished,
 
     ///
