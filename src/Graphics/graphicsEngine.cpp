@@ -359,7 +359,10 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -1: {
-            addEvent("Build or upgrade");
+            addEvent("Click on tile to");
+            addEvent("build (100$) or");
+            addEvent("upgrade");
+            addEvent("(80/120/180$)");
             m_buildFlag = true;
             break;
         }
