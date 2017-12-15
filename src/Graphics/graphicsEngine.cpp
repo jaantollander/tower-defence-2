@@ -236,9 +236,19 @@ void graphicsEngine::drawEventBox(){
 }
 
 void graphicsEngine::addEvent(std::string str){
-    if(m_gameEvents.back() != str){
-        m_gameEvents.push_back(str);
-        m_gameEvents.pop_front();
+    if(m_gameEvents.back() != str || str == ""){
+        if(str.back() == ')'){
+            m_gameEvents.push_back(str);
+            m_gameEvents.pop_front();
+            m_gameEvents.push_back("");
+            m_gameEvents.pop_front();
+            m_gameEvents.push_back("");
+            m_gameEvents.pop_front();
+        }else{
+            m_gameEvents.push_back(str);
+            m_gameEvents.pop_front();
+        }
+
     }
 }
 
@@ -362,10 +372,10 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -1: {
-            addEvent("Click on tile to");
-            addEvent("build (100$) or");
-            addEvent("upgrade");
-            addEvent("(80/120/180$)");
+            addEvent("Click on tile to\nbuild (100$) or\nupgrade\n(80/120/180$)");
+            addEvent("");
+            addEvent("");
+            addEvent("");
             m_buildFlag = true;
             break;
         }
