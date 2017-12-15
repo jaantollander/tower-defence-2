@@ -236,8 +236,10 @@ void graphicsEngine::drawEventBox(){
 }
 
 void graphicsEngine::addEvent(std::string str){
-    m_gameEvents.push_back(str);
-    m_gameEvents.pop_front();
+    if(m_gameEvents.back() != str){
+        m_gameEvents.push_back(str);
+        m_gameEvents.pop_front();
+    }
 }
 
 void graphicsEngine::drawTiles(GameMap map){
@@ -354,12 +356,13 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
     switch( (int) gameBtnPressed.z ){
         case 0: {
             m_window.clear();
+            addEvent("Game paused!");
             m_currentScreen = mainScreen;
             drawMenu();
             break;
         }
         case -1: {
-            addEvent("Build or upgrade");
+            addEvent("Select B/U site");
             m_buildFlag = true;
             break;
         }

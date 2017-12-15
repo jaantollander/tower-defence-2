@@ -223,7 +223,16 @@ int main()  {
                                 }
                                 case 0: {
                                     gE.m_currentScreen = gameScreen;
-                                    gE.addEvent("Game has started!");
+                                    switch(state){
+                                        case level_unfinished:{
+                                            gE.addEvent("Game continued!");
+                                            break;
+                                        }
+                                        default:{
+                                            gE.addEvent("Game has started!");
+                                            break;
+                                        }
+                                    }
                                     break;
                                 }
                                 case -1: {
@@ -252,10 +261,12 @@ int main()  {
                                 }
                                 case -3: {
                                     game_engine->change_game_speed(normal);
+                                    gE.addEvent("Speed: Slow");
                                     break;
                                 }
                                 case -4: {
                                     game_engine->change_game_speed(fast);
+                                    gE.addEvent("Speed: Fast");
                                     break;
                                 }
                                 default:
