@@ -300,7 +300,7 @@ bool update_high_score(const std::string &filename, GameEngine engine) {
     }
 
     //check if there are less than five scores
-    if (flag == false && scores.size() < 5) {
+    if (!flag && scores.size() < 5) {
         scores.insert(it, engine.score() - t);
         flag = true;
     }
