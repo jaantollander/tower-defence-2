@@ -278,19 +278,19 @@ bool update_high_score(const std::string &filename, GameEngine engine) {
     catch (invalid_file_format &) { return false; }
     bool flag = false;
     auto it = scores.begin();
-
+    int t = static_cast<int>(engine.time());
     //check if score better than previous
     while (it != scores.end()) {
-        if (engine.score() > *it) {
+        if (engine.score() - t > *it) {
             flag = true;
-            scores.insert(it, engine.score());
+            scores.insert(it, engine.score() - t);
             break;
         } else it++;
     }
 
     //check if there are less than five scores
     if (flag == false && scores.size() < 5) {
-        scores.insert(it, engine.score());
+        scores.insert(it, engine.score() - t);
         flag = true;
     }
 

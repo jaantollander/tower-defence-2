@@ -362,7 +362,10 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
             break;
         }
         case -1: {
-            addEvent("Select B/U site");
+            addEvent("Click on tile to");
+            addEvent("build (100$) or");
+            addEvent("upgrade");
+            addEvent("(80/120/180$)");
             m_buildFlag = true;
             break;
         }
