@@ -50,7 +50,7 @@ int main()  {
     const int initial_lives = 10;
 
 
-    //Spawn time and which enemy type to spawn
+    /// Spawn time and which enemy type to spawn.
     EnemySpawnInterval enemy_spawn_interval = {
             {4.0, &basic_enemy},
             {5.0, &basic_enemy},
@@ -63,8 +63,6 @@ int main()  {
             {23.0, &basic_enemy},
             {24.0, &basic_enemy},
 
-
-
             {50.0, &basic_enemy},
             {51.0, &basic_enemy},
             {52.0, &basic_enemy},
@@ -75,7 +73,6 @@ int main()  {
             {70.0, &tank},
             {73.0, &tank},
             {75.0, &runner},
-
 
             {115.0, &runner},
             {116.0, &runner},
@@ -89,7 +86,6 @@ int main()  {
             {135.0, &lord},
             {142.0, &lord},
             {145.0, &lord},
-
 
             {180.0, &basic_enemy},
             {180.5, &basic_enemy},
@@ -113,14 +109,12 @@ int main()  {
             {206.0, &lord},
             {207.0, &lord},
 
-
             {242.0, &lord},
             {244.0, &king},
             {248.0, &lord},
             {250.0, &king},
             {254.0, &lord},
             {256.0, &king},
-
 
             {280.0, &king},
             {282.0, &king},
@@ -229,7 +223,16 @@ int main()  {
                                 }
                                 case 0: {
                                     gE.m_currentScreen = gameScreen;
-                                    gE.addEvent("Game has started!");
+                                    switch(state){
+                                        case level_unfinished:{
+                                            gE.addEvent("Game continued!");
+                                            break;
+                                        }
+                                        default:{
+                                            gE.addEvent("Game has started!");
+                                            break;
+                                        }
+                                    }
                                     break;
                                 }
                                 case -1: {
@@ -258,10 +261,12 @@ int main()  {
                                 }
                                 case -3: {
                                     game_engine->change_game_speed(normal);
+                                    gE.addEvent("Speed: Slow");
                                     break;
                                 }
                                 case -4: {
                                     game_engine->change_game_speed(fast);
+                                    gE.addEvent("Speed: Fast");
                                     break;
                                 }
                                 default:

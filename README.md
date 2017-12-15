@@ -104,11 +104,6 @@ The graphics of this game depend on **Simple and Fast Multimedia Library (SFML)*
 sudo apt-get install libsfml-dev
 ```
 
-## Documentation
-[Flowchart of the design](https://drive.google.com/file/d/1J8dBdwPWzzVpeGQODwca3JnyztVp2T0z/view?usp=sharing)
-
-
-
 ## Authors
 
 - Jaan Tollander de Balsch

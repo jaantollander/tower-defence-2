@@ -1,6 +1,7 @@
 .idea/
-doc/html
-doc/latex
+doc/html/*
+doc/latex/*
+!doc/latex/refman.pdf
 cmake-build-debug/
 build/tower_defence_2
 src/assets/score.txt

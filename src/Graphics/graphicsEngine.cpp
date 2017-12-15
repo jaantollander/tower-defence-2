@@ -16,7 +16,7 @@ graphicsEngine::graphicsEngine(sf::RenderWindow &window):
     }
 
     sf::Font m_font;
-    m_font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    m_font.loadFromFile("../src/assets/FreeMono.ttf");
 
     addButtons();
 }
@@ -88,7 +88,7 @@ void graphicsEngine::addButtons(){
 void graphicsEngine::drawMenu(){
 
     sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     sf::Texture background;
     background.loadFromFile("../src/assets/tower2.jpg");
@@ -144,7 +144,7 @@ void graphicsEngine::addStatsWindow(){
     m_window.draw(statsArea);
 
     sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     sf::Text txt1("Time: ", font, 20);
     txt1.setColor(sf::Color::Black);
@@ -180,7 +180,7 @@ void graphicsEngine::addStatsWindow(){
 
 void graphicsEngine::drawStats(GameEngine *game_engine) {
     sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     std::stringstream ss;
     ss << (int) game_engine->time();
@@ -218,7 +218,7 @@ void graphicsEngine::drawStats(GameEngine *game_engine) {
 
 void graphicsEngine::drawEventBox(){
     sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     sf::RectangleShape bg(sf::Vector2f(200,150));
     bg.setPosition(600, 260);
@@ -236,8 +236,10 @@ void graphicsEngine::drawEventBox(){
 }
 
 void graphicsEngine::addEvent(std::string str){
-    m_gameEvents.push_back(str);
-    m_gameEvents.pop_front();
+    if(m_gameEvents.back() != str){
+        m_gameEvents.push_back(str);
+        m_gameEvents.pop_front();
+    }
 }
 
 void graphicsEngine::drawTiles(GameMap map){
@@ -354,6 +356,7 @@ void graphicsEngine::mouseBtnEventGame(GameEngine *game_engine){
     switch( (int) gameBtnPressed.z ){
         case 0: {
             m_window.clear();
+            addEvent("Game paused!");
             m_currentScreen = mainScreen;
             drawMenu();
             break;
@@ -455,7 +458,7 @@ sf::Vector3f graphicsEngine::pollGameScreen(){
 void graphicsEngine::drawGameBtns(){
 
     sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     for(int i=0; i < m_gameBtns.size(); i++){
 

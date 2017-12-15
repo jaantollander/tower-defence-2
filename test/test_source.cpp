@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <sstream>
 
-//#include "test_types.cpp"
+
 #include "../src/engine.h"
 #include "../src/Graphics/graphicsEngine.h"
 
@@ -21,7 +21,6 @@ TEST(initialization, tower_initialization) {
 	TowerTypeA2();
 	TowerTypeB();
 	TowerTypeB2();
-	TowerTypeB3();
 }
 
 // Test tower type instances & Enemy type instances
@@ -37,14 +36,12 @@ auto tower_type_a2 = TowerTypeA2();
 
 auto tower_type_b = TowerTypeB();
 auto tower_type_b2 = TowerTypeB2();
-auto tower_type_b3 = TowerTypeB3();
 
 TEST(initialization, tower_options) {
 	root_tower_type.add_upgrade_option(&tower_type_a);
 	tower_type_a.add_upgrade_option(&tower_type_a2);
 	root_tower_type.add_upgrade_option(&tower_type_b);
 	tower_type_b.add_upgrade_option(&tower_type_b2);
-	tower_type_b.add_upgrade_option(&tower_type_b3);
 }
 
 TEST(initialization, GameMap) {
@@ -128,9 +125,8 @@ TEST(Game_engine, score_life) {
 	test_game_engine->reduce_life() ;
 	test_game_engine->reduce_life() ;
 	test_game_engine->reduce_life() ;
-	test_game_engine->reduce_life() ;
 
-	ASSERT_EQ(test_game_engine->lives(), 0);
+	ASSERT_EQ(test_game_engine->lives(), 1);
 	
 	// Test score
 	ASSERT_EQ(test_game_engine->score(), 0);
@@ -176,12 +172,37 @@ GameEngine *new_game_engine(MapChoices map_choice, TowerType *empty_tower_type,
 }
 
 
-TEST(Game_map, map) {
+TEST(Game_map, map_path_tiles) {
 
 	auto test_map = test_game_engine->game_map();
 	ASSERT_EQ(test_map.name(),"example");
 
+	auto test_path = test_map.path();
+
+
+	ASSERT_TRUE(1000 > test_path.get_length() > 0);
+	ASSERT_TRUE( 1000 > test_path.distance_from_end(0) > 0);
+	ASSERT_EQ(test_path.distance_from_end(test_path.get_length()), 0);
+	//has_reached_end(double d)
+	ASSERT_TRUE(test_path.has_reached_end(test_path.get_length()));
+	ASSERT_FALSE(test_path.has_reached_end(test_path.get_length()-1));
 	//TODO test tiles and path
+
+	auto test_tiles = test_map.tiles();
+	ASSERT_TRUE(0<test_tiles.xsize<50);
+	ASSERT_TRUE(0<test_tiles.ysize<50);
+	ASSERT_TRUE(0<test_tiles.tilesize<50);
+
+	auto test_tile1 = *test_tiles.tile(0,0);
+	auto test_tile2 = *test_tiles.tile(test_tiles.xsize-1, test_tiles.ysize-1);
+	std::cout << "tile types:" << test_tile1.tile_type() <<" "<< test_tile2.tile_type() <<std::endl;
+
+}
+
+
+TEST(Game_map, print_map) {
+	auto test_map = test_game_engine->game_map();
+	std::cout << test_map << std::endl;
 }
 
 
@@ -199,6 +220,24 @@ TEST(Game_map, enemies) {
 	ASSERT_EQ(test_enemies.size(), 2);
 
 }
+
+
+TEST(Game_map, update) {
+	auto test_map = test_game_engine->game_map();
+
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Test");
+	graphicsEngine gE = graphicsEngine(window);
+	auto state = test_game_engine->update(gE);
+	
+	test_game_engine->reduce_life() ;
+	ASSERT_EQ(state, 0);
+
+	auto state2 = test_game_engine->update(gE);
+
+	ASSERT_EQ(state2, 2);
+
+}
+
 
 int main(int argc, char **argv) {
 	::testing::InitGoogleTest(&argc, argv);

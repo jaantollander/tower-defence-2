@@ -29,7 +29,7 @@ std::vector<sf::Vector2f> createAndDrawMenu(sf::RenderWindow &window,
 
     // A font type has to be downloaded
     sf::Font font;
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     for(int i = 0; i < buttonTexts.size(); i++){
         createAndDrawButton(window, buttonLocations[i*2], buttonSizes[i], buttonTexts[i], font);
@@ -90,7 +90,7 @@ std::vector<sf::Vector2f> createAndDrawGame(
     // Create text fields that are needed
 
     sf::Font font;	// A font type has to be downloaded
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     sf::Text points("Points: ", font, 24);
     points.setColor(sf::Color::Black);
@@ -252,7 +252,7 @@ void drawStats(sf::RenderWindow &window, int stats){
     std::vector<sf::Drawable *> drawables;
 
     sf::Font font;	// A font type has to be downloaded
-    font.loadFromFile("../src/Graphics/FreeMono.ttf");
+    font.loadFromFile("../src/assets/FreeMono.ttf");
 
     std::stringstream ss;
     ss << stats;
