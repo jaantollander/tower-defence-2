@@ -152,7 +152,7 @@ int main()  {
     auto game_engine = new_game_engine(
             map1, &empty_tower_type, &root_tower_type, initial_money,
             initial_lives, enemy_spawn_interval, timestep);
-    auto state = level_unfinished;
+    auto state = game_not_started;
     bool score_saved = false;
 
     // =================== Graphics =======================
@@ -223,7 +223,17 @@ int main()  {
                                 }
                                 case 0: {
                                     gE.m_currentScreen = gameScreen;
-                                    gE.addEvent("Game has started!");
+                                    switch(state){
+                                        case game_not_started:{
+                                            gE.addEvent("Game has started!");
+                                            state = level_unfinished;
+                                            break;
+                                        }
+                                        default:{
+                                            gE.addEvent("Game continued!");
+                                            break;
+                                        }
+                                    }
                                     break;
                                 }
                                 case -1: {
@@ -252,10 +262,12 @@ int main()  {
                                 }
                                 case -3: {
                                     game_engine->change_game_speed(normal);
+                                    gE.addEvent("Speed: Slow");
                                     break;
                                 }
                                 case -4: {
                                     game_engine->change_game_speed(fast);
+                                    gE.addEvent("Speed: Fast");
                                     break;
                                 }
                                 default:

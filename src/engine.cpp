@@ -251,9 +251,14 @@ GameState GameEngine::update(graphicsEngine& gE) {
 }
 
 std::vector<int> high_score(const std::string &filename) {
+    std::vector<int> high_scores = {};
+
     std::ifstream is(filename);
-    if (is.fail()) { throw std::exception(); }
-    std::vector<int> high_scores;
+    if (is.fail()) {
+        std::ofstream is(filename);
+        return high_scores;
+    }
+
     int i = 0;
     int score = 0;
     std::string str;
@@ -262,8 +267,11 @@ std::vector<int> high_score(const std::string &filename) {
     while (i < 5) {
         std::getline(is, str, '\n');
         if (!is.eof()) {
-            try { score = std::stoi(str, nullptr, 0); }
-            catch (std::invalid_argument &) { throw invalid_file_format(""); }
+            try {
+                score = std::stoi(str, nullptr, 0);
+            } catch (std::invalid_argument &) {
+                throw invalid_file_format("");
+            }
             high_scores.push_back(score);
             i++;
         }
@@ -274,23 +282,26 @@ std::vector<int> high_score(const std::string &filename) {
 
 bool update_high_score(const std::string &filename, GameEngine engine) {
     std::vector<int> scores;
-    try { scores = high_score(filename); }
-    catch (invalid_file_format &) { return false; }
+    try {
+        scores = high_score(filename);
+    } catch (invalid_file_format &) {
+        return false;
+    }
     bool flag = false;
     auto it = scores.begin();
-
+    int t = static_cast<int>(engine.time());
     //check if score better than previous
     while (it != scores.end()) {
-        if (engine.score() > *it) {
+        if (engine.score() - t > *it) {
             flag = true;
-            scores.insert(it, engine.score());
+            scores.insert(it, engine.score() - t);
             break;
         } else it++;
     }
 
     //check if there are less than five scores
-    if (flag == false && scores.size() < 5) {
-        scores.insert(it, engine.score());
+    if (!flag && scores.size() < 5) {
+        scores.insert(it, engine.score() - t);
         flag = true;
     }
 

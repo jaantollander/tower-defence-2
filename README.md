@@ -104,6 +104,25 @@ The graphics of this game depend on **Simple and Fast Multimedia Library (SFML)*
 sudo apt-get install libsfml-dev
 ```
 
+## Worklog
+List of features implemented by group members
+
+- Jaan Tollander de Balsch
+    * Game logic
+    * Documentation of the project
+    * Flowchart of the game logic design
+    * Overall project structure
+- Roni Hytönen
+    * Game graphics
+    * Project plan
+- Tero Hyytiäinen
+    * Game classes
+    * Game balance
+    * Misc game logic and graphics 
+- Martti Hallipelto
+    * Unittests
+
+
 ## Authors
 
 - Jaan Tollander de Balsch
